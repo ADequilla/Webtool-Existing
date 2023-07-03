@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="mfs.view_k2c_transaction_type")
+@Table(name="mfs.view_k2c_transaction_type_v2")
 public class K2CTransactionTypeLookup implements Serializable {
 	
 	
