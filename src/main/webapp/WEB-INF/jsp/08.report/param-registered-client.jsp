@@ -218,13 +218,13 @@
 										<label class="col-md-2 control-label">Registration Date <span class="required">*</span></label>
 										<div class="col-sm-2">
 											  <div class="input-group">
-												  <input id="dateRangeStart" name="dateRangeStart" style="cursor: pointer;" type="text" class="form-control datepicker required" placeholder="Select Date...">
+												  <input id="dateRangeStart" name="dateRangeStart" style="cursor: pointer;" type="text" class="form-control datepicker required" placeholder="Date Start">
 												  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 											  </div>
 										  </div>
 										  <div class="col-sm-2">
 											<div class="input-group">
-												<input id="dateRangeEnd" name="dateRangeEnd" style="cursor: pointer;" type="text" class="form-control datepicker required" placeholder="Select Date...">
+												<input id="dateRangeEnd" name="dateRangeEnd" style="cursor: pointer;" type="text" class="form-control datepicker required" placeholder="Date End">
 												<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 											</div>
 										 </div>
