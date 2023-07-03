@@ -45,7 +45,7 @@ public class AsynReport implements Serializable {
 	public static final String REPORT_TYPE_REGISTERED_CLIENT	= "USER_ACTIVE";
 	public static final String REPORT_TYPE_CS_DASHBOARD			= "CS_DASHBOARD";
 	public static final String REPORT_TYPE_RECON_CCM			= "TRANSACTION_RECON_CCM";
-	public static final String REPORT__TYPE_ENABLE_AGENT_FEATURES			= "ENABLE_AGENT_FEATURES_REPORT";
+	public static final String REPORT_TYPE_ENABLE_AGENT_FEATURES = "ENABLE_AGENT_FEATURES_REPORT";
 	public static final String REPORT_TYPE_SMS_LOG   			= "SMS_LOG_REPORT";
 	public static final String REPORT_TYPE_ACCOUNT_STATUS_REPORT   			= "ACCOUNT_STATUS_REPORT";
 	public static final String REPORT_TYPE_MOBILE_COLLECTION_USER			= "MOBCOL_USER_REPORT";
