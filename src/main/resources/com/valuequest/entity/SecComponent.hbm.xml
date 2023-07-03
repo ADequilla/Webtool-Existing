@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="com.valuequest.entity.security.SecComponent"
+		schema="mfs" table="m_component">
+
+		<id name="id" type="long">
+			<column name="menu_comp_id" />
+			<generator class="sequence">
+				<param name="sequence">seq_m_component</param>
+			</generator>
+		</id>
+
+		<property name="name" type="string">
+			<column name="menu_comp_name" length="20" not-null="true"
+				unique="true" />
+		</property>
+		<property name="description" type="string">
+			<column name="menu_comp_desc" length="255" />
+		</property>
+
+		<many-to-one name="menu"
+			class="com.valuequest.entity.security.SecMenu" fetch="select">
+			<column name="menu_id" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

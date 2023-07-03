@@ -1,0 +1,89 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.3
+-- Dumped by pg_dump version 9.1.3
+-- Started on 2016-02-16 12:00:21
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+SET search_path = mfs, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 172 (class 1259 OID 22199)
+-- Dependencies: 7
+-- Name: m_lookup; Type: TABLE; Schema: mfs; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE m_lookup (
+    lookup_id bigint NOT NULL,
+    lookup_type character varying(30),
+    lookup_value character varying(50),
+    lookup_desc character varying(100),
+    lookup_display character varying(1)
+);
+
+
+ALTER TABLE mfs.m_lookup OWNER TO postgres;
+
+--
+-- TOC entry 1984 (class 0 OID 22199)
+-- Dependencies: 172
+-- Data for Name: m_lookup; Type: TABLE DATA; Schema: mfs; Owner: postgres
+--
+
+COPY m_lookup (lookup_id, lookup_type, lookup_value, lookup_desc, lookup_display) FROM stdin;
+1	USER_TYPE	WEB	Web	1
+2	USER_TYPE	AGENT	Agent	1
+3	USER_STATUS	ACTIVE	Active	1
+4	USER_STATUS	INACTIVE	Inactive	1
+5	USER_STATUS	LOCK	Lock	1
+6	STRUCTURE	INSTITUTION	Institution	1
+7	STRUCTURE	BRANCH	Branch	1
+8	STRUCTURE	UNIT	Unit	1
+9	STRUCTURE	CENTER	Center Management	1
+10	UPLOAD_STATUS	SUCCESS	Success	1
+11	UPLOAD_STATUS	FAILED	Failed	1
+12	UPLOAD_STATUS	PROGRESS	Progress	1
+13	PARAMCONFIG_TYPE	WEB	Web	1
+14	PARAMCONFIG_TYPE	HH	Handheld	1
+15	TRANSACTION_TYPE	CASHIN	Cash In	1
+16	TRANSACTION_TYPE	CASHOUT	Cash Out	1
+17	TRANSACTION_TYPE	CIP	Client Initiated Payment	1
+18	TRANSACTION_TYPE	SLFP	SLF Payment	1
+19	TRANSACTION_TYPE	AAP	Agent Assisted Payment	1
+20	TRANSACTION_TYPE	ABI	Agent Balance Inquiry	1
+21	TRANSACTION_TYPE	SLFR	SLF Rqeuest	1
+22	TRANSACTION_TYPE	TFUND	Transfer Fund	1
+23	TRANSACTION_TYPE	CBI	Customer Balance Inquiry	1
+24	UPLOAD_STATUS	UPLOADED	Uploaded	1
+\.
+
+
+SET default_tablespace = cardbank_idx_tblspac;
+
+--
+-- TOC entry 1983 (class 2606 OID 22203)
+-- Dependencies: 172 172
+-- Name: PK15; Type: CONSTRAINT; Schema: mfs; Owner: postgres; Tablespace: cardbank_idx_tblspac
+--
+
+ALTER TABLE ONLY m_lookup
+    ADD CONSTRAINT "PK15" PRIMARY KEY (lookup_id);
+
+
+--  on 2016-02-16 12:00:21
+
+--
+-- PostgreSQL database dump complete
+--
+

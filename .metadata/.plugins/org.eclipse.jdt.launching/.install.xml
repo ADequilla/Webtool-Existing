@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dirs>
+	<entry
+		loc="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
+		stamp="1579459093000" />
+	<entry
+		loc="/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home"
+		stamp="1428691484000" />
+	<entry
+		loc="/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home"
+		stamp="1594811447000" />
+	<entry
+		loc="/Library/Java/JavaVirtualMachines/jdk1.8.0_241.jdk/Contents/Home"
+		stamp="1576061625000" />
+</dirs>

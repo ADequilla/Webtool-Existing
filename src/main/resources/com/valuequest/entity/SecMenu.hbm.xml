@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.valuequest.entity.security.SecMenu" schema="mfs"
+		table="m_menu">
+
+		<id name="id" type="long">
+			<column name="menu_id" />
+			<generator class="sequence">
+				<param name="sequence">seq_m_menu</param>
+			</generator>
+		</id>
+
+		<property name="name" type="string">
+			<column name="menu_name" length="50" not-null="true"
+				unique="true" />
+		</property>
+		<property name="url" type="string">
+			<column name="menu_url" length="255" />
+		</property>
+		<property name="icon" type="string">
+			<column name="menu_icon" length="50" />
+		</property>
+		<property name="description" type="string">
+			<column name="menu_desc" length="50" />
+		</property>
+		<property name="sequence" type="java.lang.Integer">
+			<column name="menu_seq_no" />
+		</property>
+		<property name="enabled" type="java.lang.Integer">
+			<column name="menu_enabled" not-null="true" />
+		</property>
+
+		<many-to-one name="parent"
+			class="com.valuequest.entity.security.SecMenu" fetch="select">
+			<column name="menu_parent_id" />
+		</many-to-one>
+
+		<set name="childs" inverse="true">
+			<key>
+				<column name="menu_parent_id" />
+			</key>
+			<one-to-many
+				class="com.valuequest.entity.security.SecMenu" />
+		</set>
+
+		<set name="components" inverse="true">
+			<key>
+				<column name="menu_id" />
+			</key>
+			<one-to-many
+				class="com.valuequest.entity.security.SecComponent" />
+		</set>
+	</class>
+</hibernate-mapping>

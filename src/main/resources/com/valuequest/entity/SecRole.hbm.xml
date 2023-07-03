@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.valuequest.entity.security.SecRole" schema="mfs"
+		table="m_role">
+
+		<id name="id" type="long">
+			<column name="role_id" />
+			<generator class="sequence">
+				<param name="sequence">mfs.seq_m_role</param>
+			</generator>
+		</id>
+
+		<property name="name" type="string">
+			<column name="role_name" length="120" not-null="true"
+				unique="true" />
+		</property>
+		<property name="description" type="string">
+			<column name="role_desc" length="500" />
+		</property>
+
+		<property name="createdBy" type="long">
+			<column name="CREATED_BY" />
+		</property>
+		<property name="createdDate" type="timestamp">
+			<column name="CREATED_DATE" />
+		</property>
+		<property name="lastUpdatedBy" type="long">
+			<column name="LAST_UPDATED_BY" />
+		</property>
+		<property name="lastUpdatedDate" type="timestamp">
+			<column name="LAST_UPDATED_DATE" />
+		</property>
+
+	</class>
+</hibernate-mapping>

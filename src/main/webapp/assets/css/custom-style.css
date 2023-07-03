@@ -1,0 +1,367 @@
+/* here you can put your own css to customize and override the theme */
+.full-page-wrapper.wrapper {
+	min-height: 100%;
+	height: 100%;
+}
+
+.full-page-wrapper .inner-page {
+	padding-top: 15%;
+}
+
+/* LOGIN.JSP START*/
+/* button */
+.btn-custom-auth {
+	background-color: #3DA471;
+	border-color: #3DA471;
+	color: #fff;
+}
+
+.btn-custom-auth:hover, .btn-custom-auth:focus, .btn-custom-auth:active,
+	.btn-custom-auth.active, .btn-custom-auth .open .dropdown-toggle.btn-warning
+	{
+	background-color: #34976B;
+	color: #fff;
+}
+
+p.color-front {
+	font-size: 16px;
+	margin-left: 50px;
+	width: 90%;
+}
+
+.color-front {
+	color: #157468 !important;
+}
+
+.has-error .form-control {
+	border-color: #ff0000;
+}
+
+.has-error .form-control:focus {
+	border-color: #ff0000;
+}
+/* LOGIN.JSP END */
+
+/* THEME.JSP START*/
+/* Wrapper for page content to push down footer */
+.wrapper {
+	min-height: 100%;
+	height: auto;
+	/* Negative indent footer by its height */
+	margin: 0 auto -50px;
+	/* Pad bottom by footer height */
+	padding: 0 0 50px;
+}
+
+/* Set the fixed height of the footer here */
+.footer {
+	height: 50px;
+}
+
+.top-bar {
+	background: #53C682; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(right, #137E82, #53C682);
+	/* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(left, #137E82, #53C682);
+	/* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(left, #137E82, #53C682);
+	/* For Firefox 3.6 to 15 */
+	background: linear-gradient(to left, #137E82, #53C682);
+	/* Standard syntax */
+	padding: 0 0;
+}
+
+.top-bar .line {
+	background: #34302D;
+	height: 5px;
+}
+
+.top-bar .logo {
+	position: relative;
+	top: 5px;
+}
+
+.top-bar .logged-user {
+	margin-top: 20px;
+}
+
+.top-bar .logged-user .btn .name {
+	color: #ffffff;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.top-bar .logged-user .btn img {
+	border: 2px solid #ffffff;
+	margin-right: 5px;
+}
+
+.top-bar .logged-user .btn .caret {
+	border-top-color: #fff;
+}
+
+.top-bar .logged-user {
+	position: absolute;
+	right: 50px;
+}
+
+.top-bar .logo {
+	margin-bottom: 10px;
+}
+
+.top-bar .logged-user .dropdown-menu {
+	left: 0px;
+	top: 50px;
+	padding: 0;
+}
+
+ul.main-menu>li .text, ul.main-menu>li .toggle-icon {
+	font-size: 1em;
+}
+
+ul.main-menu>li .fa {
+	font-size: 1em;
+}
+
+.main-header {
+	margin-bottom: 30px;
+}
+
+.main-header h3 {
+	color: #2F9E82;
+	border-right-color: #2c98c6;
+	display: inline-block;
+	border-right: 1px solid;
+	margin: 0;
+	padding-right: 10px;
+	margin-right: 5px;
+}
+
+.main-header em {
+	vertical-align: bottom;
+}
+
+.widget {
+	border-width: 1px;
+	border-style: solid;
+	border-color: transparent;
+}
+
+.widget .row {
+	margin-bottom: 5px;
+}
+
+.widget .widget-content {
+	padding-bottom: 0px;
+}
+
+/* .widget .widget-table { */
+/* 	margin-bottom: 0px; */
+/* } */
+.widget .widget-header {
+	/* 	background-color: #53C682; */
+	/* 	border-color: #53C682; */
+	/*   	color: #fff; */
+	height: 35px;
+}
+
+.widget .widget-content-search {
+	padding: 10px 10px 0;
+}
+
+.widget .widget-button-search {
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+.widget .widget-content .table .icon-edit {
+	color: #ff8040;
+	font-size: 1.1em;
+}
+
+.widget .widget-content .table .icon-download {
+	color: #5fbc6a;
+	font-size: 1.2em;
+}
+
+.widget .widget-content .table .label {
+	font-size: .8em;
+}
+
+.widget .widget-content .error {
+	border-color: #ff0000;
+	color: #ff0000;
+	font-size: 12px;
+}
+
+.main-content {
+	padding-bottom: 0px;
+}
+
+.top-content-button {
+	margin-top: 55px;
+	text-align: right;
+}
+
+.popover {
+	width: 450px !important;
+	max-width: 600px !important;
+}
+
+.popover, .tooltip {
+	z-index: 1060 !important;
+}
+
+.popover-content {
+	padding: 0px 0px;
+	margin-right: 5px;
+}
+
+.popover-content .header {
+	color: #53C682;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.popover-content .header .title {
+	font-size: 1.5em;
+}
+
+.popover-content .body {
+	margin-left: 5px;
+}
+
+.btn-group .btn-check {
+	width: 25px;
+	height: 25px;
+	border-radius: 50px;
+	color: #fff;
+	text-align: center;
+}
+
+.controls .btn-circle {
+	width: 25px;
+	height: 25px;
+	border-radius: 50px;
+	color: #fff;
+	text-align: center;
+	padding-top: 1px;
+	padding-left: 6px;
+}
+
+/* role menu */
+div.role-menu>div {
+	position: relative;
+	padding: 10px 0px 10px 20px;
+	background-color: #ececec;
+	border-top: 1px solid #dfdfdf;
+	text-decoration: none;
+}
+
+div.role-menu .sub-role-menu>div {
+	position: relative;
+	padding: 10px 0px 0px 10px;
+	margin-top: 10px;
+	background-color: #ececec;
+	border-top: 1px solid #dfdfdf;
+	text-decoration: none;
+}
+
+div.role-menu>div a {
+	color: #555;
+	text-decoration: none;
+}
+
+div.role-menu>div .menu-icon {
+	width: 20px;
+}
+
+div.role-menu .sub-role-menu {
+	position: relative;
+	display: none;
+	padding-left: 0;
+}
+
+div.role-menu>div .menu-description {
+	display: inline-block;
+	width: 20%;
+}
+
+div.role-menu>div .sub-menu-description {
+	display: inline-block;
+	width: 50%;
+}
+
+.action-box {
+	padding: -25px;
+}
+
+.online {
+	color: #32e817;
+}
+
+.offline {
+	color: #ff0000;
+}
+
+/* enable absolute positioning */
+.inner-addon {
+	position: relative;
+}
+/* style icon */
+.inner-addon .fa {
+	position: absolute;
+	padding: 10px;
+	pointer-events: none;
+	font-size: 1.1em;
+}
+/* align icon */
+.left-addon .fa {
+	left: 0px;
+}
+/* add padding  */
+.left-addon input {
+	padding-left: 30px;
+}
+
+.right-addon .fa {
+	right: 15px;
+}
+
+.right-addon input {
+	padding-right: 30px;
+}
+
+table.dataTable thead th, table.dataTable thead .sorting, table.dataTable thead .sorting_asc,
+	table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled,
+	table.dataTable thead .sorting_desc_disabled {
+	background-repeat: no-repeat;
+	background-position: center right;
+	background-color: #a2a09b;
+	color: #fff;
+}
+
+.top-content ul.quick-access>li .quick-access-item.bg-color-blue {
+	background-color: #01A2D9;
+}
+
+.top-content ul.quick-access>li .quick-access-item.bg-color-orange {
+	background-color: #f99500;
+}
+
+.top-content ul.quick-access>li .quick-access-item.bg-color-green {
+	background-color: #46b37c;
+}
+
+.select2-container--default .select2-selection--single {
+	color: #555;
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 3px 3px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	border: 1px solid #ccc;
+	border-radius: 0px;
+	background-color: #fff;
+}

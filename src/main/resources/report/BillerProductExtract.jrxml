@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BillerProductExtract" pageWidth="1250" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1210" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9817cef1-9df3-4dab-b4f8-6f5449c5d007">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="619"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="branch" class="java.lang.String"/>
+	<parameter name="accountStatus" class="java.lang.String"/>
+	<parameter name="billerProductId" class="java.lang.String"/>
+	<parameter name="billerProductName" class="java.lang.String"/>
+	<parameter name="providerName" class="java.lang.String"/>
+	<parameter name="productCategoryName" class="java.lang.String"/>
+	<field name="providerName" class="java.lang.String"/>
+	<field name="productCategoryName" class="java.lang.String"/>
+	<field name="billerProductId" class="java.lang.Long"/>
+	<field name="billerProductName" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="serviceFee" class="java.math.BigDecimal"/>
+	<field name="bankCommission" class="java.math.BigDecimal"/>
+	<field name="status" class="java.lang.Long"/>
+	<field name="providerId" class="java.lang.Long"/>
+	<field name="createdDate" class="java.util.Date"/>
+	<field name="createdBy" class="java.lang.Long"/>
+	<field name="updatedDate" class="java.util.Date"/>
+	<field name="updatedBy" class="java.lang.Long"/>
+	<field name="productCategoryId" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="174" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="1210" height="39" uuid="5ec7dcc5-a28d-457f-9d29-eef2c1d3b5e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[BILLER PRODUCT]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="321" y="69" width="149" height="20" uuid="7cab3828-d5c8-487e-81fb-04a3d7c75b17"/>
+				<textFieldExpression><![CDATA[$P{billerProductId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="69" width="114" height="20" uuid="c0a0a08b-af6d-4088-9097-aee666f17fb0"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Biller Product Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="151" y="69" width="20" height="20" uuid="f5eb6d5c-b650-43ad-98a3-f9b718982a8c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="154" width="151" height="20" uuid="29052efd-c115-4f22-a8f1-58c92256a877"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Provider Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="151" y="154" width="170" height="20" uuid="a2344176-979f-4342-99d6-bc8570935c5e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Product Category Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="154" width="161" height="20" uuid="be63fccd-53d0-428f-ade9-29779f927e59"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Biller Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="482" y="154" width="140" height="20" uuid="d70e91b1-daa3-4dcf-9071-ce4551db4022"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Biller Product Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="622" y="154" width="133" height="20" uuid="5affa7bf-27a1-4d73-905f-4834919cd05d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="755" y="154" width="145" height="20" uuid="868c3d78-de4f-4c39-8bb6-632905d480cf"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Bank Commission]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="900" y="154" width="173" height="20" uuid="cbd91be6-7d56-48cf-b9e4-2ab2b0221f99"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Service Fee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1073" y="154" width="137" height="20" uuid="3bbf054b-6356-4258-8b8f-50b293f027e1"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="89" width="114" height="20" uuid="63e99a2c-01b9-4a1c-b9b8-96a60aef29f7"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Biller Product Name]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="321" y="89" width="149" height="20" uuid="cd612a09-6d24-431e-be8e-23461677216f"/>
+				<textFieldExpression><![CDATA[$P{billerProductName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="151" y="89" width="20" height="20" uuid="4614ad01-74c8-4090-89db-9071934a0a05"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="622" y="89" width="20" height="20" uuid="09971653-dc0d-4507-8cbc-6c682e7a4ee8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="755" y="89" width="145" height="20" uuid="85f9923a-c7f0-46eb-8f78-9b82e1f95c1f"/>
+				<textFieldExpression><![CDATA[$P{productCategoryName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="482" y="69" width="114" height="20" uuid="a45e967c-36c7-40b7-955e-590383944f03"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Provider]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="482" y="89" width="114" height="20" uuid="b357dbe3-54c3-4481-98be-820279953147"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Product Category]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="755" y="69" width="145" height="20" uuid="6f7c7270-55ec-40fe-9707-44985de70900"/>
+				<textFieldExpression><![CDATA[$P{providerName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="622" y="69" width="20" height="20" uuid="1caf4b28-57c8-4356-9715-42e9d58664a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="151" height="20" isPrintWhenDetailOverflows="true" uuid="f1deee5d-6bcb-46b1-b3ca-426b2c91b957"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{providerName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="151" y="0" width="170" height="20" isPrintWhenDetailOverflows="true" uuid="7f1533e5-3f60-4d5e-aa4b-fcc4eccb3644"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{productCategoryName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="321" y="0" width="161" height="20" isPrintWhenDetailOverflows="true" uuid="61790275-640d-43b4-abd7-dfa3df033753"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{billerProductId}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="482" y="0" width="140" height="20" isPrintWhenDetailOverflows="true" uuid="30a3839d-6167-4268-a720-db236b4dc634"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{billerProductName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="622" y="0" width="133" height="20" isPrintWhenDetailOverflows="true" uuid="6091d81e-8c88-4805-a2de-f2ff6cf1e1f6"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="755" y="0" width="145" height="20" isPrintWhenDetailOverflows="true" uuid="51339e16-8e51-4b77-aef9-5b72354e7240"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{bankCommission}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="900" y="0" width="173" height="20" isPrintWhenDetailOverflows="true" uuid="ce161aa4-1c09-429f-928b-5bbfea9d8bbc"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{serviceFee}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1073" y="0" width="137" height="20" isPrintWhenDetailOverflows="true" uuid="b8b9b4c2-b05a-4cb7-b5bb-d51b644dd8ea"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{status} == 0 ? "Inactive": "Active"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- the mvc resources tag does the magic -->
+	<mvc:resources mapping="/assets/**" location="/assets/"
+		cache-period="31556926" />
+
+	<mvc:resources mapping="/404**"
+		location="/WEB-INF/jsp/misc/404.jsp" cache-period="31556926" />
+	<mvc:resources mapping="/500**"
+		location="/WEB-INF/jsp/misc/500.jsp" cache-period="31556926" />
+
+	<mvc:resources mapping="/noscript**"
+		location="/WEB-INF/jsp/misc/noscript.jsp" cache-period="31556926" />
+
+	<context:component-scan
+		base-package="com.valuequest.controller.**" />
+
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="com.valuequest.resolver.DataTablesArgumentResolver" />
+		</mvc:argument-resolvers>
+		<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.valuequest.common.HibernateAwareObjectMapper" />
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<mvc:default-servlet-handler />
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="268435456" />
+	</bean>
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
+</beans>

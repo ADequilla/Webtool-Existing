@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.valuequest.entity.security.SecUser" schema="mfs"
+		table="m_user">
+
+		<id name="id" type="long">
+			<column name="user_id" />
+			<generator class="sequence">
+				<param name="sequence">mfs.seq_m_user</param>
+			</generator>
+		</id>
+
+		<property name="usrLoginname" type="string">
+			<column name="user_login" length="100" not-null="true"
+				unique="true" />
+		</property>
+		<property name="usrPassword" type="string">
+			<column name="user_passwd" length="255" not-null="true" />
+		</property>
+		<property name="usrName" type="string">
+			<column name="user_name" length="120" />
+		</property>
+		<property name="usrEmail" type="string">
+			<column name="user_email" length="50" />
+		</property>
+		<property name="givenName" type="string">
+			<column name="given_name" length="50" />
+		</property>
+		<property name="middleName" type="string">
+			<column name="middle_name" length="50" />
+		</property>
+		<property name="lastName" type="string">
+			<column name="last_name" length="50" />
+		</property>
+		<property name="usrPhone" type="string">
+			<column name="user_phone" length="25" />
+		</property>
+		<property name="usrExpiredPassword" type="timestamp">
+			<column name="user_expired_passwd" />
+		</property>
+		<property name="usrStatus" type="string">
+			<column name="user_status" length="10" />
+		</property>
+		<property name="usrPosition" type="string">
+			<column name="user_position" length="50" />
+		</property>
+		<property name="usrParent" type="long">
+			<column name="user_parent" />
+		</property>
+		<property name="usrEnabled" type="boolean">
+			<column name="user_enabled" not-null="true" />
+		</property>
+		<property name="loginAttempts" type="int">
+			<column name="login_attempts" />
+		</property>
+		<property name="passwordDefault" type="boolean">
+			<column name="passwd_default" not-null="true" />
+		</property>
+		<property name="activationLimit" type="timestamp">
+			<column name="activation_limit" />
+		</property>
+		<property name="checkStatus" type="string">
+			<column name="check_status" length="50" />
+		</property>
+
+		<property name="createdBy" type="long">
+			<column name="CREATED_BY" />
+		</property>
+		<property name="createdDate" type="timestamp">
+			<column name="CREATED_DATE" />
+		</property>
+		<property name="lastUpdatedBy" type="long">
+			<column name="LAST_UPDATED_BY" />
+		</property>
+		<property name="lastUpdatedDate" type="timestamp">
+			<column name="LAST_UPDATED_DATE" />
+		</property>
+
+		<set name="userroles" inverse="true">
+			<key>
+				<column name="user_id" />
+			</key>
+			<one-to-many
+				class="com.valuequest.entity.security.SecUserrole" />
+		</set>
+	</class>
+</hibernate-mapping>

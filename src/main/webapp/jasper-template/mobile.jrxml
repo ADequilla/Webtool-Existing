@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mobile" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6cfba21e-a24d-4aa7-a6df-196892f975db">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="START_PERIOD" class="java.lang.String"/>
+	<parameter name="END_PERIOD" class="java.lang.String"/>
+	<field name="transMobile" class="java.lang.String"/>
+	<field name="transCore" class="java.lang.String"/>
+	<field name="sourceCid" class="java.lang.String"/>
+	<field name="sourceName" class="java.lang.String"/>
+	<field name="targetCid" class="java.lang.String"/>
+	<field name="targetName" class="java.lang.String"/>
+	<field name="transType" class="java.lang.String"/>
+	<field name="transAmount" class="java.lang.Double"/>
+	<field name="createdDate" class="java.lang.String"/>
+	<field name="transDate" class="java.util.Date"/>
+	<field name="postDate" class="java.util.Date"/>
+	<field name="transStatus" class="java.lang.String"/>
+	<field name="igateStatus" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="35" uuid="eabefbb6-7ba5-4685-8b4a-169cf0b2eacd"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CARD BANK Inc,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="35" width="802" height="25" uuid="84b97a49-aea2-4267-bb0f-c39e446be8dd"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mobile Transaction Logs Report]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="60" width="802" height="19" uuid="2e5b8c9c-3160-47e5-9a23-dd3aad2f65ae"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Periode "+ $P{START_PERIOD} +" s/d "+ $P{END_PERIOD}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="35" width="50" height="26" uuid="9fed9072-756b-4eb7-b88c-089659d9777b"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Mobile ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="35" width="49" height="26" uuid="6ee79b23-6013-4b15-b788-46eec3507e10"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Core ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="99" y="35" width="62" height="26" uuid="3f95ab5b-d367-475c-b58e-013ac67d4823"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Source CID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="35" width="65" height="26" uuid="8cd520d4-9410-4253-89b6-ef27b7d37ac5"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Source Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="35" width="57" height="26" uuid="fb9b387a-117f-48b3-86ef-37f36ba7cb1d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Target CID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="35" width="74" height="26" uuid="7a5cea21-be78-4f00-bcfd-bed420e9564e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Target Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="357" y="35" width="83" height="26" uuid="0c76e02b-1f6f-40bd-ad52-3098b1c3da46"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Transaction Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="35" width="45" height="26" uuid="4ab00cb3-3dab-4ebf-8f2d-97e3abca4546"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="485" y="35" width="81" height="26" uuid="330f66ca-aefe-450a-81fe-9b6c8b5f0a3e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Transaction Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="566" y="35" width="70" height="26" uuid="1b72aa53-2c9f-44a3-81d3-445da21da0da"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Post Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="636" y="35" width="70" height="26" uuid="2b6eefc9-ecdd-4493-92bc-f25fafe12012"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="706" y="35" width="96" height="26" uuid="34af5464-cf90-4eca-8194-d1523b31ccfe"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Error Massage]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="50" height="23" uuid="c1e8be9a-1e4c-4ab8-9a29-a18281adc23c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{transMobile}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="0" width="49" height="23" uuid="d11bcd6d-3548-4bfe-a022-247892648f27"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{transCore}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="99" y="0" width="62" height="23" uuid="fec1230f-771b-414d-b51d-6dc051f576bb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{sourceCid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="161" y="0" width="65" height="23" uuid="f5dc4b51-4b67-4670-a551-1000c78a05cc"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{sourceName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="226" y="0" width="57" height="23" uuid="68772356-3db3-43b1-b452-5964b82010eb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{targetCid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="0" width="74" height="23" uuid="6fe7225f-f9cb-4895-b694-a57daa9a294a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{targetName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="357" y="0" width="83" height="23" uuid="0d6582fd-6308-4734-b22d-bc08330100d8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{transType}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="45" height="23" uuid="c3723112-4ab0-49a4-b4fd-028a160f3253"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{transAmount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="485" y="0" width="81" height="23" uuid="ca9442a3-3a89-46bf-a1e5-fc94188f0e7b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{transDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="566" y="0" width="70" height="23" uuid="2d389b1b-c91d-42d5-9e3e-c2110cefbec4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{postDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="636" y="0" width="70" height="23" uuid="258096ff-50d6-4ee3-a330-2d2e57a3d540"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{transStatus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="706" y="0" width="96" height="23" uuid="93a6d902-dd8d-4a42-8d24-e2ced5cb8540"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{igateStatus}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="45" backcolor="#E6E6E6" uuid="2a172a66-439f-445f-a954-027831d67d82"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="3" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,57 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="suspiciousTask"
+		class="com.valuequest.scheduler.SuspiciousScheduler" />
+	<bean id="activationTask"
+		class="com.valuequest.scheduler.MboActivationScheduler" />
+
+	<bean name="suspiciousJob"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="durability" value="true" />
+		<property name="jobClass"
+			value="com.valuequest.scheduler.RunSuspiciousJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="suspiciousTask" value-ref="suspiciousTask" />
+			</map>
+		</property>
+	</bean>
+
+	<bean name="activationJob"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="durability" value="true" />
+		<property name="jobClass"
+			value="com.valuequest.scheduler.RunMboActivationJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="activationTask" value-ref="activationTask" />
+			</map>
+		</property>
+	</bean>
+
+
+	<bean id="suspiciousTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="suspiciousJob" />
+		<property name="cronExpression" value="0 0/10 * 1/1 * ? *" />
+	</bean>
+
+	<bean id="activationTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="activationJob" />
+		<property name="cronExpression" value="0 0 0 1/1 * ? *" />
+	</bean>
+
+	<bean
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="suspiciousTrigger" />
+				<ref bean="activationTrigger" />
+			</list>
+		</property>
+	</bean>
+</beans>

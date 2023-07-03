@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.valuequest.entity.security.SecUserrole"
+		schema="mfs" table="t_mapping_userole">
+
+		<id name="id" type="long">
+			<column name="userrole_id" />
+			<generator class="sequence">
+				<param name="sequence">mfs.seq_t_mapping_userole</param>
+			</generator>
+		</id>
+
+		<many-to-one name="user"
+			class="com.valuequest.entity.security.SecUser" fetch="select">
+			<column name="user_id" />
+		</many-to-one>
+
+		<many-to-one name="role"
+			class="com.valuequest.entity.security.SecRole" fetch="select"
+			insert="false" update="false">
+			<column name="role_id" />
+		</many-to-one>
+
+		<property name="roleId" type="long">
+			<column name="role_id" />
+		</property>
+
+		<property name="createdBy" type="long">
+			<column name="CREATED_BY" />
+		</property>
+		<property name="createdDate" type="timestamp">
+			<column name="CREATED_DATE" />
+		</property>
+		<property name="lastUpdatedBy" type="long">
+			<column name="LAST_UPDATED_BY" />
+		</property>
+		<property name="lastUpdatedDate" type="timestamp">
+			<column name="LAST_UPDATED_DATE" />
+		</property>
+	</class>
+</hibernate-mapping>

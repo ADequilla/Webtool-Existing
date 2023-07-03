@@ -1,0 +1,10 @@
+<ehcache>
+
+	<!-- <diskStore path="C:/temp/"/> -->
+
+	<cache name="icsMasterMaintenance" maxElementsInMemory="200000"
+		overflowToDisk="true" diskPersistent="true" timeToIdleSeconds="288000"
+		timeToLiveSeconds="7776000" memoryStoreEvictionPolicy="LFU"
+		statistics="false" />
+
+</ehcache>
