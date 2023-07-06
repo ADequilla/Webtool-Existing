@@ -62,7 +62,7 @@ public class EnableAgentFeaturesController extends BaseController {
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId", getUserIdFromSession(session));
-		searchMap.put("type", AsynReport.REPORT__TYPE_ENABLE_AGENT_FEATURES);
+		searchMap.put("type", AsynReport.REPORT_TYPE_ENABLE_AGENT_FEATURES);
 		searchMap.put("submitedDateStart", submitedDateStart);
 		searchMap.put("submitedDateEnd", submitedDateEnd);
 		searchMap.put("completedDateStart", completedDateStart);
@@ -100,7 +100,7 @@ public class EnableAgentFeaturesController extends BaseController {
 		params = params.replace("null", "");
 
 		AsynReport report = new AsynReport();
-		report.setType(AsynReport.REPORT_TYPE_LIST_OF_AGENT);
+		report.setType(AsynReport.REPORT_TYPE_ENABLE_AGENT_FEATURES);
 		report.setParam(params);
 		report.setFileType(param.getType());
 		report.setStatus(Lookup.LOOKUP_REPORT_STATUS_WAITING);

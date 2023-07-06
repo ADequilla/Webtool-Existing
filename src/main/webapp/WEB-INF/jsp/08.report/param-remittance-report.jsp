@@ -35,7 +35,7 @@
                 classMain	: "showSourceBranchPopup",
                 modalTitle	: "Branch List",
                 hiddenId	: "sourceBranch",
-                varValue	: "code",
+                varValue	: "description",
                	ajax_data	: [
 						{
 							fieldVar	: "filter",
@@ -52,7 +52,7 @@
                 classMain	: "showTargetBranchPopup",
                 modalTitle	: "Branch List",
                 hiddenId	: "targetBranch",
-                varValue	: "code",
+                varValue	: "description",
                	ajax_data	: [
 						{
 							fieldVar	: "filter",
