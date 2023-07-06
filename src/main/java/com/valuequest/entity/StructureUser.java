@@ -110,6 +110,9 @@ public class StructureUser implements Serializable{
 	@JsonSerialize(using = CustomJsonDatetimeSerializer.class)
 	private Date lastLoginDate;
 
+	@Column(name = "is_login")
+	private Boolean isLogin;
+
 	public String getUserId() {
 		return userId;
 	}
@@ -332,6 +335,14 @@ public class StructureUser implements Serializable{
 
 	public void setLastLoginDate(Date lastLoginDate) {
 		this.lastLoginDate = lastLoginDate;
+	}
+
+	public Boolean getLoginStat() {
+		return isLogin;
+	}
+
+	public void setLoginStat(Boolean isLogin) {
+		this.isLogin = isLogin;
 	}
 }
 	

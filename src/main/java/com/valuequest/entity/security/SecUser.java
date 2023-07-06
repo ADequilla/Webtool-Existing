@@ -29,6 +29,7 @@ public class SecUser implements Serializable, Entity {
 	private String usrPhone;
 	private Date usrExpiredPassword;
 	private String usrStatus;
+	private Boolean isLogin;
 	private String usrPosition;
 	private Long usrParent;
 	private boolean usrEnabled;
@@ -134,6 +135,14 @@ public class SecUser implements Serializable, Entity {
 
 	public String getUsrStatus() {
 		return usrStatus;
+	}
+
+	public Boolean getIsLogin() {
+		return isLogin;
+	}
+
+	public void setIsLogin(Boolean isLogin) {
+		this.isLogin = isLogin;
 	}
 
 	public void setUsrStatus(String usrStatus) {
