@@ -137,16 +137,16 @@ public class SecUser implements Serializable, Entity {
 		return usrStatus;
 	}
 
+	public void setUsrStatus(String usrStatus) {
+		this.usrStatus = usrStatus;
+	}
+
 	public Boolean getIsLogin() {
 		return isLogin;
 	}
 
 	public void setIsLogin(Boolean isLogin) {
 		this.isLogin = isLogin;
-	}
-
-	public void setUsrStatus(String usrStatus) {
-		this.usrStatus = usrStatus;
 	}
 
 	public String getUsrPosition() {

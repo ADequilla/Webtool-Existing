@@ -22,7 +22,7 @@ public class UserModel {
 	private String[] branch;
 	private String[] unit;
 	private String[] center;
-	private Boolean isLogin;
+	private Boolean islogin;
 	
 	@JsonProperty("roles")
 	private List<StateModel> states;
@@ -139,11 +139,11 @@ public class UserModel {
 		this.checkStatus = checkStatus;
 	}
 
-	public Boolean getIsLogin() {
-		return isLogin;
+	public Boolean getLoginStat() {
+		return islogin;
 	}
 
-	public void setIsLogin(Boolean isLogin) {
-		this.isLogin = isLogin;
+	public void setLoginStat(Boolean islogin) {
+		this.islogin = islogin;
 	}
 }

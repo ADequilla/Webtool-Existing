@@ -25,7 +25,7 @@ public class Lookup implements Serializable {
 	public static final String LOOKUP_USER_STATUS				= "USER_STATUS";	// User Web Status Lookup Type
 	public static final String LOOKUP_USER_STATUS_ACTIVE		= "ACTIVE";			// Active User Status
 	public static final String LOOKUP_USER_STATUS_INACTIVE		= "INACTIVE";		// Inactive User Status
-	public static final Boolean LOOKUP_LOGIN_STATUS				= false;				// Login User Status
+	public static final Boolean LOOKUP_LOGIN_STATUS				= true;				// Login User Status
 	public static final String LOOKUP_USER_STATUS_LOCK			= "LOCK";			// Lock User Status
 	
 	public static final String LOOKUP_USER_STATUS_VALIDATE		= "ACTIVE";			// Validate Active User Status
