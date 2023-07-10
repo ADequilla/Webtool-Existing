@@ -36,9 +36,12 @@ public class IndexController extends BaseController {
          session.setMaxInactiveInterval(Integer.parseInt(valueTimeout) * 60);
          
     	if (USER_SUPER_ADMIN.equals(user.getUsrPosition())){
+			user.setIsLogin(true);
+			adminService.updateCekStatus(user, session.getId());
     		return "redirect:dashboard/registered-client/";
     	}else{
-    		if((user.getUsrExpiredPassword() != null && DateUtil.compare(user.getUsrExpiredPassword(), new Date()) < 0) || user.isPasswordDefault()){
+			
+			if((user.getUsrExpiredPassword() != null && DateUtil.compare(user.getUsrExpiredPassword(), new Date()) < 0) || user.isPasswordDefault()){
     			session.setAttribute("forceChangePasswd", true);
     			return "redirect:password/change/default";
     		}
