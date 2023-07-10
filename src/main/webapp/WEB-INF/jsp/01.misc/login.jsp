@@ -23,6 +23,7 @@
 <link
 	href="${pageContext.request.contextPath}/assets/css/custom-style.css"
 	rel="stylesheet" type="text/css" />
+	[[${logoutScript}]]
 </head>
 
 <body

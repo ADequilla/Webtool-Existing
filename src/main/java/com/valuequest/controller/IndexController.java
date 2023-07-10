@@ -34,6 +34,8 @@ public class IndexController extends BaseController {
          valueTimeout = valueTimeout.replace(".","");
          valueTimeout = valueTimeout.replace(",","");
          session.setMaxInactiveInterval(Integer.parseInt(valueTimeout) * 60);
+		 model.addAttribute("logoutScript", "<script>window.onbeforeunload = function() { $.post('/updateLoginStatus'); }</script>");
+
          
     	if (USER_SUPER_ADMIN.equals(user.getUsrPosition())){
 			user.setIsLogin(true);
@@ -72,6 +74,14 @@ public class IndexController extends BaseController {
     public String _404() {
         return "01.misc/404";
     }
+
+	@RequestMapping(value = "/updateLoginStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public void updateLoginStatus(HttpSession session) {
+    SecUser user = this.getLoginSecUser(session);
+    user.setIsLogin(false);
+    adminService.updateCekStatus(user, session.getId());
+}
     
     @SuppressWarnings("rawtypes")
 	@RequestMapping("/getStructure")
