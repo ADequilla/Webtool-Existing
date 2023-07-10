@@ -60,8 +60,9 @@ public class LoginAuthenticationProvider implements AuthenticationProvider{
 		}else{
 			String passwordEncode = adminService.encodePassword(password);
 			if(StringUtils.equals(passwordEncode, user.getUsrPassword())){
+				
 				if (HttpSessionCollector.find(user.getCheckStatus()) != null){
-					 ParamConfig config = genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
+					 ParamConfig config 	= genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
 			         String valueTimeout = config.getValue();
 			         valueTimeout = valueTimeout.replace(".","");
 			         valueTimeout = valueTimeout.replace(",","");
