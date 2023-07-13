@@ -60,13 +60,13 @@ public class IndexController extends BaseController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpSession session) {
 		SecUser user = this.getLoginSecUser(session);
+		user.setIsLogin(false);
+		adminService.updateCekStatus(user, session.getId());
     	
     	// save logout to audit trail
     	String activity	= "LOGOUT";
     	long moduleId	= 2002;
     	auditTrailService.save(request, moduleId, activity, null, null, null, getLoginSecUser(session));
-    	user.setIsLogin(false);
-		adminService.updateCekStatus(user, session.getId());
     	return "redirect:j_spring_security_logout";
     }
     
