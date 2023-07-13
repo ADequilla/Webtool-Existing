@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.valuequest.common.AjaxResponse;
 import com.valuequest.common.DataTables;
 import com.valuequest.controller.BaseController;
-import com.valuequest.controller.administration.model.UserModel;
+import com.valuequest.controller.administration.model.ResetCredentialModel;
 import com.valuequest.entity.Client;
 import com.valuequest.entity.Lookup;
 import com.valuequest.entity.StructureBranch;
@@ -34,8 +34,8 @@ public class ResetCredentialController extends BaseController {
 	final static String MENU 		= "ADMINISTRATION";
 	final static String PRIVILEDGE 	= "RESET_CREDENTIAL";
 	private String BASE_VIEW 		= "02.administration/";
-	private String LIST_VIEW 		= "user";
-	private String EDIT_VIEW		= "user-edit";
+	private String LIST_VIEW 		= "resetcredential";
+	private String EDIT_VIEW		= "resetcredential-edit";
 	
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
@@ -143,31 +143,31 @@ public class ResetCredentialController extends BaseController {
 		return getUnauthorizedPage();
 	}
 	
-	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody UserModel model, HttpSession session) {
+	// @RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
+	// public @ResponseBody AjaxResponse save(@RequestBody ResetCredentialModel model, HttpSession session) {
 
-		SecUser findUser = adminService.getSecUser(model.getLogin());
-		if ((model.getId() == null && findUser != null) || (findUser != null && ! model.getId().equals(findUser.getId())))
-			return new AjaxResponse(false, "Username already exist.");
+	// 	SecUser findUser = adminService.getSecUser(model.getLogin());
+	// 	if ((model.getId() == null && findUser != null) || (findUser != null && ! model.getId().equals(findUser.getId())))
+	// 		return new AjaxResponse(false, "Username already exist.");
 
-		adminService.save(model, getLoginSecUser(session));
+	// 	adminService.save(model, getLoginSecUser(session));
 
-		return new AjaxResponse(model);
-	}
+	// 	return new AjaxResponse(model);
+	// }
 	
-	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse reset(@RequestBody UserModel model, HttpSession session) {
+	// @RequestMapping(value = "/resetPassword", method = RequestMethod.POST, headers = { "content-type=application/json" })
+	// public @ResponseBody AjaxResponse reset(@RequestBody ResetCredentialModel model, HttpSession session) {
 		
-		adminService.resetUserPassword(model, getLoginSecUser(session));
+	// 	adminService.resetUserPassword(model, getLoginSecUser(session));
 		
-		return new AjaxResponse(true, "Password successfully reset.", model);
-	}
+	// 	return new AjaxResponse(true, "Password successfully reset.", model);
+	// }
 	
 	private void putIntoRequest(Model model) {
 		model.addAttribute("SELECTED_MENU", MENU);
 		model.addAttribute("SELECTED_SUBMENU", PRIVILEDGE);
-		model.addAttribute("listUserStatus", genericService.lookup(Lookup.LOOKUP_USER_STATUS));
-		model.addAttribute("listConcurrent", genericService.lookup(Lookup.LOOKUP_CONCURRENT_USER));
+		// model.addAttribute("listUserStatus", genericService.lookup(Lookup.LOOKUP_USER_STATUS));
+		// model.addAttribute("listConcurrent", genericService.lookup(Lookup.LOOKUP_CONCURRENT_USER));
 	}
 	
 	@SuppressWarnings("rawtypes")
