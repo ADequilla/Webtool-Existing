@@ -48,7 +48,7 @@ public class IndexController extends BaseController {
     			return "redirect:password/change/default";
     		}
     		
-    		return "01.misc/blank";
+    		return "blank";
     	}
     }
     

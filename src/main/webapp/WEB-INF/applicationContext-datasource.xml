@@ -11,7 +11,7 @@
 		destroy-method="shutdown">
 		<property name="connectionTestQuery" value="SELECT 1" />
 		<property name="maximumPoolSize" value="100" />
-		<!-- <property name="minimumIdle" value="5" /> -->
+		<property name="minimumIdle" value="5" />
 		<property name="autoCommit" value="false" />
 		<property name="leakDetectionThreshold" value="60000" />
 		<property name="dataSourceProperties">

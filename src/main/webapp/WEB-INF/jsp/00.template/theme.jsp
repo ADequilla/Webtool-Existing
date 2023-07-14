@@ -489,21 +489,13 @@
             });
 		}
 		
-		window.setTimeout(checkIfContinue, (4 * 60 + 55) * 1000);
+		// window.setTimeout(checkIfContinue, (4 * 60 + 55) * 1000);
 
-		function checkIfContinue() {
-  			window.location.replace("${pageContext.request.contextPath}/logout");
-			}
+		// function checkIfContinue() {
+  		// 	window.location.replace("${pageContext.request.contextPath}/logout");
+		// 	}
 
-		// window.addEventListener('beforeunload', function(event) {
-		// 	// Make an AJAX request to log out the user
-		// 	var xhr = new XMLHttpRequest();
-		// 	xhr.open('GET', '${pageContext.request.contextPath}/logout', false);
-		// 	xhr.send();
-
-		// 	// Optionally display a message to the user
-		// 	event.returnValue = 'Are you sure you want to leave?';
-		// 	});
+		
 
 	    function ArrangeOption(id){
 	        var options = $('select.'+id+' option');
