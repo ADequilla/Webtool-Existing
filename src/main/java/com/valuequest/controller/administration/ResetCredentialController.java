@@ -52,40 +52,36 @@ public class ResetCredentialController extends BaseController {
 
 	@RequestMapping("/search")
 	public @ResponseBody DataTables search(DataTables dataTables, 
+		    @RequestParam(required = false) String CID,
 			@RequestParam(required = false) String firstName,
 			@RequestParam(required = false) String middleName,
 			@RequestParam(required = false) String lastName,
-			@RequestParam(required = false) String userLogin,
-			@RequestParam(required = false) String branch,
-			@RequestParam(required = false) String status,
 			HttpSession session) {
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId",	getLoginIdFromSession(session));
+		searchMap.put("CID", 	CID);
 		searchMap.put("firstName", 	firstName);
 		searchMap.put("middleName", middleName);
 		searchMap.put("lastName", 	lastName);
-		searchMap.put("userLogin", 	userLogin);
-		searchMap.put("branch", 	branch);
-		searchMap.put("status", 	status);
 
 		return adminService.searchByMapCriteria(dataTables, searchMap);
 	}
 
-	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	// @RequestMapping("/create")
+	// public String create(Model model, HttpSession session) {
 		
-		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
+	// 	if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
-			model.addAttribute("listRole", roleService.list());
-			model.addAttribute("availableInstitutionList", institutionService.mappedList());
-			putIntoRequest(model);
+	// 		model.addAttribute("listRole", roleService.list());
+	// 		model.addAttribute("availableInstitutionList", institutionService.mappedList());
+	// 		putIntoRequest(model);
 			
-			return BASE_VIEW + EDIT_VIEW;
-		}
+	// 		return BASE_VIEW + EDIT_VIEW;
+	// 	}
 		
-		return getUnauthorizedPage();
-	}
+	// 	return getUnauthorizedPage();
+	// }
 
 	@RequestMapping("/edit/{id}")
 	public String edit(@PathVariable Long id, Model model, HttpSession session) {
