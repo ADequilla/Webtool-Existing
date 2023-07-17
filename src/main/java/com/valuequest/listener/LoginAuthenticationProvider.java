@@ -55,16 +55,18 @@ public class LoginAuthenticationProvider implements AuthenticationProvider{
         
         if (user == null) {
 			throw new BadCredentialsException("User does not exist.");
-		}
-		// else if (Lookup.LOOKUP_LOGIN_STATUS.equals(user.getIsLogin())){
-		// 	throw new DisabledException("Your Account is Already Logged in on another unit. Log out of it or contact your Web Application Administrator to unlock your account.");
-		// }
-		else{
+		}else{
+			// if(user == adminService.getRightsByUser(user)){
+			// 	throw new BadCredentialsException("User already login.");
+			// }
 			String passwordEncode = adminService.encodePassword(password);
 			if(StringUtils.equals(passwordEncode, user.getUsrPassword())){
-				
+
+				if (Lookup.LOOKUP_USER_STATUS_INACTIVE.equals(user.getUsrStatus())){
+					throw new BadCredentialsException("User already login.");
+				}
 				if (HttpSessionCollector.find(user.getCheckStatus()) != null){
-					 ParamConfig config 	= genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
+					 ParamConfig config = genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
 			         String valueTimeout = config.getValue();
 			         valueTimeout = valueTimeout.replace(".","");
 			         valueTimeout = valueTimeout.replace(",","");

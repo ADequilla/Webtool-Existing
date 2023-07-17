@@ -50,3 +50,5 @@ public interface AdminService {
 
 	public void saveOrUpdate(SecUser secUser);
 }
+
+

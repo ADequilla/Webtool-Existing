@@ -20,8 +20,8 @@ import com.valuequest.common.DataTables;
 import com.valuequest.entity.MappingHierarchy;
 import com.valuequest.entity.security.SecUser;
 import com.valuequest.util.DateUtil;
-     
-@Controller
+
+@Controller     
 public class IndexController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -34,21 +34,16 @@ public class IndexController extends BaseController {
          valueTimeout = valueTimeout.replace(".","");
          valueTimeout = valueTimeout.replace(",","");
          session.setMaxInactiveInterval(Integer.parseInt(valueTimeout) * 60);
-		 model.addAttribute("logoutScript", "<script>window.onbeforeunload = function() { $.post('/updateLoginStatus'); }</script>");
-
          
     	if (USER_SUPER_ADMIN.equals(user.getUsrPosition())){
-			user.setIsLogin(true);
-			adminService.updateCekStatus(user, session.getId());
     		return "redirect:dashboard/registered-client/";
     	}else{
-			
-			if((user.getUsrExpiredPassword() != null && DateUtil.compare(user.getUsrExpiredPassword(), new Date()) < 0) || user.isPasswordDefault()){
+    		if((user.getUsrExpiredPassword() != null && DateUtil.compare(user.getUsrExpiredPassword(), new Date()) < 0) || user.isPasswordDefault()){
     			session.setAttribute("forceChangePasswd", true);
     			return "redirect:password/change/default";
     		}
     		
-    		return "blank";
+    		return "01.misc/blank";
     	}
     }
     
@@ -59,14 +54,12 @@ public class IndexController extends BaseController {
     
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpSession session) {
-		SecUser user = this.getLoginSecUser(session);
-		user.setIsLogin(false);
-		adminService.updateCekStatus(user, session.getId());
     	
     	// save logout to audit trail
     	String activity	= "LOGOUT";
     	long moduleId	= 2002;
     	auditTrailService.save(request, moduleId, activity, null, null, null, getLoginSecUser(session));
+    	
     	return "redirect:j_spring_security_logout";
     }
     
@@ -74,14 +67,6 @@ public class IndexController extends BaseController {
     public String _404() {
         return "01.misc/404";
     }
-
-	@RequestMapping(value = "/updateLoginStatus", method = RequestMethod.POST)
-	@ResponseBody
-	public void updateLoginStatus(HttpSession session) {
-    SecUser user = this.getLoginSecUser(session);
-    user.setIsLogin(false);
-    adminService.updateCekStatus(user, session.getId());
-}
     
     @SuppressWarnings("rawtypes")
 	@RequestMapping("/getStructure")

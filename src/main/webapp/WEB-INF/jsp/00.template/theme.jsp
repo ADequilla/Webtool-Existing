@@ -203,7 +203,6 @@
 	<!-- END FOOTER -->
 
 	<!-- Javascript -->
-	
 	<script
 		src="${pageContext.request.contextPath}/assets/plugins/jquery-migrate-1.2.1.min.js"
 		type="text/javascript"></script>
@@ -489,14 +488,20 @@
             });
 		}
 		
-		// window.setTimeout(checkIfContinue, (4 * 60 + 55) * 1000);
+/* 		window.setTimeout('checkIfContinue()', 2*60*1000);  //2 minutes
 
-		// function checkIfContinue() {
-  		// 	window.location.replace("${pageContext.request.contextPath}/logout");
-		// 	}
-
-		
-
+	    function checkIfContinue(){
+	        if(confirm("Your Session is Timeout, Do you want to continue?"))
+	        {
+	            window.setTimeout('checkIfContinue()', 2*60*1000);  //start the timer again
+	        }
+	        else
+	        {
+	        	window.location.replace("${pageContext.request.contextPath}/logout");
+	        }
+	    } */
+	    
+	    
 	    function ArrangeOption(id){
 	        var options = $('select.'+id+' option');
 	        var arr = options.map(function(_, o) {

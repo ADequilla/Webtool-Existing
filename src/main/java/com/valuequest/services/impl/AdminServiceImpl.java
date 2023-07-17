@@ -110,7 +110,6 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 			user.setCreatedBy(userLogin.getId());
 			user.setCreatedDate(new Date(System.currentTimeMillis()));
 			user.setUsrEnabled(true);
-			user.setIsLogin(true);
 			user.setUsrPosition(SecUser.USER_USER);
 			setResetPasswordValue(user);
 		} else {
@@ -139,7 +138,6 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 		user.setUsrEmail(model.getEmail());
 		user.setUsrPhone(model.getPhone());
 		user.setUsrStatus(model.getStatus());
-		user.setIsLogin(model.getLoginStat());
 		user.setCheckStatus(model.getCheckStatus());
 
 		this.saveOrUpdate(user);

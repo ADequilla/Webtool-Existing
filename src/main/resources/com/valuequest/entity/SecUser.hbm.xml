@@ -52,9 +52,6 @@
 		<property name="usrEnabled" type="boolean">
 			<column name="user_enabled" not-null="true" />
 		</property>
-		<property name="isLogin" type="boolean">
-			<column name="is_login" not-null="true" />
-		</property>
 		<property name="loginAttempts" type="int">
 			<column name="login_attempts" />
 		</property>
