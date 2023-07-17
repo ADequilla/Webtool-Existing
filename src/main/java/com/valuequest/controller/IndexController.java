@@ -20,7 +20,7 @@ import com.valuequest.common.DataTables;
 import com.valuequest.entity.MappingHierarchy;
 import com.valuequest.entity.security.SecUser;
 import com.valuequest.util.DateUtil;
-
+     
 @Controller
 public class IndexController extends BaseController {
 
