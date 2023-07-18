@@ -1474,6 +1474,7 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 						$("#btn-devices").disable(true);
 						$("#btn-reset-password").disable(true);
 						$("#btn-change-mobile-number").disable(true);
+						$("#btn-reset-credential").disable(true);
 						$("#btn-restrict").disable(true);
 		            	document.getElementById("accounts").innerHTML = '';
 					}
@@ -1494,6 +1495,7 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 						$("#btn-devices").disable(true);
 						$("#btn-reset-password").disable(true);
 						$("#btn-change-mobile-number").disable(true);
+						$("#btn-reset-credential").disable(true);
 						$("#btn-restrict").disable(true);
 				},
 				complete: function() {
@@ -1547,6 +1549,7 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 						$("#btn-devices").disable(true);
 						$("#btn-reset-password").disable(true);
 						$("#btn-change-mobile-number").disable(true);
+						$("#btn-reset-credential").disable(true);
 						$("#btn-restrict").disable(true);
 		            	document.getElementById("accounts").innerHTML = '';
 					}
@@ -1567,6 +1570,7 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 						$("#btn-devices").disable(true);
 						$("#btn-reset-password").disable(true);
 						$("#btn-change-mobile-number").disable(true);
+						$("#btn-reset-credential").disable(true);
 						$("#btn-restrict").disable(true);
 				},
 				complete: function() {
@@ -1608,6 +1612,7 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 						$("#btn-devices").disable(true);
 						$("#btn-reset-password").disable(true);
 						$("#btn-change-mobile-number").disable(true);
+						$("#btn-reset-cridential").disable(true);
 						$("#btn-restrict").disable(true);
 						buildTable(obj[0].devices = "");
 						setTimeout(function(){
@@ -1629,7 +1634,7 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 						$("#btn-reset-password").disable(true);
 						$("#btn-change-mobile-number").disable(true);
 						$("#btn-reset-password").disable(true);
-						$("#btn-change-mobile-number").disable(true);
+						$("#btn-reset-credential").disable(true);
 						$("#btn-restrict").disable(true);
 					obj = null;
 					console.log(data);
@@ -1791,6 +1796,18 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 			updateMobileNumber(uname,newMobile,oldMobile,cid)
 		});
 
+		$("#btn-reset-credential").click(function(){
+		   	$("#modal-reset-credential").modal('show');
+		});
+
+		$("#btn-save-reset-credential").click(function(){
+			let uname	= $("#username").val();
+			let newMobile	= $("#updateMobileNumber").val();
+			let oldMobile	= $("#mobile").val();
+			let cid	= $("#cid").val();
+			updateMobileNumber(uname,newMobile,oldMobile,cid)
+		});
+
 		$("#confirm-reset-password").click(function(){
 			resetPassword(
 				obj[0].username,
@@ -1906,6 +1923,7 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
         	$("#btn-devices").disable(false);
 			$("#btn-reset-password").disable(false);
 			$("#btn-change-mobile-number").disable(false);
+			$("#btn-reset-credential").disable(false);
         	var acc = "";
         	document.getElementById("accounts").innerHTML = '';
         	if(data[0].hasOwnProperty('accounts')){
@@ -2567,6 +2585,7 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 									</div>
 								</div>
 							</div>
+
 							<div class="form-body">
 								<div class="form-group">
 									<label class="col-md-3 control-label">Full Name</label>
@@ -2576,9 +2595,9 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 									</div>
 
 									<div class="col-sm-offset-1 col-md-3">
-										<button id="btn-restrict" type="button"
-											class="btn btn-primary btn-block center-icon-holder" disabled>
-											
+										<button id="btn-reset-credential" type="button"
+											class="btn btn-warning btn-block center-icon-holder" disabled>
+											<i class="fas fa-mobile-alt"></i> Reset Credential
 										</button>
 									</div>
 								</div>
@@ -2592,10 +2611,17 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 											placeholder="Birthday" readonly="readonly" />
 									</div>
 									<div class="col-sm-offset-1 col-md-3">
+										<button id="btn-restrict" type="button"
+											class="btn btn-primary btn-block center-icon-holder" disabled>
+											
+										</button>
+									</div>
+									<div class="col-sm-offset-1 col-md-3">
 										<!-- <button id="btn-update-merchant" type="button" class="btn btn-info btn-block left-icon-holder" disabled><i class="fa fa-floppy-o"></i> Update Merchant Business Name</button> -->
 									</div>
 								</div>
 							</div>
+							
 
 							<!--  <div class="form-body">
 	                        <div class="form-group">
@@ -2867,6 +2893,60 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="modal-reset-credential" tabindex="-1"
+	role="dialog" aria-labelledby="mobileNumberLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header text-center">Reset Credential</div>
+
+			<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="widget">
+								<!-- top general alert -->
+								<div id="klikAlertMessageModalResetCredential"></div>
+								<div class="widget-content" id="ResetCredentialWidget" name="ResetCredentialWidget">
+									
+									<div class="form-body">
+										<div class="form-group">
+											<label class="col-md-5 control-label">Username<span
+												class="required">*</span></label>
+											<div class="col-md-5">
+												<input id="updateUsername" name="updateUsername" 
+												type="text" class="form-control required" placeholder="username" required />
+											</div>
+
+											<div class="form-body">
+												<div class="form-group">
+													<label class="col-md-5 control-label">New Password<span
+														class="required">*</span></label>
+													<div class="col-md-5">
+														<input id="updatePassword" name="updatePassword" 
+														type="password" class="form-control" placeholder="password" required />
+													</div>
+		
+											<div class="col-sm-offset-2 col-md-8">
+												<button id="btn-save-reset-credential" type="button"
+													class="btn btn-warning btn-block center-icon-holder">
+													<i class="fas fa-mobile-alt"></i> Save
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+		
+							</div>
+		
+						</div>
+					</div>
+			</div>
+			<div class="modal-footer text-right">
+				
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 
 </html>
