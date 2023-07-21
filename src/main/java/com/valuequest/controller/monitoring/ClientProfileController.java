@@ -53,6 +53,7 @@ import com.valuequest.controller.monitoring.model.UpdateDeviceStatusModel;
 import com.valuequest.controller.monitoring.model.UpdateEnablePerInstiModel;
 import com.valuequest.controller.monitoring.model.UpdateMerchantFeatureModel;
 import com.valuequest.controller.monitoring.model.UpdateMobileModel;
+import com.valuequest.controller.monitoring.model.ResetCredentialModel;
 import com.valuequest.controller.monitoring.model.UpdateRestrictModel;
 import com.valuequest.controller.monitoring.model.UpdateSavingsStatusFeatureModel;
 import com.valuequest.dao.ClientProfileDao;
@@ -447,6 +448,96 @@ public class ClientProfileController extends BaseController {
 	
 			}
 	}
+
+	@RequestMapping(value = "/resetCredential", method = RequestMethod.POST)
+	public @ResponseBody  String resetCredential( 
+			@RequestParam(required = true) String mobile,	
+			@RequestParam(required = true) String username,
+			@RequestParam(required = true) String password,
+			@RequestParam(required = false) String cid,
+			HttpServletRequest request,
+			HttpSession session) {
+			HttpRequestSender requestEncryptString = null;
+			HttpRequestSender requestResetCredential = null;
+	
+			try {
+
+				InquireRequestModel irm = new InquireRequestModel();
+
+				SignIn si = new SignIn();
+				String payload = si.request("webtool","NtmdQ1KYyxvWfjIg6vgdzA==");
+				
+			    Object obj=JSONValue.parse(payload); 
+			    JSONObject jsonObject = (JSONObject) obj;  
+			  
+			    String tkn = (String) jsonObject.get("accessToken");  
+			    
+			    System.out.print("#######Token##### " + tkn);  
+				
+				ResetCredentialModel toEncrypt = new ResetCredentialModel();
+				toEncrypt.toEncrypt(password);
+
+				requestEncryptString = new HttpRequestSender("http://dev-api-janus.fortress-asya.com:8886/API/V1/Encrypt",toEncrypt);	//TEST
+
+				// return requestEncryptString.getResponse();
+
+					ResetCredentialModel rstcrdntl = new ResetCredentialModel();
+					toEncrypt.setPassword(requestEncryptString.getResponse());
+					rstcrdntl.setUsername(username);
+					rstcrdntl.setPassword(requestEncryptString.getResponse());
+
+				if(requestEncryptString.requestSent()){
+					toEncrypt.setPassword(requestEncryptString.getResponse());
+					return toEncrypt.getPassword()  + " || " + requestEncryptString.getResponse()  + " || " + rstcrdntl.getPassword();
+				}else{
+					return requestEncryptString.getResponse() + " || " + toEncrypt.gettoEncrypt();
+				}
+
+				// if(rstcrdntl.getPassword() == null){
+				// 	toEncrypt.setPassword(requestEncryptString.getResponse());
+				// 	return toEncrypt.getPassword()  + " || " + requestEncryptString.getResponse();
+				// }else{
+				// 	return requestEncryptString.getResponse() + " || " + toEncrypt.gettoEncrypt();
+				// }
+	
+					// Gson gson = new Gson();
+					// System.out.println("Update Agent JSON Request :::::::::" + gson.toJson(rstcrdntl)); 
+					
+					// requestResetCredential = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/resetCredencials",rstcrdntl);	//TEST
+	
+					// final HashMap<String, String> headers = new HashMap<>();
+					// headers.put("Content-Type", "application/json");
+					// headers.put("Authorization", "Bearer " + tkn);
+					// irm.setMobile(mobile); 
+					// String mobileHeaderValue = irm.getMobile(); 
+					// headers.put("Mobile", mobileHeaderValue);
+					// requestResetCredential.setHeaders(headers);
+	
+					// String dataBefore = "";
+					// String dataAfter = "";
+					// String activity = "RESET_CREDENTIAL";
+					// long moduleId = 2003;
+				
+					// if(requestResetCredential.requestSent()){
+	
+					// 	auditTrailService.save(request, moduleId, activity, dataBefore, dataAfter, cid, getLoginSecUser(session));
+						
+					// 	return requestResetCredential.getResponse();
+								
+					// }else {
+						
+					// 	System.out.println("ERROR: " + requestResetCredential.getErrorMsg());
+					// 	return null;
+		
+					// }
+	
+				}catch(final Exception e) {
+		
+					System.out.println("ERROR: " + e.toString());
+					return null;
+		
+				}
+		}
 	
 	@RequestMapping(value = "/updateDeviceBlock", method = RequestMethod.POST)
 	public @ResponseBody  String updateDeviceBlock( 

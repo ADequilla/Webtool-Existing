@@ -954,6 +954,96 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 }
 
 
+			function resetCredential(mobile, newuname, newpass) {
+
+				if (newuname == "" || newuname ==  null) {
+			App.alert_inside_modal({
+				container: 'klikAlertMessageModalResetCredential',
+				type: 'success',
+				message: "New Username is required.",
+				icon: 'success'
+			});
+			return;
+			}
+
+			if (newpass == "" || newpass == null) {
+			App.alert_inside_modal({
+				container: 'klikAlertMessageModalResetCredential',
+				type: 'success',
+				message: "New Password is required.",
+				icon: 'success'
+			});
+			return;
+			}
+
+			$.ajax({
+			type: 'POST',
+			url: '${pageContext.request.contextPath}/monitoring/profile/resetCredential',
+			async: true,
+			data: {
+			mobile: mobile,
+			username: newuname,
+			password: newpass,
+			},
+			success: function(data) {
+			console.log(data);
+			},
+			error: function(data) {
+			console.log(data);
+			}
+			}).done(function(rs, textStatus, xhr) {
+			console.log("Done Response: " + rs);
+
+			if (xhr.status == 200) {
+			var response;
+			try {
+				response = JSON.parse(rs);
+				if (response.hasOwnProperty('message')) {
+				App.alert_inside_modal({
+					container: 'klikAlertMessageModalResetCredential',
+					type: 'success',
+					message: response.message,
+					icon: 'success'
+				});
+				} else {
+				App.alert_inside_modal({
+					container: 'klikAlertMessageModalResetCredential',
+					type: 'success',
+					message: "Credential successfully Reset",
+					icon: 'success'
+				});
+				$("#username").val(newuname);
+				}
+			} catch (e) {
+				App.alert_inside_modal({
+				container: 'klikAlertMessageModalResetCredential',
+				type: 'success',
+				message: "Unable to parse JSON",
+				icon: 'success'
+				});
+			}
+			} else {
+			var response;
+			try {
+				response = JSON.parse(rs);
+				App.alert_inside_modal({
+				container: 'klikAlertMessageModalResetCredential',
+				type: 'success',
+				message: response.message,
+				icon: 'success'
+				});
+			} catch (e) {
+				App.alert_inside_modal({
+				container: 'klikAlertMessageModalResetCredential',
+				type: 'success',
+				message: "Unable to parse JSON",
+				icon: 'success'
+				});
+			}
+			}
+			});
+			}
+
 
 		function updateRestrict(uname,newMobile,oldMobile,cid){
 			$.ajax({
@@ -1801,11 +1891,11 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 		});
 
 		$("#btn-save-reset-credential").click(function(){
-			let uname	= $("#username").val();
-			let newMobile	= $("#updateMobileNumber").val();
-			let oldMobile	= $("#mobile").val();
+			let mobile	= $("#mobile").val();
+			let newuname	= $("#updateUsername").val();
+			let newpass	= $("#updatePassword").val();
 			let cid	= $("#cid").val();
-			updateMobileNumber(uname,newMobile,oldMobile,cid)
+			resetCredential(mobile,newuname,newpass,cid)
 		});
 
 		$("#confirm-reset-password").click(function(){
@@ -2895,7 +2985,7 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 	</div>
 
 	<div class="modal fade" id="modal-reset-credential" tabindex="-1"
-	role="dialog" aria-labelledby="mobileNumberLabel" aria-hidden="true">
+	role="dialog" aria-labelledby="resetCredentialLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header text-center">Reset Credential</div>
@@ -2906,7 +2996,7 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 							<div class="widget">
 								<!-- top general alert -->
 								<div id="klikAlertMessageModalResetCredential"></div>
-								<div class="widget-content" id="ResetCredentialWidget" name="ResetCredentialWidget">
+								<div class="widget-content" id="resetCredentialWidget" name="resetCredentialWidget">
 									
 									<div class="form-body">
 										<div class="form-group">
@@ -2914,16 +3004,16 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 												class="required">*</span></label>
 											<div class="col-md-5">
 												<input id="updateUsername" name="updateUsername" 
-												type="text" class="form-control required" placeholder="username" required />
+												type="text" class="form-control required" placeholder="new username" autocomplete="off" required />
 											</div>
 
 											<div class="form-body">
 												<div class="form-group">
-													<label class="col-md-5 control-label">New Password<span
+													<label class="col-md-5 control-label">Password<span
 														class="required">*</span></label>
 													<div class="col-md-5">
 														<input id="updatePassword" name="updatePassword" 
-														type="password" class="form-control" placeholder="password" required />
+														type="password" class="form-control" placeholder="new password" autocomplete="off" required />
 													</div>
 		
 											<div class="col-sm-offset-2 col-md-8">
