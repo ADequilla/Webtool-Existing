@@ -69,10 +69,11 @@ public class LoginAuthenticationProvider implements AuthenticationProvider{
             //     response.getWriter().println("User is already logged in from another session.");
             //     return;
             // }
+			//
 
-				if (user.getId() == (user.getId())){
-					throw new BadCredentialsException("User already login.");
-				}
+				// if (user.getId() == (user.getId())){
+				// 	throw new BadCredentialsException("User already login.");
+				// }
 				if (HttpSessionCollector.find(user.getCheckStatus()) != null){
 					 ParamConfig config = genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
 			         String valueTimeout = config.getValue();
