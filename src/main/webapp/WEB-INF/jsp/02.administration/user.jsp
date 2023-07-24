@@ -91,7 +91,21 @@
             		]
             });
         });
-        
+		
+        // Check if the page is already open
+    if (localStorage.getItem('isPageOpen')) {
+      // Page is already open, redirect or display an error message
+      alert('Page is already open in another tab!');
+      window.location.href = 'about:blank'; // Redirect to a blank page
+    } else {
+      // Set the flag to indicate the page is open
+      localStorage.setItem('isPageOpen', true);
+      
+      // Clear the flag when the page is closed
+      window.addEventListener('beforeunload', function () {
+        localStorage.removeItem('isPageOpen');
+      });
+    }
     </script>
 </head>
 <body>

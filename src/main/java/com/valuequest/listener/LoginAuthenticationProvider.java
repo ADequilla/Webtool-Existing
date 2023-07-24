@@ -32,6 +32,7 @@ import com.valuequest.common.AjaxResponse;
 import com.valuequest.controller.maintenance.model.ProductCategoryModel;
 import com.valuequest.entity.Lookup;
 import com.valuequest.entity.ParamConfig;
+import com.valuequest.entity.StructureUser;
 import com.valuequest.entity.ViewUser;
 import com.valuequest.entity.security.SecUser;
 import com.valuequest.services.AdminService;
@@ -52,17 +53,24 @@ public class LoginAuthenticationProvider implements AuthenticationProvider{
 		String username = authentication.getName();
         String password = (String) authentication.getCredentials();
         SecUser user 	= adminService.getSecUser(username);
+		// StructureUser userId = (String) authentication.getUserId();
         
         if (user == null) {
 			throw new BadCredentialsException("User does not exist.");
 		}else{
-			// if(user == adminService.getRightsByUser(user)){
+			// if(userId == userId){
 			// 	throw new BadCredentialsException("User already login.");
 			// }
+			
 			String passwordEncode = adminService.encodePassword(password);
 			if(StringUtils.equals(passwordEncode, user.getUsrPassword())){
 
-				if (Lookup.LOOKUP_USER_STATUS_INACTIVE.equals(user.getUsrStatus())){
+			// 	if (user.getSessionId() != null && !user.getSessionId().equals(session.getId())) {
+            //     response.getWriter().println("User is already logged in from another session.");
+            //     return;
+            // }
+
+				if (user.getId() == (user.getId())){
 					throw new BadCredentialsException("User already login.");
 				}
 				if (HttpSessionCollector.find(user.getCheckStatus()) != null){
