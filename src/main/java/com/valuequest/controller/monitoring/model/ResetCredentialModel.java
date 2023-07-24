@@ -32,5 +32,18 @@ public class ResetCredentialModel {
 		this.toEncrypt = rawPassword;
 	}
 
+	public String getusername() {
+		return username;
+	}
+    public void username(String uname) {
+		this.username = uname;
+	}
+    public String getpassword() {
+		return password;
+	}
+    public void password(String pass) {
+		this.password = pass;
+	}
+
     
 }

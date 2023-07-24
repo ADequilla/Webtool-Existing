@@ -481,55 +481,50 @@ public class ClientProfileController extends BaseController {
 
 				// return requestEncryptString.getResponse();
 
-					ResetCredentialModel rstcrdntl = new ResetCredentialModel();
-					toEncrypt.setPassword(requestEncryptString.getResponse());
-					rstcrdntl.setUsername(username);
-					rstcrdntl.setPassword(requestEncryptString.getResponse());
+					// ResetCredentialModel rstcrdntl = new ResetCredentialModel();
+					// rstcrdntl.username(username);
+					// rstcrdntl.password(requestEncryptString.getResponse());
+	
 
-				if(requestEncryptString.requestSent()){
-					toEncrypt.setPassword(requestEncryptString.getResponse());
-					return toEncrypt.getPassword()  + " || " + requestEncryptString.getResponse()  + " || " + rstcrdntl.getPassword();
+					if(requestEncryptString.requestSent()){
+						ResetCredentialModel rstcrdntl = new ResetCredentialModel();
+						rstcrdntl.username(username);
+						rstcrdntl.password(requestEncryptString.getResponse());
+						Gson gson = new Gson();
+					System.out.println("Update Agent JSON Request :::::::::" + gson.toJson(rstcrdntl)); 
+					requestResetCredential = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/resetCredencials", rstcrdntl);	//TEST
+					// return rstcrdntl.getusername()  + " || " + requestEncryptString.getResponse()  + " || " + rstcrdntl.getpassword();
 				}else{
-					return requestEncryptString.getResponse() + " || " + toEncrypt.gettoEncrypt();
+					return "Error Reset Credential!";
 				}
-
-				// if(rstcrdntl.getPassword() == null){
-				// 	toEncrypt.setPassword(requestEncryptString.getResponse());
-				// 	return toEncrypt.getPassword()  + " || " + requestEncryptString.getResponse();
-				// }else{
-				// 	return requestEncryptString.getResponse() + " || " + toEncrypt.gettoEncrypt();
-				// }
-	
-					// Gson gson = new Gson();
-					// System.out.println("Update Agent JSON Request :::::::::" + gson.toJson(rstcrdntl)); 
 					
-					// requestResetCredential = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/resetCredencials",rstcrdntl);	//TEST
+					// requestResetCredential = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/resetCredencials", rstcrdntl);	//TEST
 	
-					// final HashMap<String, String> headers = new HashMap<>();
-					// headers.put("Content-Type", "application/json");
-					// headers.put("Authorization", "Bearer " + tkn);
-					// irm.setMobile(mobile); 
-					// String mobileHeaderValue = irm.getMobile(); 
-					// headers.put("Mobile", mobileHeaderValue);
-					// requestResetCredential.setHeaders(headers);
+					final HashMap<String, String> headers = new HashMap<>();
+					headers.put("Content-Type", "application/json");
+					headers.put("Authorization", "Bearer " + tkn);
+					irm.setMobile(mobile); 
+					String mobileHeaderValue = irm.getMobile(); 
+					headers.put("Mobile", mobileHeaderValue);
+					requestResetCredential.setHeaders(headers);
 	
-					// String dataBefore = "";
-					// String dataAfter = "";
-					// String activity = "RESET_CREDENTIAL";
-					// long moduleId = 2003;
+					String dataBefore = "";
+					String dataAfter = "";
+					String activity = "RESET_CREDENTIAL";
+					long moduleId = 2003;
 				
-					// if(requestResetCredential.requestSent()){
+					if(requestResetCredential.requestSent()){
 	
-					// 	auditTrailService.save(request, moduleId, activity, dataBefore, dataAfter, cid, getLoginSecUser(session));
+						auditTrailService.save(request, moduleId, activity, dataBefore, dataAfter, cid, getLoginSecUser(session));
 						
-					// 	return requestResetCredential.getResponse();
+						return requestResetCredential.getResponse();
 								
-					// }else {
+					}else {
 						
-					// 	System.out.println("ERROR: " + requestResetCredential.getErrorMsg());
-					// 	return null;
+						System.out.println("ERROR: " + requestResetCredential.getErrorMsg());
+						return null;
 		
-					// }
+					}
 	
 				}catch(final Exception e) {
 		
