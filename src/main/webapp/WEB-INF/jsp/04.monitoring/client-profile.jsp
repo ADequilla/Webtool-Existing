@@ -1012,7 +1012,9 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 					message: "Credential successfully Reset",
 					icon: 'success'
 				});
-				$("#username").val(newuname);
+				$.ajax({
+					url: '${pageContext.request.contextPath}/monitoring/profile/'
+				})
 				}
 			} catch (e) {
 				App.alert_inside_modal({
@@ -3000,18 +3002,18 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 									
 									<div class="form-body">
 										<div class="form-group">
-											<label class="col-md-5 control-label">Username<span
+											<label class="col-md-3 control-label">Username<span
 												class="required">*</span></label>
-											<div class="col-md-5">
+											<div class="col-md-7">
 												<input id="updateUsername" name="updateUsername" 
 												type="text" class="form-control required" placeholder="new username" autocomplete="off" required />
 											</div>
 
 											<div class="form-body">
 												<div class="form-group">
-													<label class="col-md-5 control-label">Password<span
+													<label class="col-md-3 control-label">Password<span
 														class="required">*</span></label>
-													<div class="col-md-5">
+													<div class="col-md-7">
 														<input id="updatePassword" name="updatePassword" 
 														type="password" class="form-control" placeholder="new password" autocomplete="off" required />
 													</div>

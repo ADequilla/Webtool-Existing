@@ -479,13 +479,6 @@ public class ClientProfileController extends BaseController {
 
 				requestEncryptString = new HttpRequestSender("http://dev-api-janus.fortress-asya.com:8886/API/V1/Encrypt",toEncrypt);	//TEST
 
-				// return requestEncryptString.getResponse();
-
-					// ResetCredentialModel rstcrdntl = new ResetCredentialModel();
-					// rstcrdntl.username(username);
-					// rstcrdntl.password(requestEncryptString.getResponse());
-	
-
 					if(requestEncryptString.requestSent()){
 						ResetCredentialModel rstcrdntl = new ResetCredentialModel();
 						rstcrdntl.username(username);
@@ -493,12 +486,9 @@ public class ClientProfileController extends BaseController {
 						Gson gson = new Gson();
 					System.out.println("Update Agent JSON Request :::::::::" + gson.toJson(rstcrdntl)); 
 					requestResetCredential = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/resetCredencials", rstcrdntl);	//TEST
-					// return rstcrdntl.getusername()  + " || " + requestEncryptString.getResponse()  + " || " + rstcrdntl.getpassword();
 				}else{
 					return "Error Reset Credential!";
 				}
-					
-					// requestResetCredential = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/resetCredencials", rstcrdntl);	//TEST
 	
 					final HashMap<String, String> headers = new HashMap<>();
 					headers.put("Content-Type", "application/json");
