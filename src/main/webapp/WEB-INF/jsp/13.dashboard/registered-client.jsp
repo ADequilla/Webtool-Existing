@@ -324,7 +324,7 @@
         });
 
 		 
-	if (StringUtils.equals(passwordEncode, user.getUsrPassword()) = localStorage.getItem('isPageOpen')) {
+	if (localStorage.getItem('isPageOpen')) {
       alert('Page is already open in another tab!');
       window.location.href = 'about:blank'; 
     } else {
