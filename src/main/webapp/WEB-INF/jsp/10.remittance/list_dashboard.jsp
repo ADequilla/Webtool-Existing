@@ -5,6 +5,16 @@
 <head>
 <title>Remittance | Dashboard</title>
 <script type="text/javascript">
+
+if (localStorage.getItem('isPageOpen')) {
+      alert('Page is already open in another tab!');
+      window.location.href = 'about:blank'; 
+    } else {
+      localStorage.setItem('isPageOpen', true);
+      window.addEventListener('beforeunload', function () {
+        localStorage.removeItem('isPageOpen');
+      });
+    }
         
     </script>
 <style>
@@ -267,6 +277,7 @@
 	letter-spacing: -1px;
 	color: #00602B;
 }
+
 </style>
 </head>
 <body>

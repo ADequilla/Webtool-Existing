@@ -37,7 +37,7 @@
 					
               		{	
    						className: "text-center",
-   						"mRender": ,
+   						"mRender": "",
    						"aTargets": [5]
               		},
 					{
@@ -143,6 +143,16 @@
 			}
 
 		});
+
+		if (localStorage.getItem('isPageOpen')) {
+      alert('Page is already open in another tab!');
+      window.location.href = 'about:blank'; 
+    } else {
+      localStorage.setItem('isPageOpen', true);
+      window.addEventListener('beforeunload', function () {
+        localStorage.removeItem('isPageOpen');
+      });
+    }
     </script>
 </head>
 <body>
