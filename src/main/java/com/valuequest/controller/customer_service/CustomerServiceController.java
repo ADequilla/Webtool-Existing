@@ -21,6 +21,7 @@ import com.valuequest.controller.customer_service.model.TicketModel;
 import com.valuequest.entity.Lookup;
 import com.valuequest.entity.ViewClient;
 import com.valuequest.entity.ViewCsTicket;
+import com.valuequest.entity.security.SecUser;
 
 @Controller
 @RequestMapping("/cs/dashboard")
@@ -35,6 +36,11 @@ public class CustomerServiceController extends BaseController {
 
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 

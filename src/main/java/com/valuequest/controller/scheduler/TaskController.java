@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import com.valuequest.common.DataTables;
 import com.valuequest.controller.BaseController;
+import com.valuequest.entity.security.SecUser;
 import com.valuequest.services.TaskService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ public class TaskController extends BaseController {
 
     @RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+
+ SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
+
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 
 			putIntoRequest(model);

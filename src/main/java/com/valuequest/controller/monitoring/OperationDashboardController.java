@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.valuequest.common.DataTables;
 import com.valuequest.controller.BaseController;
 import com.valuequest.entity.ViewDashboardTransaction;
+import com.valuequest.entity.security.SecUser;
 import com.valuequest.services.OperationDashboardService;
 
 /**
@@ -39,6 +40,10 @@ public class OperationDashboardController extends BaseController {
 	
 	@RequestMapping("/")
 	public String index( Model model, HttpSession session) {
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 			

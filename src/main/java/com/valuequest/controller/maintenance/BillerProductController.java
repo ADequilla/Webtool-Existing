@@ -26,6 +26,7 @@ import com.valuequest.entity.Lookup;
 import com.valuequest.entity.MCUserMapper;
 import com.valuequest.entity.StructureBillerCategory;
 import com.valuequest.entity.ViewBillerProduct;
+import com.valuequest.entity.security.SecUser;
 import com.valuequest.services.BillerCategoryService;
 import com.valuequest.services.BillerProductService;
 import com.valuequest.util.GenerateReport;
@@ -55,6 +56,11 @@ public class BillerProductController extends BaseController {
 
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 

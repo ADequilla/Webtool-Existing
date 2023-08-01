@@ -77,7 +77,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
 import java.nio.file.*; 
 
@@ -139,6 +138,10 @@ public class ClientProfileController extends BaseController {
 
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 		
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 			

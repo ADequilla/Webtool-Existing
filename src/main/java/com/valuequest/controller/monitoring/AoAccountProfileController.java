@@ -19,6 +19,7 @@ import com.valuequest.controller.BaseController;
 import com.valuequest.controller.monitoring.model.ProfileModel;
 import com.valuequest.entity.Client;
 import com.valuequest.entity.ViewClient;
+import com.valuequest.entity.security.SecUser;
 
 @Controller
 @RequestMapping("/monitoring/ao-account-profile")
@@ -38,6 +39,10 @@ public class AoAccountProfileController extends BaseController {
 
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 

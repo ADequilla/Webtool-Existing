@@ -23,6 +23,7 @@ import com.valuequest.controller.BaseController;
 import com.valuequest.controller.maintenance.model.ProviderModel;
 import com.valuequest.entity.Lookup;
 import com.valuequest.entity.StructureProvider;
+import com.valuequest.entity.security.SecUser;
 import com.valuequest.services.ProviderService;
 import com.valuequest.util.HttpClientMcu;
 
@@ -43,6 +44,11 @@ public class ProviderController extends BaseController {
 
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 

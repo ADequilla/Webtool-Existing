@@ -37,7 +37,10 @@ public class WebActivityController extends BaseController {
 	
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+		SecUser user = this.getLoginSecUser(session);
 
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 			
 			model.addAttribute("listReportStatus", genericService.lookup(Lookup.LOOKUP_REPORT_STATUS));

@@ -28,6 +28,7 @@ import com.valuequest.controller.report.param.TransactionParam;
 import com.valuequest.entity.AsynReport;
 import com.valuequest.entity.K2CTransactionTypeLookup;
 import com.valuequest.entity.Lookup;
+import com.valuequest.entity.security.SecUser;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,6 +60,10 @@ public class CoreTransactionReportController extends BaseController {
 	
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 		System.out.print("#########Username:" + signinUsername);
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 			

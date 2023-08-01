@@ -22,6 +22,7 @@ import com.valuequest.controller.BaseController;
 import com.valuequest.controller.monitoring.model.AuthorResetPasswordModel;
 import com.valuequest.entity.Client;
 import com.valuequest.entity.ViewAuthorResetPassword;
+import com.valuequest.entity.security.SecUser;
 import com.valuequest.services.AuthorResetPasswordService;
 import com.valuequest.util.HttpClientMcu;
 
@@ -44,6 +45,10 @@ public class AuthorResetPasswordController extends BaseController {
 
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 

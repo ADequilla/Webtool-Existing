@@ -20,6 +20,7 @@ import com.valuequest.common.DataTables;
 import com.valuequest.controller.BaseController;
 import com.valuequest.controller.maintenance.model.ProductDenomModel;
 import com.valuequest.entity.StructureProductPay;
+import com.valuequest.entity.security.SecUser;
 import com.valuequest.services.ProductDenomService;
 import com.valuequest.services.ProductPayService;
 import com.valuequest.services.ProviderDenomService;
@@ -46,6 +47,11 @@ public class ProductDenomController extends BaseController {
 
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 

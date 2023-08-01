@@ -23,6 +23,7 @@ import com.valuequest.controller.report.param.TransactionParam;
 import com.valuequest.entity.AsynReport;
 import com.valuequest.entity.Lookup;
 import com.valuequest.entity.Module;
+import com.valuequest.entity.security.SecUser;
 
 @Controller
 @RequestMapping("/report/activity-history")
@@ -38,6 +39,10 @@ public class ActivityHistoryController extends BaseController {
 	
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 			

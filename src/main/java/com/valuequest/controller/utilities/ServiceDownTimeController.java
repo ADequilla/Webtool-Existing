@@ -18,6 +18,7 @@ import com.valuequest.controller.BaseController;
 import com.valuequest.controller.administration.model.StateModel;
 import com.valuequest.entity.Lookup;
 import com.valuequest.entity.ServiceDownTime;
+import com.valuequest.entity.security.SecUser;
 
 @Controller
 @RequestMapping("/utilities/service")
@@ -31,7 +32,10 @@ public class ServiceDownTimeController extends BaseController {
 
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+ SecUser user = this.getLoginSecUser(session);
 
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 
 			putIntoRequest(model);

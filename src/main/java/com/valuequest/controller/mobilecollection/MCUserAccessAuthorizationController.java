@@ -26,6 +26,7 @@ import com.valuequest.entity.Lookup;
 import com.valuequest.entity.MCUser;
 import com.valuequest.entity.StructureBranch;
 import com.valuequest.entity.StructureUnit;
+import com.valuequest.entity.security.SecUser;
 import com.valuequest.util.PojoJsonMapper;
 import com.valuequest.util.StatusConstantas;
 
@@ -44,6 +45,10 @@ public class MCUserAccessAuthorizationController extends BaseController {
 	
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 			

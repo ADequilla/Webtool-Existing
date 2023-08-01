@@ -28,6 +28,7 @@ import com.valuequest.controller.BaseController;
 import com.valuequest.controller.administration.model.StateModel;
 import com.valuequest.entity.ParamConfig;
 import com.valuequest.entity.Product;
+import com.valuequest.entity.security.SecUser;
 import com.valuequest.util.Constantas;
 import com.valuequest.util.HttpClientUpload;
   
@@ -43,6 +44,11 @@ public class BankNewsController extends BaseController {
 
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 

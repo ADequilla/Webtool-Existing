@@ -21,6 +21,7 @@ import com.valuequest.controller.mbo.model.MboModel;
 import com.valuequest.controller.monitoring.model.ProfileModel;
 import com.valuequest.entity.Client;
 import com.valuequest.entity.ViewClient;
+import com.valuequest.entity.security.SecUser;
 import com.valuequest.util.HttpClientMbo;
 import com.valuequest.util.HttpClientUpload;
 
@@ -36,6 +37,10 @@ public class MboController extends BaseController {
 
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 

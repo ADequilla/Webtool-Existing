@@ -21,6 +21,7 @@ import com.valuequest.controller.BaseController;
 import com.valuequest.controller.report.param.TransactionParam;
 import com.valuequest.entity.AsynReport;
 import com.valuequest.entity.Lookup;
+import com.valuequest.entity.security.SecUser;
 
 @Controller
 @RequestMapping("/report/remittance-sent-report")
@@ -36,7 +37,10 @@ public class RemittanceSentReportController extends BaseController {
 	
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+ SecUser user = this.getLoginSecUser(session);
 
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 			
 			model.addAttribute("listReportStatus", genericService.lookup(Lookup.LOOKUP_REPORT_STATUS));

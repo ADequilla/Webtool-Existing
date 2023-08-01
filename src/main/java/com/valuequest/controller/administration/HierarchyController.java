@@ -36,6 +36,7 @@ import com.valuequest.entity.security.SecUser;
 @Controller
 @RequestMapping("/administration/hierarchy")
 public class HierarchyController extends BaseController {
+	
 
 	final static String MENU 		= "ADMINISTRATION";
 	final static String PRIVILEDGE 	= "HIERARCHY";
@@ -45,6 +46,11 @@ public class HierarchyController extends BaseController {
 	
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+
+		SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 		
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 			

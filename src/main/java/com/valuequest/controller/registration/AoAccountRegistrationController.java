@@ -17,6 +17,7 @@ import com.valuequest.common.DataTables;
 import com.valuequest.controller.BaseController;
 import com.valuequest.entity.Client;
 import com.valuequest.entity.Lookup;
+import com.valuequest.entity.security.SecUser;
 
 @Controller
 @RequestMapping("/registration/ao-account-registration")
@@ -32,6 +33,10 @@ public class AoAccountRegistrationController extends BaseController {
 	
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 

@@ -65,6 +65,10 @@ public class MCUserManagementController extends BaseController {
 
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+		SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 

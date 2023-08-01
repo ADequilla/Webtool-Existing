@@ -20,6 +20,7 @@ import com.valuequest.controller.BaseController;
 import com.valuequest.entity.ListUsedDevice;
 import com.valuequest.entity.Lookup;
 import com.valuequest.entity.MerchantEntity;
+import com.valuequest.entity.security.SecUser;
 import com.valuequest.controller.monitoring.model.ListUsedDeviceModel;
 
 @Controller
@@ -34,6 +35,10 @@ public class ListUsedDeviceController extends BaseController {
  
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 

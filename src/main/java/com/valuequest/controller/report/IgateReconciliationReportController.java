@@ -25,6 +25,7 @@ import com.valuequest.entity.AsynReport;
 import com.valuequest.entity.Lookup;
 import com.valuequest.entity.StructureBillerProduct;
 import com.valuequest.entity.StructureLoadProduct;
+import com.valuequest.entity.security.SecUser;
 import com.valuequest.controller.report.param.ReportParam;
 
 @Controller
@@ -41,7 +42,10 @@ public class IgateReconciliationReportController extends BaseController {
 	
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+ SecUser user = this.getLoginSecUser(session);
 
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 			
 			model.addAttribute("listReportStatus", genericService.lookup(Lookup.LOOKUP_REPORT_STATUS));

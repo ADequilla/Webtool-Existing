@@ -21,13 +21,17 @@ import com.valuequest.entity.security.SecUser;
 @Controller
 @RequestMapping("/password/change")
 public class ChangePasswordController extends BaseController {
+	
 
 	String BASE_VIEW 	= "02.administration/";
 	String EDIT_VIEW 	= "password-change";
 	String DEFAULT_VIEW = "password-change-default";
 
+	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String index() {
+		
 		return BASE_VIEW + EDIT_VIEW;
 	}
 

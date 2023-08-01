@@ -16,6 +16,7 @@ import com.valuequest.common.DataTables;
 import com.valuequest.controller.BaseController;
 //import com.valuequest.entity.StructureRemittance;
 import com.valuequest.entity.ViewRemittance;
+import com.valuequest.entity.security.SecUser;
 import com.valuequest.services.RemittanceService;
 
 /**
@@ -43,6 +44,10 @@ public class RemittanceDashboardController extends BaseController {
 	
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
+		 SecUser user = this.getLoginSecUser(session);
+
+        user.setIsLogin(true);
+        adminService.updateCekStatus(user, session.getId());
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 			
