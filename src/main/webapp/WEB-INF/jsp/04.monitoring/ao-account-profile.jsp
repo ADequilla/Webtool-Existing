@@ -242,18 +242,6 @@
          	});
 		}
 
-		window.setTimeout('checkIfContinue()', 5*60*1000); 
-
-	    function checkIfContinue(){
-	        if(confirm("Your Session is Timeout, Do you want to continue?"))
-	        {
-	            window.setTimeout('checkIfContinue()', 5*60*1000);  
-	        }
-	        else
-	        {
-	        	window.location.replace("${pageContext.request.contextPath}/logout");
-	        }
-	    } 
 
 		if (localStorage.getItem('isPageOpen')) {
       alert('Page is already open in another tab!');

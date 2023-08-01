@@ -488,20 +488,7 @@
             });
 		}
 		
- 		window.setTimeout('checkIfContinue()', 2*60*1000);  //2 minutes
-
-	    function checkIfContinue(){
-	        if(confirm("Your Session is Timeout, Do you want to continue?"))
-	        {
-	            window.setTimeout('checkIfContinue()', 2*60*1000);  //start the timer again
-	        }
-	        else
-	        {
-	        	window.location.replace("${pageContext.request.contextPath}/logout");
-	        }
-	    } 
-	    
-	    
+ 			    
 	    function ArrangeOption(id){
 	        var options = $('select.'+id+' option');
 	        var arr = options.map(function(_, o) {
