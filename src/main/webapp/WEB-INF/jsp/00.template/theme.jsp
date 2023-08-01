@@ -488,7 +488,7 @@
             });
 		}
 		
-/* 		window.setTimeout('checkIfContinue()', 2*60*1000);  //2 minutes
+ 		window.setTimeout('checkIfContinue()', 2*60*1000);  //2 minutes
 
 	    function checkIfContinue(){
 	        if(confirm("Your Session is Timeout, Do you want to continue?"))
@@ -499,7 +499,7 @@
 	        {
 	        	window.location.replace("${pageContext.request.contextPath}/logout");
 	        }
-	    } */
+	    } 
 	    
 	    
 	    function ArrangeOption(id){

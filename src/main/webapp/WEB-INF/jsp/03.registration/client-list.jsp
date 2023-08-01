@@ -5,6 +5,21 @@
 <head>
 <title>Client | Registration</title>
 <script type="text/javascript">
+
+	window.onbeforeunload = function(e){
+
+		e = e || window.event;
+
+		if(e){
+			e.returnValue = 'Sure?';
+
+		}
+
+			return 'Sure?';
+		};
+
+	// window.location.href = "${pageContext.request.contextPath}/logout";
+
         $(document).ready(function() {
             var oTable = $("#dataTable").dataTable({
                 "sAjaxSource"	: "${pageContext.request.contextPath}/registration/client/search",

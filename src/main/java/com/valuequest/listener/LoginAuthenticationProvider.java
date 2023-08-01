@@ -67,48 +67,15 @@ public class LoginAuthenticationProvider implements AuthenticationProvider{
         String password = (String) authentication.getCredentials();
         SecUser user 	= adminService.getSecUser(username);
 
-       
-        //     HttpSession activeSession = activeSessions.get(user);
-        //     if (activeSession != null && !activeSession.getId().equals(session.getId())) {
-        //         // If there is an active session for the user, invalidate the new login attempt
-        //         session.invalidate();
-        //         // You can redirect the user to a login error page or show a message explaining the reason for failure.
-		// 		throw new BadCredentialsException("Concurrent login detected. Please log out from other sessions.");
-        //     }
-			//  else {
-            //     // Update the active session for the user
-            //     activeSessions.put(username, session);
-            // }
-      
-	
-	
 
-		// StructureUser userId = (String) authentication.getUserId();
-
+        
         if (user == null) {
 			throw new BadCredentialsException("User does not exist.");
-		}
-		// else if(user != null && !user.getUsrName().equals(user.getUsrName())){	
-        // 	throw new BadCredentialsException("Concurrent Login Test");
-		// }
-		
-		else{
-
-			// if(userId == userId){
-			// 	throw new BadCredentialsException("User already login.");
-			// }
+		}else if (Lookup.LOOKUP_LOGIN_STATUS.equals(user.getIsLogin())){
+			throw new DisabledException("Your Account is Already Logged in on other unit.");
+		}else{
 			String passwordEncode = adminService.encodePassword(password);
 			if(StringUtils.equals(passwordEncode, user.getUsrPassword())){
-			
-			// 	if (user.getSessionId() != null && !user.getSessionId().equals(session.getId())) {
-            //     response.getWriter().println("User is already logged in from another session.");
-            //     return;
-            // }
-
-
-				// if (user.getId() == (user.getId())){
-				// 	throw new BadCredentialsException("User already login.");
-				// }
 				if (HttpSessionCollector.find(user.getCheckStatus()) != null){
 					 ParamConfig config = genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
 			         String valueTimeout = config.getValue();
@@ -159,7 +126,6 @@ public class LoginAuthenticationProvider implements AuthenticationProvider{
 					throw new BadCredentialsException("Please Input correct username and password");
 					
 				}
-				
 			}
 		}
 	}

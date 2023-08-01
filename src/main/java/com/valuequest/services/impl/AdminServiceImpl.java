@@ -42,37 +42,29 @@ import com.valuequest.entity.security.SecUser;
 import com.valuequest.entity.security.SecUserrole;
 import com.valuequest.services.AdminService;
 
+
 @Service
 @Transactional(readOnly = true)
 public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements AdminService {
-
 	@Autowired
 	private AdminDao adminDao;
-
 	@Autowired
 	protected InstitutionDao institutionDao;
-
 	@Autowired
 	protected BranchDao branchDao;
-
 	@Autowired
 	protected UnitDao unitDao;
-
 	@Autowired
 	protected CenterDao centerDao;
-
 	protected Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-
 	@Override
 	public Class<SecUser> getRealClass() {
 		return SecUser.class;
 	}
-
 	@Override
 	public SecUser getSecUser(String username) {
 		return adminDao.getSecUser(username);
 	}
-
 	@Override
 	public SecUser getSecUserName(String username) {
 		return adminDao.getSecUserName(username);
@@ -87,7 +79,6 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 	public String encodePassword(String password) {
 		return encoder.encodePassword(password, null);
 	}
-
 	@Modifying
 	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
@@ -103,13 +94,13 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 				}
 			}
 		}
-
 		SecUser user = null;
 		if (model.getId() == null) {
 			user = new SecUser();
 			user.setCreatedBy(userLogin.getId());
 			user.setCreatedDate(new Date(System.currentTimeMillis()));
 			user.setUsrEnabled(true);
+			user.setIsLogin(true);
 			user.setUsrPosition(SecUser.USER_USER);
 			setResetPasswordValue(user);
 		} else {
@@ -125,7 +116,6 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 			branchDao.deleteUserMappedBy(model.getId());
 			unitDao.deleteUserMappedBy(model.getId());
 			centerDao.deleteUserMappedBy(model.getId());
-
 			user = this.findById(model.getId());
 			user.setLastUpdatedBy(userLogin.getId());
 			user.setLastUpdatedDate(new Date(System.currentTimeMillis()));
@@ -138,11 +128,11 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 		user.setUsrEmail(model.getEmail());
 		user.setUsrPhone(model.getPhone());
 		user.setUsrStatus(model.getStatus());
+		user.setIsLogin(model.getLoginStat());
 		user.setCheckStatus(model.getCheckStatus());
 
 		this.saveOrUpdate(user);
 		model.setId(user.getId());
-
 		
 		if (!checked.isEmpty()) {
 			SecUserrole userrole = null;
@@ -152,11 +142,9 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 				userrole.setRoleId(roleId);
 				userrole.setCreatedBy(userLogin.getId());
 				userrole.setCreatedDate(new Date(System.currentTimeMillis()));
-
 				this.getSessionFactory().getCurrentSession().save(userrole);
 			}
 		}
-
 		String[] institutions = model.getInstitution();
 		if (institutions != null && institutions.length > 0) {
 			UserInstitution userInstitution = null;
@@ -164,11 +152,9 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 				userInstitution = new UserInstitution();
 				userInstitution.setUser(user);
 				userInstitution.setInstCode(institution);
-
 				this.getSessionFactory().getCurrentSession().save(userInstitution);
 			}
 		}
-
 		String[] branchs = model.getBranch();
 		if (branchs != null && branchs.length > 0) {
 			UserBranch userBranch = null;
@@ -176,11 +162,9 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 				userBranch = new UserBranch();
 				userBranch.setUser(user);
 				userBranch.setBranchCode(branch);
-
 				this.getSessionFactory().getCurrentSession().save(userBranch);
 			}
 		}
-
 		String[] units = model.getUnit();
 		if (units != null && units.length > 0) {
 			UserUnit userUnit = null;
@@ -188,11 +172,9 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 				userUnit = new UserUnit();
 				userUnit.setUser(user);
 				userUnit.setUnitCode(unit);
-
 				this.getSessionFactory().getCurrentSession().save(userUnit);
 			}
 		}
-
 		String[] centers = model.getCenter();
 		if (centers != null && centers.length > 0) {
 			UserCenter userCenter = null;
@@ -200,12 +182,10 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 				userCenter = new UserCenter();
 				userCenter.setUser(user);
 				userCenter.setCenterCode(center);
-
 				this.getSessionFactory().getCurrentSession().save(userCenter);
 			}
 		}
 	}
-
 	@Modifying
 	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
@@ -215,7 +195,6 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 			this.saveOrUpdate(userLogin);
 		}
 	}
-
 	@Modifying
 	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
@@ -246,7 +225,6 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 			this.saveOrUpdate(userLogin);
 		}
 	}
-
 	@Modifying
 	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
@@ -258,20 +236,16 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 		user.setUsrStatus(Lookup.LOOKUP_USER_STATUS_ACTIVE);
 		user.setUsrExpiredPassword(null);
 		user.setLoginAttempts(0);
-
 		this.saveOrUpdate(user);
 	}
-
 	@Override
 	public List<String> getAllRights() {
 		return adminDao.getAllRights();
 	}
-
 	@Override
 	public List<String> getRightsByUser(SecUser userLogin) {
 		return adminDao.getRightsByUser(userLogin);
 	}
-
 	@Override
 	public List<MenuModel> getAllMenuModel() {
 		List<MenuModel> menuModels 	= new ArrayList<MenuModel>();
@@ -279,30 +253,24 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 		for (SecMenu parent : parentMenu) {
 			menuModels.add(generateMenuModel(parent));
 		}
-
 		return menuModels;
 	}
-
 	@Override
 	public List<String> getComponent(Long userId, String priviledge) {
 		return adminDao.getComponent(userId, priviledge);
 	}
-
 	@Override
 	public List<SecUserrole> listSecUserrole(Long userId) {
 		return adminDao.listSecUserrole(userId);
 	}
-
 	@Override
 	public boolean getPriviledge(Long userId, String priviledge) {
 		return adminDao.getPriviledge(userId, priviledge);
 	}
-
 	@Override
 	public boolean getPriviledge(Long userId, String menu, String component) {
 		return adminDao.getPriviledge(userId, menu, component);
 	}
-
 	@Override
 	public DataTables searchByMapCriteria(DataTables dataTables, HashMap<String, Object> searchMap) {
 		Long loginId 		= (Long) searchMap.get("loginId");
@@ -313,31 +281,22 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 		String branch 		= (String) searchMap.get("branch");
 		String status 		= (String) searchMap.get("status");
 		Criteria criteria 	= this.getSessionFactory().getCurrentSession().createCriteria(ViewUser.class);
-
 		if (loginId != null)
 			criteria.add(Subqueries.propertyIn("id", criteriaBy(loginId)));
-
 		if (StringUtils.isNotBlank(firstName))
 			criteria.add(Restrictions.ilike("givenName", firstName, MatchMode.ANYWHERE));
-
 		if (StringUtils.isNotBlank(middleName))
 			criteria.add(Restrictions.ilike("middleName", middleName, MatchMode.ANYWHERE));
-
 		if (StringUtils.isNotBlank(lastName))
 			criteria.add(Restrictions.ilike("lastName", lastName, MatchMode.ANYWHERE));
-
 		if (StringUtils.isNotBlank(userLogin))
 			criteria.add(Restrictions.ilike("login", userLogin, MatchMode.ANYWHERE));
-
 		if (StringUtils.isNotBlank(status))
 			criteria.add(Restrictions.eq("status", status));
-
 		if (StringUtils.isNotBlank(branch))
 			criteria.add(Restrictions.ilike("branchCodes", branch, MatchMode.ANYWHERE));
-
 		return this.getDataTablesFromCriteria(criteria, dataTables);
 	}
-
 	
 	
 	//-- private method
@@ -358,14 +317,12 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 			}
 		}
 	}
-
 	private MenuModel generateMenuModel(SecMenu menu) {
 		List<SecMenu> childs 			= adminDao.getChildMenuByParent(menu);
 		List<SecComponent> components 	= adminDao.getComponentByMenu(menu);
 		MenuModel parentModel 			= new MenuModel();
 		parentModel.setMenu(menu);
 		parentModel.setComponents(components);
-
 		if (childs.size() > 0) {
 			List<MenuModel> childModelList = new ArrayList<MenuModel>();
 			for (Object child : childs) {
@@ -374,25 +331,20 @@ public class AdminServiceImpl extends SimpleServiceImpl<SecUser> implements Admi
 			}
 			parentModel.setChilds(childModelList);
 		}
-
 		return parentModel;
 	}
-
 	private DetachedCriteria criteriaBy(Long userId) {
 		DetachedCriteria criteriaUser = DetachedCriteria.forClass(UserBranch.class);
 		criteriaUser.createAlias("user", "user");
 		criteriaUser.createAlias("branch", "branch");
 		criteriaUser.add(Restrictions.eq("user.id", userId));
 		criteriaUser.setProjection(Projections.projectionList().add(Projections.groupProperty("branch.code")));
-
 		DetachedCriteria criteria = DetachedCriteria.forClass(UserBranch.class);
 		criteria.createAlias("user", "user");
 		criteria.createAlias("branch", "branch");
 		criteria.add(Subqueries.propertyIn("branch.code", criteriaUser));
 		criteria.setProjection(Projections.projectionList().add(Projections.groupProperty("user.id")));
-
 		return criteria;
 	}
-
 	
 }

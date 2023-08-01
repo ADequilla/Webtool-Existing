@@ -33,9 +33,11 @@ public class IndexController extends BaseController {
          String valueTimeout = config.getValue();
          valueTimeout = valueTimeout.replace(".","");
          valueTimeout = valueTimeout.replace(",","");
-         session.setMaxInactiveInterval(Integer.parseInt(valueTimeout) * 60);
-         
+		
     	if (USER_SUPER_ADMIN.equals(user.getUsrPosition())){
+			session.setMaxInactiveInterval(Integer.parseInt(valueTimeout) * 60);
+			user.setIsLogin(false);
+			adminService.updateCekStatus(user, session.getId());
     		return "redirect:dashboard/registered-client/";
     	}else{
     		if((user.getUsrExpiredPassword() != null && DateUtil.compare(user.getUsrExpiredPassword(), new Date()) < 0) || user.isPasswordDefault()){
@@ -51,22 +53,33 @@ public class IndexController extends BaseController {
     public String login() {
         return "01.misc/login";
     }
-    
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpSession session) {
-    	
+		SecUser user = this.getLoginSecUser(session);
+
     	// save logout to audit trail
     	String activity	= "LOGOUT";
     	long moduleId	= 2002;
     	auditTrailService.save(request, moduleId, activity, null, null, null, getLoginSecUser(session));
-    	
+
+    	user.setIsLogin(false);
+		adminService.updateCekStatus(user, session.getId());
     	return "redirect:j_spring_security_logout";
     }
     
     @RequestMapping(value = "/404", method = RequestMethod.GET)
     public String _404() {
         return "01.misc/404";
-    }
+	}
+
+	@RequestMapping(value = "/updateLoginStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public void updateLoginStatus(HttpSession session) {
+    SecUser user = this.getLoginSecUser(session);
+    user.setIsLogin(false);
+    adminService.updateCekStatus(user, session.getId());
+}
     
     @SuppressWarnings("rawtypes")
 	@RequestMapping("/getStructure")
