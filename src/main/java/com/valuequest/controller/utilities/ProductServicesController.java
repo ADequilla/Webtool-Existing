@@ -36,7 +36,7 @@ public class ProductServicesController extends BaseController {
 
         user.setIsLogin(true);
         adminService.updateCekStatus(user, session.getId());
-		 SecUser user = this.getLoginSecUser(session);
+		//  SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
         adminService.updateCekStatus(user, session.getId());
