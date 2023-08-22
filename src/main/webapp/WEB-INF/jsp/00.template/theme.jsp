@@ -69,7 +69,7 @@
 				<div class="row">
 					<!-- logo -->
 					<div class="col-md-6 logo">
-						<a href="${pageContext.request.contextPath}/"><img
+						<a href="${pageContext.request.contextPath}/concurrentlogin"><img
 							src="${pageContext.request.contextPath}/assets/img/konek2card.png"
 							height="75px" alt="logo" /></a>
 					</div>
@@ -86,6 +86,7 @@
 										class="img-circle" alt="User Avatar"> <span class="name">${loginSecUser.givenName}</span>
 										<span class="caret"></span> <span id="uname"
 										style="display: none">${loginSecUser.usrLoginname}</span>
+										
 									</a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a
@@ -505,6 +506,42 @@
 	            $(o).text(arr[i].t);
 	        });
 	    }
+
+		var sessionTimeout;
+
+        function startSessionTimeout(timeoutDuration) {
+            sessionTimeout = setTimeout(function() {
+                checkIfContinue();
+            }, timeoutDuration * 1000);
+        }
+
+        function checkIfContinue() {
+            var continueSession = confirm("Your Session is Timeout, Do you want to continue?");
+            if (continueSession) {
+                clearTimeout(sessionTimeout);
+                getSessionTimeoutAndStartTimer();
+            } else {
+                window.location.replace("${pageContext.request.contextPath}/logout");
+            }
+        }
+
+        function getSessionTimeoutAndStartTimer() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "${pageContext.request.contextPath}/concurrentlogin", true);
+            xhr.onload = function() {
+                if (xhr.status === 200 ) {
+                    var sessionTimeoutDuration = parseInt(xhr.responseText);
+                    startSessionTimeout(sessionTimeoutDuration);
+                } else {
+                    console.error("Error fetching session timeout value.");
+                }
+            };
+            xhr.send();
+        }
+
+        getSessionTimeoutAndStartTimer();
+
+
 	    
 	</script>
 

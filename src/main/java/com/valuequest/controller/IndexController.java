@@ -1,5 +1,7 @@
 package com.valuequest.controller;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,18 +10,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.valuequest.entity.ParamConfig;
 import com.valuequest.common.DataTables;
 import com.valuequest.entity.MappingHierarchy;
 import com.valuequest.entity.security.SecUser;
 import com.valuequest.util.DateUtil;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
 
 @Controller     
 public class IndexController extends BaseController {
@@ -27,17 +37,8 @@ public class IndexController extends BaseController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, HttpSession session) {
     	SecUser user = this.getLoginSecUser(session);
-    	adminService.updateCekStatus(getLoginSecUser(session), session.getId());
-         
-         ParamConfig config 	= genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
-         String valueTimeout = config.getValue();
-         valueTimeout = valueTimeout.replace(".","");
-         valueTimeout = valueTimeout.replace(",","");
-		
+        
     	if (USER_SUPER_ADMIN.equals(user.getUsrPosition())){
-			session.setMaxInactiveInterval(Integer.parseInt(valueTimeout) * 60);
-			user.setIsLogin(false);
-			adminService.updateCekStatus(user, session.getId());
     		return "redirect:dashboard/registered-client/";
     	}else{
     		if((user.getUsrExpiredPassword() != null && DateUtil.compare(user.getUsrExpiredPassword(), new Date()) < 0) || user.isPasswordDefault()){
@@ -80,6 +81,16 @@ public class IndexController extends BaseController {
     user.setIsLogin(false);
     adminService.updateCekStatus(user, session.getId());
 }
+
+@RequestMapping(value = "/concurrentlogin", method = RequestMethod.GET)
+    @ResponseBody
+    public int getSessionTimeout() {
+        ParamConfig config = genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
+        String valueTimeout = config.getValue();
+        valueTimeout = valueTimeout.replace(".", "");
+        valueTimeout = valueTimeout.replace(",", "");
+        return Integer.parseInt(valueTimeout);
+    }
     
     @SuppressWarnings("rawtypes")
 	@RequestMapping("/getStructure")

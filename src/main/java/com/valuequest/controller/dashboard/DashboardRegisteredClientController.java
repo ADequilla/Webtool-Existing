@@ -41,9 +41,9 @@ public class DashboardRegisteredClientController extends BaseController {
 
     @RequestMapping("/")
 	public String index(Model model, HttpSession session) {
-        loginstat(session);
-        sessionCheck(session);
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
+
+            loginstat(session);
 
 			putIntoRequest(model);
 
@@ -52,50 +52,6 @@ public class DashboardRegisteredClientController extends BaseController {
 
 		return getUnauthorizedPage();
 	}
-
-    private void sessionCheck(HttpSession session) {
-        if (session != null && !session.isNew() && !session.getAttributeNames().hasMoreElements()) {
-            logoutRedirect(session);  // Call the updated method to handle the redirection
-        } else {
-            checkIdleTimeAndLogout(session);
-        }
-    }
-    
-// 
-	public void checkIdleTimeAndLogout(HttpSession session) {
-        ParamConfig config = genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
-        String valueTimeout = config.getValue().replaceAll("[.,]", ""); 
-        Instant currentTime = Instant.now();
-        Instant lastActivityTime = (Instant) session.getAttribute("lastActivityTime");
-        
-        if (lastActivityTime != null) {
-            Duration idleDuration = Duration.between(lastActivityTime, currentTime);
-            if (idleDuration.getSeconds() >= Integer.parseInt(valueTimeout)) {
-                logoutRedirect(session);  // Call the updated method to handle the redirection
-                return;
-            }
-        }
-        session.setAttribute("lastActivityTime", currentTime);
-    }
-
-    private void logoutRedirect(HttpSession session) {
-        // Perform a redirect using Spring's RedirectView
-        RedirectView redirectView = new RedirectView("01.misc/login.jsp", true);
-        redirectView.setExposeModelAttributes(false); // Optional, to prevent exposing model attributes
-        redirectView.setStatusCode(HttpStatus.SEE_OTHER); // Set an appropriate status code
-        logout(session);
-        // Redirect the user
-        ServletUriComponentsBuilder.fromCurrentContextPath().path(redirectView.getUrl()).build();
-    }
-    
-    public String logout( HttpSession session) {
-		SecUser user = this.getLoginSecUser(session);
-
-    	user.setIsLogin(false);
-		adminService.updateCekStatus(user, session.getId());
-        session.invalidate();
-    	return "redirect:j_spring_security_logout";
-    }
 
     public void loginstat(HttpSession session) {
 		
