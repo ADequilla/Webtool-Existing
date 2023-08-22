@@ -97,5 +97,15 @@
 		src="${pageContext.request.contextPath}/assets/js/jquery/jquery-2.1.3.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/assets/js/validator.min.js"></script>
+		<script type="text/javascript">
+function DisableBackButton(){
+		window.history.forward()
+	}
+	DisableBackButton();
+	window.onload = DisableBackButton;
+	window.onpageshow = function(evt) {if (evt.persisted) DisableBackButton}
+	window.onunload = function(){ void (0)}
+		</script>
+
 </body>
 </html>
