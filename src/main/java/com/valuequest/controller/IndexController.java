@@ -37,6 +37,8 @@ public class IndexController extends BaseController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, HttpSession session) {
     	SecUser user = this.getLoginSecUser(session);
+		user.setIsLogin(true);
+    	adminService.updateCekStatus(user, session.getId());
         
     	if (USER_SUPER_ADMIN.equals(user.getUsrPosition())){
     		return "redirect:dashboard/registered-client/";
