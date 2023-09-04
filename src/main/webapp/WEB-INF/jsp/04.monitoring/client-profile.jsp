@@ -956,7 +956,17 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 
 			function resetCredential(mobile, newuname, newpass) {
 
-				if (newuname == "" || newuname ==  null) {
+				if(newuname == "" && newpass == ""){
+					App.alert_inside_modal({
+				container: 'klikAlertMessageModalResetCredential',
+				type: 'success',
+				message: "New Username and Password are required.",
+				icon: 'success'
+			});
+			return;	
+				}
+			
+				if (newuname ==  "") {
 			App.alert_inside_modal({
 				container: 'klikAlertMessageModalResetCredential',
 				type: 'success',
@@ -966,7 +976,7 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 			return;
 			}
 
-			if (newpass == "" || newpass == null) {
+			if (newpass == "") {
 			App.alert_inside_modal({
 				container: 'klikAlertMessageModalResetCredential',
 				type: 'success',
@@ -2577,7 +2587,7 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 
 		if (localStorage.getItem('isPageOpen')) {
       alert('Page is already open in another tab!');
-	  window.location.href = '${pageContext.request.contextPath}/logout'; 
+      window.location.href = 'about:blank'; 
     } else {
       localStorage.setItem('isPageOpen', true);
       window.addEventListener('beforeunload', function () {
