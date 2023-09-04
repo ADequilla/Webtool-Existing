@@ -6,20 +6,6 @@
 <title>Client | Registration</title>
 <script type="text/javascript">
 
-	window.onbeforeunload = function(e){
-
-		e = e || window.event;
-
-		if(e){
-			e.returnValue = 'Sure?';
-
-		}
-
-			return 'Sure?';
-		};
-
-	// window.location.href = "${pageContext.request.contextPath}/logout";
-
         $(document).ready(function() {
             var oTable = $("#dataTable").dataTable({
                 "sAjaxSource"	: "${pageContext.request.contextPath}/registration/client/search",
@@ -295,7 +281,7 @@
 
 		if (localStorage.getItem('isPageOpen')) {
       alert('Page is already open in another tab!');
-      window.location.href = 'about:blank'; 
+	  window.location.href = '${pageContext.request.contextPath}/logout';  
     } else {
       localStorage.setItem('isPageOpen', true);
       window.addEventListener('beforeunload', function () {

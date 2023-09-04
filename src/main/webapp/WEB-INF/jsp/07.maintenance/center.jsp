@@ -80,7 +80,7 @@
 
 		if (localStorage.getItem('isPageOpen')) {
       alert('Page is already open in another tab!');
-      window.location.href = 'about:blank'; 
+	  window.location.href = '${pageContext.request.contextPath}/logout'; 
     } else {
       localStorage.setItem('isPageOpen', true);
       window.addEventListener('beforeunload', function () {
