@@ -22,6 +22,54 @@
 		    margin-top: -12px; /* Half of line height to keep left middle postion of container 
 		    left: 10px;
 		} */
+		/* Style all input fields */
+
+
+/* Style the submit button */
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+}
+
+/* Style the container for inputs */
+.container {
+  padding: 20px;
+}
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+  display:none;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#message p {
+  padding: 10px 35px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -25px;
+  content: "/";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -25px;
+  content: "x";
+}
 </style>
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.css" />
@@ -2602,6 +2650,67 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 	window.onpageshow = function(evt) {if (evt.persisted) DisableBackButton}
 	window.onunload = function(){ void (0)}
 		
+
+	//Password Validation Form
+	var myInput = document.getElementById("updatePassword");
+    var letter = document.getElementById("letter");
+	var capital = document.getElementById("capital");
+	var number = document.getElementById("number");
+	var length = document.getElementById("length");
+
+	// When the user clicks on the password field, show the message box
+	myInput.onfocus = function() {
+ 	document.getElementById("message").style.display = "block";
+	}
+
+	// When the user clicks outside of the password field, hide the message box
+	myInput.onblur = function() {
+ 	document.getElementById("message").style.display = "none";
+	}
+
+	// When the user starts to type something inside the password field
+	myInput.onkeyup = function() {
+    // Validate lowercase letters
+  	var lowerCaseLetters = /[a-z]/g;
+  	if(myInput.value.match(lowerCaseLetters)) {  
+    letter.classList.remove("invalid");
+    letter.classList.add("valid");
+  	} else {
+    letter.classList.remove("valid");
+    letter.classList.add("invalid");
+  	}
+  
+    // Validate capital letters
+ 	var upperCaseLetters = /[A-Z]/g;
+    if(myInput.value.match(upperCaseLetters)) {  
+    capital.classList.remove("invalid");
+    capital.classList.add("valid");
+    } else {
+    capital.classList.remove("valid");
+    capital.classList.add("invalid");
+    }
+
+  	// Validate numbers
+  	var numbers = /[0-9]/g;
+  	if(myInput.value.match(numbers)) {  
+  	number.classList.remove("invalid");
+  	number.classList.add("valid");
+  	} else {
+  	number.classList.remove("valid");
+  	number.classList.add("invalid");
+  	}
+  
+  	// Validate length
+  	if(myInput.value.length >= 8) {
+  	length.classList.remove("invalid");
+  	length.classList.add("valid");
+ 	} else {
+ 	length.classList.remove("valid");
+  	length.classList.add("invalid");
+  	}
+}
+
+
     </script>
 </head>
 <body>
@@ -3026,45 +3135,57 @@ function updateMobileNumber(uname, newMobile, oldMobile, cid) {
 								<!-- top general alert -->
 								<div id="klikAlertMessageModalResetCredential"></div>
 								<div class="widget-content" id="resetCredentialWidget" name="resetCredentialWidget">
-									
+
+
 									<div class="form-body">
 										<div class="form-group">
-											<label class="col-md-3 control-label">Username<span
+											<label class="col-md-4 control-label">Username<span
 												class="required">*</span></label>
-											<div class="col-md-7">
+											<div class="col-md-6">
 												<input id="updateUsername" name="updateUsername" 
-												type="text" class="form-control required" placeholder="new username" autocomplete="off" required />
-											</div>
-
-											<div class="form-body">
-												<div class="form-group">
-													<label class="col-md-3 control-label">Password<span
-														class="required">*</span></label>
-													<div class="col-md-7">
-														<input id="updatePassword" name="updatePassword" 
-														type="password" class="form-control" placeholder="new password" autocomplete="off" required />
-													</div>
-		
-											<div class="col-sm-offset-2 col-md-8">
-												<button id="btn-save-reset-credential" type="button"
-													class="btn btn-warning btn-block center-icon-holder">
-													<i class="fas fa-mobile-alt"></i> Save
-												</button>
+												type="text" class="form-control required" placeholder="new username" required minlength="5" maxlength="6" autocomplete="off" required />
 											</div>
 										</div>
-									</div>
-								</div>
-		
-							</div>
-		
+									</div>	
+									<div class="form-body">
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="updatePassword">Password<span
+											  class="required">*</span></label>
+											<div class="col-md-6">
+												<input id="updatePassword" name="updatePassword" 
+												type="password" class="form-control" placeholder="new password" autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/>
+											</div>
+										 </div>
+									 </div>
+									<div class="form-body">
+										<div class="form-group">
+											<label class="col-md-4 control-label"><span
+											  class="required"></span></label>
+											<div class="col-md-6">
+												<button id="btn-save-reset-credential" type="button"
+												class="btn btn-warning btn-block center-icon-holder">
+												<i class="fas fa-mobile-alt"></i> Save
+												</button>
+									       </div>
+										</div>
+									 </div>
+								</div>						
+							</div>				
 						</div>
 					</div>
-			</div>
-			<div class="modal-footer text-right">
-				
-			</div>
+					<div class="container">
+						<div id="message">
+							<h3>Password must contain the following:</h3>
+							<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+							<p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+							<p id="number" class="invalid">A <b>number</b></p>
+							<p id="length" class="invalid">Minimum <b>8 characters</b></p>
+						  </div>
+					</div>
+			    </div>
+			<div class="modal-footer text-right"></div>
 		</div>
-	</div>
+    </div>
 </div>
 </body>
 

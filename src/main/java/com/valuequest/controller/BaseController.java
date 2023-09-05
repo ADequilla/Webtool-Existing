@@ -181,6 +181,7 @@ public class BaseController {
 	protected final NumberFormat numberFormat 	= new DecimalFormat("#,##0.00");
 
 	public static final String USER_SUPER_ADMIN = "SUPER_ADMIN";
+	public static final String USER             = "USER";
 	public static final String VIEW 			= "VIEW";
 	public static final String NEW 				= "NEW";
 	public static final String EDIT 			= "EDIT";

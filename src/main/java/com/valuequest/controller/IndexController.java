@@ -40,7 +40,8 @@ public class IndexController extends BaseController {
 		user.setIsLogin(true);
     	adminService.updateCekStatus(user, session.getId());
         
-    	if (USER_SUPER_ADMIN.equals(user.getUsrPosition())){
+    	if (USER_SUPER_ADMIN.equals(user.getUsrPosition())
+		){
     		return "redirect:dashboard/registered-client/";
     	}else{
     		if((user.getUsrExpiredPassword() != null && DateUtil.compare(user.getUsrExpiredPassword(), new Date()) < 0) || user.isPasswordDefault()){
