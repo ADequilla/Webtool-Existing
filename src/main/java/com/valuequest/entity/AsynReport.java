@@ -36,6 +36,7 @@ public class AsynReport implements Serializable {
 	public static final String REPORT_TYPE_TRANS_VALID			= "TRANSACTION_VALID";
 	public static final String REPORT_TYPE_ACTIVITY_HISTORY		= "ACTIVITY_HISTORY";
 	public static final String REPORT_TYPE_REMITTANCE_SENT		= "REMITTANCE_SENT_REPORT";
+	public static final String REPORT_TYPE_EPN_GENERATOR    	= "EPN_GENERATOR_REPORT";
 	public static final String REPORT_TYPE_REMITTANCE_CLAIMED	= "REMITTANCE_CLAIMED_REPORT";
 	public static final String REPORT_TYPE_REMITTANCE_CANCELLED	= "REMITTANCE_CANCELLED_REPORT";
 	public static final String REPORT_TYPE_PINPASSWD_CHANGE		= "PINPASSWD_CHANGE";

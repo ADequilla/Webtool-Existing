@@ -37,13 +37,15 @@ public class IndexController extends BaseController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, HttpSession session) {
     	SecUser user = this.getLoginSecUser(session);
-		user.setIsLogin(true);
-    	adminService.updateCekStatus(user, session.getId());
         
-    	if (USER_SUPER_ADMIN.equals(user.getUsrPosition())
-		){
+    	if (USER_SUPER_ADMIN.equals(user.getUsrPosition()))
+		{
     		return "redirect:dashboard/registered-client/";
-    	}else{
+		}else if (USER.equals(user.getUsrPosition())){
+			return "redirect:dashboard/registered-client/";
+
+		}else{
+
     		if((user.getUsrExpiredPassword() != null && DateUtil.compare(user.getUsrExpiredPassword(), new Date()) < 0) || user.isPasswordDefault()){
     			session.setAttribute("forceChangePasswd", true);
     			return "redirect:password/change/default";
