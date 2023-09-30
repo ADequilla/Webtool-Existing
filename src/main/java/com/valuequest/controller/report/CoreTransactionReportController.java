@@ -131,9 +131,9 @@ public class CoreTransactionReportController extends BaseController {
 				System.out.println(gson.toJson(trn));
 
 				//sender = new HttpRequestSender("https://cmfstest.cardmri.com/CoreDatawarehouse/API/getSuperAppTransaction",trn);
-				//sender = new HttpRequestSender("https://cmfs.cardmri.com:9443/CoreMFS/API/getSuperAppTransaction",trn); //Prod
+				sender = new HttpRequestSender("https://cmfs.cardmri.com:9443/CoreMFS/API/getSuperAppTransaction",trn); //Prod
 				//sender = new HttpRequestSender("https://cmfs.cardmri.com:9443/CoreDatawarehouse/API/getSuperAppTransaction",trn);
-				sender = new HttpRequestSender("https://cmfs-kplus.cardmri.com:4443/CoreDatawarehouse/API/getSuperAppTransaction",trn);
+				// sender = new HttpRequestSender("https://cmfs-kplus.cardmri.com:4443/CoreDatawarehouse/API/getSuperAppTransaction",trn);
 				final HashMap<String, String> headers = new HashMap<String, String>();
 				headers.put("Content-Type", "application/json");
 				sender.setHeaders(headers);
@@ -331,16 +331,24 @@ public class CoreTransactionReportController extends BaseController {
 	public static Connection ConnectToDB() throws Exception {
 
 		// //###############PROD
-		// String url = "jdbc:postgresql://35.241.122.188:5432/mfs";
-		// Properties props = new Properties();
-		// props.setProperty("user","postgres");
-		// props.setProperty("password","fd5@p.@dm1n");
-
-		// ###############TEST
-		String url = "jdbc:postgresql://34.87.184.130:5432/mfs";
+		String url = "jdbc:postgresql://35.241.122.188:5432/mfs";
 		Properties props = new Properties();
 		props.setProperty("user","postgres");
-		props.setProperty("password","p0stgR35_t3sT_p@55_2022");
+		props.setProperty("password","fd5@p.@dm1n");
+
+		// ###############TEST
+		// String url = "jdbc:postgresql://34.87.184.130:5432/mfs";
+		// Properties props = new Properties();
+		// props.setProperty("user","postgres");
+		// props.setProperty("password","p0stgR35_t3sT_p@55_2022");
+
+		//###############PROD RBI
+		// String url = "34.92.119.77";
+		// String url = "jdbc:postgresql://rbi-kplus.fortress-asya.com/mfs";
+		// Properties props = new Properties();
+		// props.setProperty("user","postgres");
+		// props.setProperty("password","p0stgres");
+
 
 
 		props.setProperty("ssl","false");

@@ -181,8 +181,11 @@ public class ClientProfileController extends BaseController {
 				
 				Gson gson = new Gson();
 				System.out.println("#### Inquire Request Model #####"+gson.toJson(irm));
-				//sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/inquire",irm);				//PROD
-				sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/inquire",irm); 		//TEST
+				sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/inquire",irm);				//PROD
+				// sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/inquire",irm); 		//TEST
+				// sender = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/auth/inquire",irm); 		//PROD RBI
+
+
 
 				final HashMap<String, String> headers = new HashMap<String, String>();
 				headers.put("Content-Type", "application/json");
@@ -235,8 +238,9 @@ public class ClientProfileController extends BaseController {
 				Gson gson = new Gson();
 				System.out.println("::::::::: Update Agent JSON Request :::::::::" + gson.toJson(updateAgent)); 
 				
-				//sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/addAccount",updateAgent);				//PROD
-				sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/addAccount",updateAgent); 		//TEST
+				sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/addAccount",updateAgent);				//PROD
+				// sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/addAccount",updateAgent); 		//TEST
+				// sender = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/auth/addAccount",updateAgent); 		//PROD RBI
 
 				final HashMap<String, String> headers = new HashMap<String, String>();
 				headers.put("Content-Type", "application/json");
@@ -320,8 +324,9 @@ public class ClientProfileController extends BaseController {
 				Gson gson = new Gson();
 				System.out.println("Update Agent JSON Request :::::::::" + gson.toJson(updateAgent)); 
 				
-				//sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/addAccount",updateAgent);
-				sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/addAccount",updateAgent);
+				sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/addAccount",updateAgent);
+				// sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/addAccount",updateAgent);
+				// sender = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/auth/addAccount",updateAgent);  //PROD RBI
 
 
 				final HashMap<String, String> headers = new HashMap<String, String>();
@@ -365,8 +370,9 @@ public class ClientProfileController extends BaseController {
 				Gson gson = new Gson();
 				System.out.println("Update Agent JSON Request :::::::::" + gson.toJson(updateAgent)); 
 				
-				//sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/addAccount",updateAgent);			//PROD
-				sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/addAccount",updateAgent);	//TEST
+				sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/addAccount",updateAgent);			//PROD
+				// sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/addAccount",updateAgent);	//TEST
+				// sender = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/auth/addAccount",updateAgent);	//PROD RBI
 
 				final HashMap<String, String> headers = new HashMap<String, String>();
 				headers.put("Content-Type", "application/json");
@@ -418,8 +424,9 @@ public class ClientProfileController extends BaseController {
 				Gson gson = new Gson();
 				System.out.println("Update Agent JSON Request :::::::::" + gson.toJson(updateMobileNumberModel)); 
 				
-				//sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/secure/updateInfo",updateMobileNumberModel);			//PROD
-				sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/secure/updateInfo",updateMobileNumberModel);	//TEST
+				sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/secure/updateInfo",updateMobileNumberModel);			//PROD
+				// sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/secure/updateInfo",updateMobileNumberModel);	//TEST
+				// sender = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/secure/updateInfo",updateMobileNumberModel);	//PROD RBI
 
 				final HashMap<String, String> headers = new HashMap<String, String>();
 				headers.put("Content-Type", "application/json");
@@ -480,7 +487,10 @@ public class ClientProfileController extends BaseController {
 				ResetCredentialModel toEncrypt = new ResetCredentialModel();
 				toEncrypt.toEncrypt(password);
 
-				requestEncryptString = new HttpRequestSender("http://dev-api-janus.fortress-asya.com:8886/API/V1/Encrypt",toEncrypt);	//TEST
+				requestEncryptString = new HttpRequestSender("https://prod-api-janus.fortress-asya.com/API/V1/Encrypt",toEncrypt);	//PROD
+				// requestEncryptString = new HttpRequestSender("http://dev-api-janus.fortress-asya.com:8886/API/V1/Encrypt",toEncrypt);	//TEST
+				// requestEncryptString = new HttpRequestSender("http://rbi-webtools.fortress-asya.com/API/V1/Encrypt",toEncrypt);	//PROD RBI
+
 
 					if(requestEncryptString.requestSent()){
 						ResetCredentialModel rstcrdntl = new ResetCredentialModel();
@@ -488,7 +498,9 @@ public class ClientProfileController extends BaseController {
 						rstcrdntl.password(requestEncryptString.getResponse());
 						Gson gson = new Gson();
 					System.out.println("Update Agent JSON Request :::::::::" + gson.toJson(rstcrdntl)); 
-					requestResetCredential = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/resetCredencials", rstcrdntl);	//TEST
+					 requestResetCredential = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/resetCredencials", rstcrdntl);	//TEST
+					// requestResetCredential = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/auth/resetCredencials", rstcrdntl);	//PROD RBI
+
 				}else{
 					return "Error Reset Credential!";
 				}
@@ -553,8 +565,9 @@ public class ClientProfileController extends BaseController {
 				updateDevice.setDeviceId(id);
 				Gson gson = new Gson();
 
-				//sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/webtool/updateDevice",updateDevice);			//PROD
-				sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/webtool/updateDevice",updateDevice);	//TEST
+				sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/webtool/updateDevice",updateDevice);			//PROD
+				// sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/webtool/updateDevice",updateDevice);	//TEST
+				// sender = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/webtool/updateDevice",updateDevice);	//PROD RBI
 
 				final HashMap<String, String> headers = new HashMap<String, String>();
 				headers.put("Content-Type", "application/json");
@@ -602,8 +615,9 @@ public class ClientProfileController extends BaseController {
 				updateDevice.setUsername(username);
 				updateDevice.setDeviceId(id);
 
-				//sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/webtool/unUsedDevice",updateDevice);			//PROD
-				sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/webtool/unUsedDevice",updateDevice);	//TEST
+				sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/webtool/unUsedDevice",updateDevice);			//PROD
+				// sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/webtool/unUsedDevice",updateDevice);	//TEST
+				// sender = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/webtool/unUsedDevice",updateDevice);	//PROD RBI
 
 				final HashMap<String, String> headers = new HashMap<String, String>();
 				headers.put("Content-Type", "application/json");
@@ -648,8 +662,9 @@ public class ClientProfileController extends BaseController {
 					updateRestrictModel.setUsername(username);
 					updateRestrictModel.setIsBlocked(value.toString());
 
-					//sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/secure/updateInfo",updateRestrictModel);			//PROD
-					sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/secure/updateInfo",updateRestrictModel);	//TEST
+					sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/secure/updateInfo",updateRestrictModel);			//PROD
+					// sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/secure/updateInfo",updateRestrictModel);	//TEST
+					// sender = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/secure/updateInfo",updateRestrictModel);	//PROD RBI
 
 
 					final HashMap<String, String> headers = new HashMap<String, String>();
@@ -693,8 +708,9 @@ public class ClientProfileController extends BaseController {
 				Gson gson = new Gson();
 				System.out.println("Update Agent JSON Request :::::::::" + gson.toJson(updateAgent)); 
 				
-				//sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/addAccount",updateAgent);			//PROD
-				sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/addAccount",updateAgent);	//TEST
+				sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/addAccount",updateAgent);			//PROD
+				// sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/addAccount",updateAgent);	//TEST
+				// sender = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/auth/addAccount",updateAgent);	//PROD RBI
 
 				final HashMap<String, String> headers = new HashMap<String, String>();
 				headers.put("Content-Type", "application/json");
@@ -752,8 +768,9 @@ public class ClientProfileController extends BaseController {
 				Gson gson = new Gson();
 				System.out.println("Reset OTP Request - "+ action +":::::::::" + gson.toJson(resetOTP)); 
 				
-				sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/otp/request",resetOTP);			//TEST
-				//sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/otp/request",resetOTP);			//PROD
+				//sender = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/otp/request",resetOTP); //PROD RBI
+				// sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/otp/request",resetOTP);			//TEST
+				sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/otp/request",resetOTP);			//PROD
 
 				final HashMap<String, String> headers = new HashMap<String, String>();
 				headers.put("Content-Type", "application/json");
@@ -812,8 +829,10 @@ public class ClientProfileController extends BaseController {
 
 				System.out.println("Initial Change Password Request :::::::::" + rpm); 
 				
-				sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/initialChangePassword",rpm);			//TEST
-				//sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/initialChangePassword",rpm);			//PROD
+				// sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/initialChangePassword",rpm);			//TEST
+				sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/initialChangePassword",rpm);			//PROD
+				//sender = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/auth/initialChangePassword",rpm);			//PROD RBI
+
 
 				final HashMap<String, String> headers = new HashMap<String, String>();
 				headers.put("Content-Type", "application/json");

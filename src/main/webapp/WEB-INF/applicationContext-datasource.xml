@@ -17,21 +17,29 @@
 		<property name="dataSourceProperties">
 
 			<!-- Dev Config -->
-			<props> 
+			<!-- <props> 
 				<prop key="user">postgres</prop> 
 				<prop key="password">p0stgR35_t3sT_p@55_2022</prop> 
 				<prop key="url">jdbc:postgresql://34.87.184.130:5432/mfs</prop> 
-			</props>
+			</props> -->
 
 			<!-- local Config -->
 			<!-- <props> <prop key="user">postgres</prop> <prop key="password">postgres</prop> 
 				<prop key="url">jdbc:postgresql://localhost:5432/mfs</prop> </props> -->
 
 			<!-- Prod Config -->
-			<!-- <props>
+			<props>
 				<prop key="user">postgres</prop>
 				<prop key="password">fd5@p.@dm1n</prop>
 				<prop key="url">jdbc:postgresql://35.241.122.188:5432/mfs</prop>
+			</props>
+
+			<!-- Prod RBI -->
+			<!-- <props>
+				<prop key="user">postgres</prop>
+				<prop key="password">p0stgres</prop>
+				<prop key="url">jdbc:postgresql://rbi-kplus.fortress-asya.com/mfs</prop>
+				 <prop key="url">34.92.119.77</prop>
 			</props> -->
 		</property>
 		<property name="dataSourceClassName"

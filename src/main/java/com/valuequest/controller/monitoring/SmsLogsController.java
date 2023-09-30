@@ -77,7 +77,8 @@ public class SmsLogsController extends BaseController {
 				Gson gson = new Gson();
 				System.out.println("SMS Logs JSON Request :::::::::" + gson.toJson(reqLogModel)); 
 				
-				sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/api/sms/get",reqLogModel);
+				sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8443/api/sms/get",reqLogModel);
+				//sender = new HttpRequestSender("https://rbi-webtools.fortress-asya.com/api/sms/get",reqLogModel);
 
 				final HashMap<String, String> headers = new HashMap<String, String>();
 				headers.put("Content-Type", "application/json");

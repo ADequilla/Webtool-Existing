@@ -57,15 +57,15 @@
 	    	$(id + " option").remove();
 	    }
 
-		if (localStorage.getItem('isPageOpen')) {
-      alert('Page is already open in another tab!');
-	  window.location.href = '${pageContext.request.contextPath}/logout'; 
-    } else {
-      localStorage.setItem('isPageOpen', true);
-      window.addEventListener('beforeunload', function () {
-        localStorage.removeItem('isPageOpen');
-      });
-    }
+		// 	if (localStorage.getItem('isPageOpen')) {
+    //   alert('Page is already open in another tab!');
+	//   window.location.href = '${pageContext.request.contextPath}/logout'; 
+    // } else {
+    //   localStorage.setItem('isPageOpen', true);
+    //   window.addEventListener('beforeunload', function () {
+    //     localStorage.removeItem('isPageOpen');
+    //   });
+    // }
 	// function DisableBackButton(){
 // 		window.history.forward()
 // 	}

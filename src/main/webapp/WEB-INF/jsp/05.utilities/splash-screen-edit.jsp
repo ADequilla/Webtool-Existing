@@ -30,6 +30,7 @@
 				$('#subMessage').val($('#default_subMessage').val());
             	$('#description').val($('#default_description').val());
 				$('#imageURL').val($('#default_imageURL').val());
+				$('#redirectLink').val($('#default_redirectLink').val());
 				$('#originalImage').attr('src', $('#default_imageURL').val());
 				$('#previewImage').attr('src', $('#default_imageURL').val());
 				$('#show').val($('#default_show').val());
@@ -85,15 +86,15 @@
             // });
         });
 
-		if (localStorage.getItem('isPageOpen')) {
-      alert('Page is already open in another tab!');
-      window.location.href = '${pageContext.request.contextPath}/logout'; 
-    } else {
-      localStorage.setItem('isPageOpen', true);
-      window.addEventListener('beforeunload', function () {
-        localStorage.removeItem('isPageOpen');
-      });
-    }
+		// 	if (localStorage.getItem('isPageOpen')) {
+    //   alert('Page is already open in another tab!');
+    //   window.location.href = '${pageContext.request.contextPath}/logout'; 
+    // } else {
+    //   localStorage.setItem('isPageOpen', true);
+    //   window.addEventListener('beforeunload', function () {
+    //     localStorage.removeItem('isPageOpen');
+    //   });
+    // }
 	// function DisableBackButton(){
 // 		window.history.forward()
 // 	}
@@ -150,6 +151,7 @@
 				<input type="hidden" id="default_message" value="${splash.message}">
 				<input type="hidden" id="default_subMessage" value="${splash.subMessage}">
 				<input type="hidden" id="default_imageURL" value="${splash.imageURL}">
+				<input type="hidden" id="default_imageURL" value="${splash.redirectLink}">
 				<input type="hidden" id="default_show" value="${splash.show}">
 				
 
@@ -212,6 +214,15 @@
 													</c:forEach>
 												</select>
 											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-4 control-label">Redirect Link <span
+											class="required">*</span></label>
+
+										<div class="col-md-8">
+											<textarea id="redirectLink" name="redirectLink"
+												class="form-control required" rows="6">${splash.redirectLink}</textarea>
 										</div>
 									</div>
 								</div>

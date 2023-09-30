@@ -71,8 +71,8 @@ public class LoginAuthenticationProvider implements AuthenticationProvider{
         
         if (user == null) {
 			throw new BadCredentialsException("User does not exist.");
-		}else if (Lookup.LOOKUP_LOGIN_STATUS.equals(user.getIsLogin())){
-			throw new DisabledException("Your Account is Already Logged in on other unit.");
+		// }else if (Lookup.LOOKUP_LOGIN_STATUS.equals(user.getIsLogin())){
+		// 	throw new DisabledException("Your Account is Already Logged in on other unit.");
 		}else{
 			String passwordEncode = adminService.encodePassword(password);
 			if(StringUtils.equals(passwordEncode, user.getUsrPassword())){

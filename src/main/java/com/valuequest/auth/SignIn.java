@@ -21,8 +21,11 @@ public class SignIn {
 			mdl.setUsername(uname);
 			mdl.setPassword(pass);
 			
-			//sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/signin",mdl);		//PROD
-			sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/signin",mdl);		//TEST
+			sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com:8083/Soteria/api/auth/signin",mdl);	//PROD
+			// sender = new HttpRequestSender("https://dev-api-janus.fortress-asya.com:8083/api/auth/signin",mdl);		//TEST
+			// sender = new HttpRequestSender("https://rbi-kplus.fortress-asya.com/api/auth/signin",mdl);	//PROD RBI
+			// sender = new HttpRequestSender("34.92.119.77",mdl);	//PROD RBI
+			
 
 			final HashMap<String, String> headers = new HashMap<String, String>();
 			headers.put("Content-Type", "application/json");

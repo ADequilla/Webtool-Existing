@@ -47,6 +47,7 @@ public class SplashScreenServiceImpl extends SimpleServiceImpl<SplashScreen> imp
 		splash.setTitle(model.getTitle());
 		splash.setMessage(model.getMessage());
 		splash.setImageURL(model.getImageURL());
+		splash.setRedirectLink(model.getRedirectLink());
 		splash.setSubMessage(model.getSubMessage());
 		splash.setShow(model.getShow());
 		

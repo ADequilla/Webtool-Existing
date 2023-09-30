@@ -515,15 +515,15 @@
             }, timeoutDuration * 1000);
         }
 
-        function checkIfContinue() {
-            var continueSession = confirm("Your Session is Timeout, Do you want to continue?");
-            if (continueSession) {
-                clearTimeout(sessionTimeout);
-                getSessionTimeoutAndStartTimer();
-            } else {
-                window.location.replace("${pageContext.request.contextPath}/logout");
-            }
-        }
+        // function checkIfContinue() {
+        //     var continueSession = confirm("Your Session is Timeout, Do you want to continue?");
+        //     if (continueSession) {
+        //         clearTimeout(sessionTimeout);
+        //         getSessionTimeoutAndStartTimer();
+        //     } else {
+        //         window.location.replace("${pageContext.request.contextPath}/logout");
+        //     }
+        // }
 
         function getSessionTimeoutAndStartTimer() {
             var xhr = new XMLHttpRequest();
@@ -543,13 +543,13 @@
 
 
 	   
-	function DisableBackButton(){
-		window.history.forward()
-	}
-	DisableBackButton();
-	window.onload = DisableBackButton;
-	window.onpageshow = function(evt) {if (evt.persisted) DisableBackButton}
-	window.onunload = function(){ void (0)}
+	// function DisableBackButton(){
+	// 	window.history.forward()
+	// }
+	// DisableBackButton();
+	// window.onload = DisableBackButton;
+	// window.onpageshow = function(evt) {if (evt.persisted) DisableBackButton}
+	// window.onunload = function(){ void (0)}
 	</script>
 
 	<decorator:head />

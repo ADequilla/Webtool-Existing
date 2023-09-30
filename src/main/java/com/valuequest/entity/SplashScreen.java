@@ -40,6 +40,9 @@ public class SplashScreen implements Serializable {
     @Column(name = "image_url")
 	private String imageURL;
 
+     @Column(name = "redirect_link")
+	private String redirectLink;
+
     @Column(name = "show")
 	private String show;
 
@@ -103,6 +106,13 @@ public class SplashScreen implements Serializable {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+    public String getRedirectLink() {
+        return redirectLink;
+    }
+
+    public void setRedirectLink(String redirectLink) {
+        this.redirectLink = redirectLink;
     }
 
     public String getShow() {

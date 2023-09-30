@@ -47,8 +47,8 @@ public class ViewUser implements Serializable {
 	@Column(name = "check_status")
 	private String checkStatus;
 
-	@Column(name = "is_login")
-	private Boolean isLogin;
+	// @Column(name = "is_login")
+	// private Boolean isLogin;
 
 	public Long getId() {
 		return id;
@@ -138,11 +138,11 @@ public class ViewUser implements Serializable {
 		this.checkStatus = checkStatus;
 	}
 
-	public Boolean getIsLogin() {
-		return isLogin;
-	}
+	// public Boolean getIsLogin() {
+	// 	return isLogin;
+	// }
 
-	public void setIsLogin(Boolean isLogin) {
-		this.isLogin = isLogin;
-	}
+	// public void setIsLogin(Boolean isLogin) {
+	// 	this.isLogin = isLogin;
+	// }
 }
