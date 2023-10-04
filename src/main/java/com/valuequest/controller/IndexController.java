@@ -37,23 +37,42 @@ public class IndexController extends BaseController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, HttpSession session) {
     	SecUser user = this.getLoginSecUser(session);
+		adminService.updateCekStatus(getLoginSecUser(session), session.getId());
+
+		ParamConfig config 	= genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
+		String valueTimeout = config.getValue();
+		valueTimeout = valueTimeout.replace(".","");
+		valueTimeout = valueTimeout.replace(",","");
+		session.setMaxInactiveInterval(Integer.parseInt(valueTimeout) * 60);
         
-    	if (USER_SUPER_ADMIN.equals(user.getUsrPosition()))
-		{
-    		return "redirect:dashboard/registered-client/";
-		}else if (USER.equals(user.getUsrPosition())){
-			return "redirect:dashboard/registered-client/";
+    // 	if (USER_SUPER_ADMIN.equals(user.getUsrPosition()))
+	// 	{
+    // 		return "redirect:dashboard/registered-client/";
+	// 	}else if (USER.equals(user.getUsrPosition())){
+	// 		return "redirect:dashboard/registered-client/";
 
-		}else{
+	// 	}else{
 
-    		if((user.getUsrExpiredPassword() != null && DateUtil.compare(user.getUsrExpiredPassword(), new Date()) < 0) || user.isPasswordDefault()){
-    			session.setAttribute("forceChangePasswd", true);
-    			return "redirect:password/change/default";
-    		}
+    // 		if((user.getUsrExpiredPassword() != null && DateUtil.compare(user.getUsrExpiredPassword(), new Date()) < 0) || user.isPasswordDefault()){
+    // 			session.setAttribute("forceChangePasswd", true);
+    // 			return "redirect:password/change/default";
+    // 		}
     		
-    		return "01.misc/blank";
-    	}
-    }
+    // 		return "01.misc/blank";
+    // 	}
+    // }
+
+	if (USER_SUPER_ADMIN.equals(user.getUsrPosition())){
+		return "redirect:dashboard/registered-client/";
+	}else{
+		if((user.getUsrExpiredPassword() != null && DateUtil.compare(user.getUsrExpiredPassword(), new Date()) < 0) || user.isPasswordDefault()){
+			session.setAttribute("forceChangePasswd", true);
+			return "redirect:password/change/default";
+		}
+		
+		return "01.misc/blank";
+	}
+}
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {

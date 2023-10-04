@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.valuequest.entity.util.CustomJsonDateSerializer;
 
 @Entity
-@Table(name = "mfs.m_bank")
+@Table(name = "instapay.participants")
 public class StructureBankList implements Serializable {
 
 	/**
@@ -26,17 +26,17 @@ public class StructureBankList implements Serializable {
 	 */
 	private static final long serialVersionUID = 8400085615623318326L;
 	@Id
-	@SequenceGenerator(name = "sequence", sequenceName = "mfs.m_bank_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+	// @SequenceGenerator(name = "sequence", sequenceName = "mfs.m_bank_id_seq", allocationSize = 1)
+	// @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
 	@Column(name = "id")
 	private Long id;
 	@Column(name = "bank_code")
 	private String bankCode;
-	@Column(name = "bank_name")
+	@Column(name = "name")
 	private String bankName;
-	@Column(name = "short_name")
+	@Column(name = "mnemonic")
 	private String shortName;
-	@Column(name = "bank_bic")
+	@Column(name = "bic")
 	private String bankBic;
 	
 	@Column(name = "created_date")

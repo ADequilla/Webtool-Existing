@@ -83,7 +83,7 @@
 							</button>
 						</form>
 						<br> <span class="links color-front copyright">
-							&copy;CARD Bank | Version 1.0.${buildNumber} build 20150704.1727
+							&copy;Version 1.0.${buildNumber} build 20150704.1727
 						</span>
 					</div>
 				</div>
