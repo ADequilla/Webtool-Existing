@@ -3,11 +3,18 @@ package com.valuequest.services.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,12 +30,48 @@ import com.valuequest.dao.CenterDao;
 import com.valuequest.dao.InstitutionDao;
 import com.valuequest.dao.UnitDao;
 import com.valuequest.entity.MappingHierarchy;
+import com.valuequest.entity.SmsLogs;
+import com.valuequest.entity.StructureInstitution;
+import com.valuequest.entity.UserInstitution;
 import com.valuequest.entity.security.SecUser;
 import com.valuequest.services.HierarchyService;
 
 @Service
 @Transactional(readOnly = true)
 public class HierarchyServiceImpl extends SimpleServiceImpl<MappingHierarchy> implements HierarchyService {
+
+	
+	protected SecUser getLoginSecUser(HttpSession session) {
+		return (SecUser) session.getAttribute("loginSecUser");
+	}
+	
+	final Logger log = Logger.getLogger("Hierarchy");
+	
+	private DetachedCriteria criteriaBy(Long userId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(UserInstitution.class);
+		criteria.createAlias("user", "user");
+		criteria.createAlias("institution", "institution");
+		criteria.add(Restrictions.eq("user.id", userId));
+		criteria.setProjection(Projections.projectionList().add(Projections.groupProperty("institution.code")));
+
+		return criteria;
+	}
+	
+	List<String> instiList = new ArrayList<String>();
+	
+	public void getUserInsti(Long userId) {
+		instiList.clear();
+		Criteria criteria = this.getSessionFactory().getCurrentSession().createCriteria(StructureInstitution.class);
+		criteria.add(Subqueries.propertyIn("code", criteriaBy(userId)));
+		List r = criteria.list();
+		for (Iterator iterator = r.iterator(); iterator.hasNext();){
+			StructureInstitution insti = (StructureInstitution) iterator.next();		
+            instiList.add(insti.getCode());
+		}
+		
+		System.out.println("#####Arrray of Insti#####\n "+  instiList.toString());
+		
+	}
 
 	@Autowired
 	protected InstitutionDao institutionDao;
@@ -152,5 +195,12 @@ public class HierarchyServiceImpl extends SimpleServiceImpl<MappingHierarchy> im
 		if (ids.size() > 0) {
 			this.getSessionFactory().getCurrentSession().createQuery("delete from MappingHierarchy where id in :ids").setParameterList("ids", ids).executeUpdate();
 		}
+	}
+
+	@Override
+	public DataTables searchByMapCriteria(DataTables dataTables, HashMap<String, Object> searchMap,
+			HttpSession session) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'searchByMapCriteria'");
 	}
 }

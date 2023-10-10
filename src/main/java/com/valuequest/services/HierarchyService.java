@@ -8,6 +8,7 @@ import com.valuequest.controller.administration.model.HierarchyModel;
 import com.valuequest.controller.administration.model.StateModel;
 import com.valuequest.entity.MappingHierarchy;
 import com.valuequest.entity.security.SecUser;
+import javax.servlet.http.HttpSession;
 
 public interface HierarchyService {
 
@@ -17,6 +18,8 @@ public interface HierarchyService {
 
 	public boolean isDuplicate(HierarchyModel model);
 
+	public DataTables searchByMapCriteria(DataTables dataTables, HashMap<String, Object> searchMap, HttpSession session);
+	
 	public DataTables searchByMapCriteria(DataTables dataTables, HashMap<String, Object> searchMap);
 
 	public void delete(List<StateModel> states);

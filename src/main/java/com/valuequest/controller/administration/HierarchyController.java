@@ -68,15 +68,15 @@ public class HierarchyController extends BaseController {
 			@RequestParam String institution, 
 			@RequestParam String branch, 
 			@RequestParam String unit,
-			@RequestParam String center) {
-		
+			@RequestParam String center,
+			HttpSession session) {
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("institution", institution);
 		searchMap.put("branch", branch);
 		searchMap.put("unit", unit);
 		searchMap.put("center", center);
 
-		return hierarchyService.searchByMapCriteria(dataTables, searchMap);
+		return hierarchyService.searchByMapCriteria(dataTables, searchMap, session);
 	}
 
 	@RequestMapping("/create")

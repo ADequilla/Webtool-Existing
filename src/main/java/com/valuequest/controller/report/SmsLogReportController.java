@@ -37,7 +37,7 @@ import com.valuequest.entity.UserInstitution;
 import com.valuequest.entity.security.SecUser;
 import com.valuequest.services.SmsLogsService;
 import com.valuequest.services.impl.SimpleServiceImpl;
-
+  
 @Controller
 @RequestMapping("/report/sms-log-report")
 public class SmsLogReportController extends BaseController{

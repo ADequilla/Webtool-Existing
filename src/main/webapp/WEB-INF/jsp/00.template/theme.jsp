@@ -507,13 +507,13 @@
 	        });
 	    }
 
-		var sessionTimeout;
+		// var sessionTimeout;
 
-        function startSessionTimeout(timeoutDuration) {
-            sessionTimeout = setTimeout(function() {
-                checkIfContinue();
-            }, timeoutDuration * 1000);
-        }
+        // function startSessionTimeout(timeoutDuration) {
+        //     sessionTimeout = setTimeout(function() {
+        //         checkIfContinue();
+        //     }, timeoutDuration * 1000);
+        // }
 
         // function checkIfContinue() {
         //     var continueSession = confirm("Your Session is Timeout, Do you want to continue?");

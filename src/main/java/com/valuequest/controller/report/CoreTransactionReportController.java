@@ -330,7 +330,7 @@ public class CoreTransactionReportController extends BaseController {
 	
 	public static Connection ConnectToDB() throws Exception {
 
-		// //###############PROD
+		//###############PROD
 		String url = "jdbc:postgresql://35.241.122.188:5432/mfs";
 		Properties props = new Properties();
 		props.setProperty("user","postgres");
