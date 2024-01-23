@@ -14,8 +14,9 @@ public class Salsa20 {
 			Salsa20EncryptModel enc = new Salsa20EncryptModel();
 			enc.setToEncrypt(password);
 			
-			sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com/API/V1/Encrypt",enc); //PROD
-			// sender = new HttpRequestSender("http://dev-webtools-test.fortress-asya.com:8886/API/V1/Encrypt",enc); //TEST
+			// sender = new HttpRequestSender("https://prod-api-janus.fortress-asya.com/API/V1/Encrypt",enc); //PROD
+			//sender = new HttpRequestSender("http://dev-webtools-test.fortress-asya.com:8886/API/V1/Encrypt",enc); //TEST
+			sender = new HttpRequestSender("http://dev-webtools-test.fortress-asya.com:18006/API/V1/Encrypt",enc); //TEST CHANGE PORT
 			// sender = new HttpRequestSender("http://rbi-webtools.fortress-asya.com/API/V1/Encrypt",enc);
 
 			final HashMap<String, String> headers = new HashMap<String, String>();

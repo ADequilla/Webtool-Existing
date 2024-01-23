@@ -19,14 +19,25 @@
             	$('#errorMessage').val('');
             });
 
+
+
+		
             $("#btn-save").click(function(){
                 if ($("form").valid()) {
                 	var dataJson = $('form').serializeObject();
-                    submit('/report/${REPORT_MENU}/save', JSON.stringify(dataJson), function (data) {
-                    	if(data.id){
-                    		document.location.href = '${pageContext.request.contextPath}/report/${REPORT_MENU}/';
-                    	}
+					if (dataJson.id) {
+                    window.location.href = `${pageContext.request.contextPath}/report/failed-enrollment-list-report/save`;
+                    } else {
+                    submit('/report/failed-enrollment-list-report/save', JSON.stringify(dataJson), function (data) {
+				    console.log("data");
+		            console.log(data);
+                    	// if(data.id){
+                    	// 	document.location.href = '${pageContext.request.contextPath}/report/failed-enrollment-list-report/';
+						// 	console.log("data");
+		                //     console.log(data);
+                    	// }
 	                });
+				}
                 }
             });
         });

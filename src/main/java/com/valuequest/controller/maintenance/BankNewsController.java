@@ -4,8 +4,10 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -13,6 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,13 +35,79 @@ import com.valuequest.controller.BaseController;
 import com.valuequest.controller.administration.model.StateModel;
 import com.valuequest.entity.ParamConfig;
 import com.valuequest.entity.Product;
+import com.valuequest.entity.StructureInstitution;
+import com.valuequest.entity.StructureUser;
+import com.valuequest.entity.UserInstitution;
 import com.valuequest.entity.security.SecUser;
+import com.valuequest.services.SmsLogsService;
+import com.valuequest.services.impl.SimpleServiceImpl;
 import com.valuequest.util.Constantas;
 import com.valuequest.util.HttpClientUpload;
   
 @Controller
 @RequestMapping("/utilities/news")
 public class BankNewsController extends BaseController {
+
+	List<String> instiList = new ArrayList<String>();
+  
+	
+	protected SecUser getLoginSecUser(HttpSession session) {
+		return (SecUser) session.getAttribute("loginSecUser");
+	}
+	
+	private class SimpleServ extends SimpleServiceImpl<StructureUser> implements SmsLogsService{
+
+		
+		
+		private DetachedCriteria criteriaBy(Long userId) {
+			DetachedCriteria criteria = DetachedCriteria.forClass(UserInstitution.class);
+			criteria.createAlias("user", "user");
+			criteria.createAlias("institution", "institution");
+			criteria.add(Restrictions.eq("user.id", userId));
+			criteria.setProjection(Projections.projectionList().add(Projections.groupProperty("institution.code")));
+
+			return criteria;
+		}
+		
+
+		public void getUserInsti(Long userId) {
+			
+			Criteria criteria = this.getSessionFactory().getCurrentSession().createCriteria(StructureInstitution.class);
+			criteria.add(Subqueries.propertyIn("code", criteriaBy(userId)));
+			List r = criteria.list();
+			for (Iterator iterator = r.iterator(); iterator.hasNext();){
+				StructureInstitution insti = (StructureInstitution) iterator.next();		
+	            instiList.add(insti.getCode());
+			}
+			
+			System.out.println("#####Arrray of Insti#####\n "+  instiList.toString());
+			
+		}
+
+
+		@Override
+		public DataTables searchByMapCriteria(DataTables dataTables, HashMap<String, Object> searchMap,
+				HttpSession session) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+		@Override
+		public Class<StructureUser> getRealClass() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+		@Override
+		public DataTables searchByMapCriteria(DataTables dataTables, HashMap<String, Object> searchMap) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	
+	}
 
 	final static String MENU 		= "UTILITIES";
 	final static String PRIVILEDGE 	= "BANK_NEWS";

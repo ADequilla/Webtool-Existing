@@ -34,12 +34,13 @@ public class FailedEnrollmentReportController extends BaseController {
 	private String BASE_VIEW 		= "08.report/";
 	private String LIST_VIEW 		= "report-list";
 	private String GENERATE_VIEW	= "param-failed-enrollment";
+	private String userInstiCode = "";
 	
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
 
 		 SecUser user = this.getLoginSecUser(session);
-
+		userInstiCode = user.getInstitutions();
         user.setIsLogin(true);
         adminService.updateCekStatus(user, session.getId());
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
@@ -104,9 +105,21 @@ public class FailedEnrollmentReportController extends BaseController {
 						param.getDateBirth() + "|" +
 						param.getMobileNumber() + "|" +
 						param.getClientType() + "|" +
-						param.getErrorMessage() + "|END";
+						param.getErrorMessage() + "|END" + userInstiCode; 
+						// + userInstiCode;
+		                // params = params.replace("null", "");
+
+		// AsynReport report = new AsynReport();
+		// report.setType(AsynReport.REPORT_TYPE_FAILED_ENROLLMENT);
+		// report.setParam(params);
+		// report.setFileType(param.getType());
+		// report.setStatus(Lookup.LOOKUP_REPORT_STATUS_WAITING);
+		// report.setSubmitBy(getLoginSecUser(session));
+		// report.setSubmitedDate(new Date(System.currentTimeMillis()));
 		
-		params = params.replace("null", "");
+		// asynReportService.saveOrUpdate(report);
+		
+		// return new AjaxResponse(report);
 
 		AsynReport report = new AsynReport();
 		report.setType(AsynReport.REPORT_TYPE_FAILED_ENROLLMENT);
@@ -119,6 +132,7 @@ public class FailedEnrollmentReportController extends BaseController {
 		asynReportService.saveOrUpdate(report);
 		
 		return new AjaxResponse(report);
+
 	}
 	
 	@RequestMapping(value = "/download/{id}", method = RequestMethod.GET)

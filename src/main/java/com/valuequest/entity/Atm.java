@@ -25,6 +25,9 @@ public class Atm implements Serializable {
 	@Column(name = "atm_id")
 	private Long id;
 
+    @Column(name = "inst_code", length = 100)
+	private String inst;
+
 	@Column(name = "atm_type", length = 100)
 	private String type;
 	
@@ -57,8 +60,7 @@ public class Atm implements Serializable {
 	@Column(name="last_updated_by")
 	private Long lastUpdatedBy;
 
-	@Column(name="inst_code")
-	private String instCode;
+	
 
 	public Long getId() {
 		return id;
@@ -74,6 +76,14 @@ public class Atm implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+    public String getInst() {
+		return inst;
+	}
+
+	public void setInst(String inst) {
+		this.inst = inst;
 	}
 
 	public String getAddress() {
@@ -148,13 +158,6 @@ public class Atm implements Serializable {
 		this.latitude = latitude;
 	}
 
-	public String getInstCode() {
-		return instCode;
-	}
-
-	public void setInstCode(String instCode) {
-		this.instCode = instCode;
-	}
 	
 	
 }

@@ -19,15 +19,30 @@
             });
 
 			$("#btn-save").click(function() {
-  if ($("form").valid()) {
-    var dataJson = $('form').serializeObject();
-    if (dataJson.id) {
-      window.location.href = `${pageContext.request.contextPath}/report/web-user/save`;
-    } else {
-      submit('/report/web-user/save', JSON.stringify(dataJson), function(data) {
-      });
-    }
+				if ($("form").valid()) {
+  var dataJson = $('form').serializeObject();
+  if (dataJson.id) {
+    window.location.href = `${pageContext.request.contextPath}/report/web-user/save`;
+  } else {
+    // If there is no 'id' in dataJson, submit the form
+    submit('/report/web-user/save', JSON.stringify(dataJson), function(data) {
+      console.log("data");
+      console.log(data);
+    });
   }
+}
+
+//   if ($("form").valid()) {
+//     var dataJson = $('form').serializeObject();
+//     if (dataJson.id) {
+//       window.location.href = `${pageContext.request.contextPath}/report/web-user/save`;
+//     } else {
+//       submit('/report/web-user/save', JSON.stringify(dataJson), function(data) {
+// 		console.log("data");
+// 		console.log(data);
+//       });
+//     }
+//   }
 });
             
             popoverFunction.getStucturePopup({

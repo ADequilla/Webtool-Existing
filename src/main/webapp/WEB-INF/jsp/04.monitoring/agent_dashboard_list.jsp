@@ -89,7 +89,7 @@
 			
 		});
 
-		// 	if (localStorage.getItem('isPageOpen')) {
+	// 		if (localStorage.getItem('isPageOpen')) {
     //   alert('Page is already open in another tab!');
 	//   window.location.href = '${pageContext.request.contextPath}/logout'; 
     // } else {

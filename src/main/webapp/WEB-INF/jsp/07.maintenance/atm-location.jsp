@@ -11,7 +11,7 @@
                 classMain	: "showInstitutionPopup",
                 modalId		: "popupInstitutionTable",
                 modalTitle	: "Institution List",
-                hiddenId	: "instiCode",
+                hiddenId	: "inst",
                 varValue	: "description",
                 callback	: function callback(){
                     
@@ -33,7 +33,7 @@
                 "sServerMethod"	: "POST",
                 "fnServerData"	: function (sSource, aoData, fnCallback) {
                     var location = $.trim($("#searchLocation").val());
-					var institutionCode	= $.trim($("#instiCode").val());
+					var institutionCode	= $.trim($("#inst").val());
 
                     aoData.push({ "name": "location", "value": location });
 					aoData.push({ "name": "instCode", "value": institutionCode });
@@ -176,7 +176,7 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-6">
-							<input type="hidden" id="instiCode" name="instiCode">
+							<input type="hidden" id="inst" name="inst">
 							<div class="input-group">
 								<input id="instiDesc" name="instiDesc" type="text"
 									style="cursor: pointer;"

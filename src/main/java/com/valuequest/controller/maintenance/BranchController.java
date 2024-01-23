@@ -50,12 +50,14 @@ public class BranchController extends BaseController {
 	}
 
 	@RequestMapping("/search")
-	public @ResponseBody DataTables search(DataTables dataTables, 
+	public @ResponseBody DataTables search(DataTables dataTables,
+	        @RequestParam(required = false) String insti, 
 			@RequestParam(required = false) String code,
 			@RequestParam(required = false) String description, 
 			HttpSession session) {
 
 		HashMap<String, Object> searchMap = new HashMap<>();
+		searchMap.put("code", insti);
 		searchMap.put("code", code);
 		searchMap.put("description", description);
 

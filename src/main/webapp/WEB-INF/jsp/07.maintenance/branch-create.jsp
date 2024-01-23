@@ -24,6 +24,7 @@
             });
 			
 			$("#btn-reset").click(function(){
+				$('#insti').val($('#default_insti').val());
 				$('#code').val($('#default_code').val());
 				$('#description').val($('#default_description').val());
 			});
@@ -87,6 +88,7 @@
 		<div class="main-content">
 			<form class="form-horizontal" role="form"
 				enctype="multipart/form-data">
+				<input type="hidden" id="default_insti" value="${branch.insti}">
 				<input type="hidden" id="default_code" value="${branch.code}">
 				<input type="hidden" id="default_description"
 					value="${branch.description}"> <input type="hidden"
@@ -101,6 +103,15 @@
 								</h3>
 							</div>
 							<div class="widget-content form">
+								<div class="form-group">
+									<label class="col-md-3 control-label">Institution <span class="required">*</span>
+									</label>
+									<div class="col-md-4">
+										<input id="insti" name="insti"
+											value="${branch.insti}" type="text"
+											class="form-control required" placeholder="Institution" />
+									</div>
+								</div>
 								<div class="form-group">
 									<label class="col-md-3 control-label">Branch Code <span
 										class="required">*</span></label>
@@ -120,6 +131,11 @@
 											class="form-control required" placeholder="Description" />
 									</div>
 								</div>
+
+
+
+
+								
 							</div>
 						</div>
 					</div>

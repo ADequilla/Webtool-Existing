@@ -26,6 +26,9 @@ public class ViewAtm implements Serializable {
     @Column(name = "atm_type")
 	private String type;
 
+    @Column(name = "inst_code")
+	private String inst;
+
 	@Column(name = "atm_address")
 	private String address;
 
@@ -60,9 +63,7 @@ public class ViewAtm implements Serializable {
     @Column(name = "inst_desc")
 	private String instDesc;
 
-    @Column(name = "inst_code")
-	private String instCode;
-
+   
     public Long getId() {
         return id;
     }
@@ -79,6 +80,14 @@ public class ViewAtm implements Serializable {
         this.type = type;
     }
 
+    public String getInst() {
+		return inst;
+	}
+
+	public void setInst(String inst) {
+		this.inst = inst;
+	}
+    
     public String getAddress() {
         return address;
     }
@@ -159,13 +168,7 @@ public class ViewAtm implements Serializable {
         this.instDesc = instDesc;
     }
 
-    public String getInstCode() {
-        return instCode;
-    }
-
-    public void setInstCode(String instCode) {
-        this.instCode = instCode;
-    }
+    
 
     
 

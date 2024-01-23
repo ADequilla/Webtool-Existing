@@ -331,16 +331,22 @@ public class CoreTransactionReportController extends BaseController {
 	public static Connection ConnectToDB() throws Exception {
 
 		//###############PROD
-		String url = "jdbc:postgresql://35.241.122.188:5432/mfs";
-		Properties props = new Properties();
-		props.setProperty("user","postgres");
-		props.setProperty("password","fd5@p.@dm1n");
+		// String url = "jdbc:postgresql://35.241.122.188:5432/mfs";
+		// Properties props = new Properties();
+		// props.setProperty("user","postgres");
+		// props.setProperty("password","fd5@p.@dm1n");
 
 		// ###############TEST
 		// String url = "jdbc:postgresql://34.87.184.130:5432/mfs";
 		// Properties props = new Properties();
 		// props.setProperty("user","postgres");
 		// props.setProperty("password","p0stgR35_t3sT_p@55_2022");
+
+		// ###############TEST CHANGE PORT
+		String url = "jdbc:postgresql://34.87.184.130:18010/mfs";
+		Properties props = new Properties();
+		props.setProperty("user","postgres");
+		props.setProperty("password","p0stgR35_t3sT_p@55_2022");
 
 		//###############PROD RBI
 		// String url = "34.92.119.77";

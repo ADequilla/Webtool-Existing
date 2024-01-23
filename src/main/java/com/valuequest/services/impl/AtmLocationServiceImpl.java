@@ -46,12 +46,13 @@ public class AtmLocationServiceImpl extends SimpleServiceImpl<Atm> implements At
     	}
     	
     	atm.setType(model.getType());
+		atm.setInst(model.getInst());
     	atm.setAddress(model.getAddress());
     	atm.setCity(model.getCity());
     	atm.setDescription(model.getDescription());
     	atm.setLongitude(model.getLongitude());
     	atm.setLatitude(model.getLatitude());
-		atm.setInstCode(model.getInstCode());
+		// atm.setInstCode(model.getInstCode());
     	
     	this.saveOrUpdate(atm);
     	model.setId(atm.getId());
@@ -74,7 +75,7 @@ public class AtmLocationServiceImpl extends SimpleServiceImpl<Atm> implements At
 	@Override
 	public DataTables searchByMapCriteria(DataTables dataTables, HashMap<String, Object> searchMap) {
 		String location		= (String) searchMap.get("location");
-		String instCode		= (String) searchMap.get("instCode");
+		String instCode		= (String) searchMap.get("inst");
 		Criteria criteria 	= this.getSessionFactory().getCurrentSession().createCriteria(ViewAtm.class);
 
 		if (StringUtils.isNotBlank(location)){
@@ -85,7 +86,7 @@ public class AtmLocationServiceImpl extends SimpleServiceImpl<Atm> implements At
 		}
 
 		if (StringUtils.isNotBlank(instCode)){
-			criteria.add(Restrictions.ilike("instCode", instCode, MatchMode.ANYWHERE));
+			criteria.add(Restrictions.ilike("inst", instCode, MatchMode.ANYWHERE));
 		}
 
 		return this.getDataTablesFromCriteria(criteria, dataTables);

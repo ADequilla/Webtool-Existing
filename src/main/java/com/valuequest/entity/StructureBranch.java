@@ -19,6 +19,8 @@ public class StructureBranch implements Serializable {
 	private static final long serialVersionUID = -4766966230697392291L;
 
 	@Id
+	@Column(name = "institution", length = 15)
+	private String insti;
 	@Column(name = "branch_code", unique = true, length = 15)
 	private String code;
 	@Column(name = "branch_desc", length = 50)
@@ -35,6 +37,15 @@ public class StructureBranch implements Serializable {
 	private Date updatedDate;
 	@Column(name = "last_updated_by")
 	private Long updatedBy;
+
+
+	public String getInsti() {
+		return insti;
+	}
+
+	public void setInsti(String insti) {
+		this.insti = insti;
+	}
 
 	public String getCode() {
 		return code;

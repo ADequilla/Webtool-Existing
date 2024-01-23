@@ -103,14 +103,14 @@ public class WebUserController extends BaseController {
 						param.getStatus() + "|" + 
 						param.getBranchCode() + "|END";
 
+
 		AsynReport report = new AsynReport();
 		report.setType(AsynReport.REPORT_TYPE_WEB_USER);
 		report.setParam(params);
 		report.setFileType(param.getType());
-		report.setStatus(Lookup.LOOKUP_REPORT_STATUS_COMPLETED);
+		report.setStatus(Lookup.LOOKUP_REPORT_STATUS_WAITING);
 		report.setSubmitBy(getLoginSecUser(session));
 		report.setSubmitedDate(new Date(System.currentTimeMillis()));
-		report.setCompletedDate(new Date(System.currentTimeMillis()));
 
 		System.out.println("############Submitted By: " + getLoginSecUserName(session));
 		asynReportService.saveOrUpdate(report);

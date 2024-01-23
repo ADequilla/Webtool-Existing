@@ -9,8 +9,11 @@
 	        	"sAjaxSource"	: "${pageContext.request.contextPath}/utilities/branch/search",
 	            "sServerMethod"	: "POST",
 	            "fnServerData"	: function (sSource, aoData, fnCallback) {
+					var insti		= $.trim($("#searchInsti").val());
 	            	var code		= $.trim($("#searchCode").val());
 	            	var description	= $.trim($("#searchDesc").val());
+					
+					aoData.push({ "name": "insti", "value": insti });
 	            	aoData.push({ "name": "code", "value": code });
 					aoData.push({ "name": "description", "value": description }); 
 	            	jQuery.ajax({
@@ -21,6 +24,7 @@
 	                });
 				},
 	            "aoColumns": [
+				    { "mDataProp": "insti" },
 					{ "mDataProp": "code" },
 					{ "mDataProp": "description" },
 					{ "mDataProp": "createdDate" },
@@ -46,6 +50,7 @@
 			});
 			
 			$("#btn-reset").click(function(){
+				$('#searchInsti').val("");
 				$('#searchCode').val("");
 		        $('#searchDesc').val("");
 				
@@ -139,6 +144,12 @@
 			<div class="widget-content-search">
 				<div class="row">
 					<div class="col-sm-6">
+						<input type="text" id="searchInsti" class="form-control"
+							placeholder="Institution">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
 						<input type="text" id="searchCode" class="form-control"
 							placeholder="Code">
 					</div>
@@ -183,6 +194,7 @@
 					class="table table-striped table-hover table-bordered datatable">
 					<thead>
 						<tr>
+							<th>Institution</th>
 							<th>Code</th>
 							<th>Description</th>
 							<th>Created Date</th>

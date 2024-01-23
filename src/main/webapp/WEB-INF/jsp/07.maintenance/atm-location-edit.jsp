@@ -6,9 +6,34 @@
 <title>ATM Location | Create/Edit</title>
 <script type="text/javascript">
         $(document).ready(function() {
+
+
+			popoverFunction.getStucturePopup({
+                url			: "${pageContext.request.contextPath}",
+                classMain	: "showInstitutionPopup",
+                modalId		: "popupInstitutionTable",
+                modalTitle	: "Institution List",
+                hiddenId	: "inst",
+                varValue	: "description",
+                callback	: function callback(){
+                    
+    			},
+               	ajax_data	: [
+       					{
+       						fieldVar	: "type",
+       						fieldValue	: "INSTITUTION"
+       					},
+       					{
+    	                	fieldVar	: "filter",
+    						fieldValue	: "Y"
+    	                }
+            		]
+            });
+
             $("form").validate();
 
 			$("#btn-reset").click(function(){
+				$('#insti').val($('#default_inst').val());
             	$('#description').val($('#default_description').val());
             	$('#address').val($('#default_address').val());
             	$('#city').val($('#default_city').val());
@@ -112,6 +137,7 @@
 		<form class="form-horizontal" role="form" method="post">
 			<input type="hidden" name="id" value="${atm.id}"> <input
 				type="hidden" id="default_description" value="${atm.description}">
+			<input type="hidden" id="default_insti" value="${atm.inst}">
 			<input type="hidden" id="default_address" value="${atm.address}">
 			<input type="hidden" id="default_city" value="${atm.city}"> <input
 				type="hidden" id="default_longitude" value="${atm.longitude}">
@@ -127,13 +153,24 @@
 						</div>
 						<div class="widget-content form">
 							<div class="form-body">
+								<div class="form-group">
+									<label class="col-md-3 control-label">instiCode<span
+										class="required">*</span></label>
+									<div class="col-md-4">
+										<input id="inst" name="inst" type="text"
+											value="${atm.inst}" style="cursor: pointer;"
+											class="form-control showInstitutionPopup" readonly="readonly"
+											placeholder="Institution" />
+									</div>
+								</div>
+							</div>
 
 								<div class="form-body">
 									<div class="form-group">
 										<label class="col-md-3 control-label">Description <span
 											class="required">*</span></label>
 										<div class="col-md-4">
-											<textarea id="description" name="description" type="text"
+											<textarea id="description" name="description" value="${atm.description}" type="text"
 												class="form-control required" rows="3">${atm.description}</textarea>
 										</div>
 									</div>

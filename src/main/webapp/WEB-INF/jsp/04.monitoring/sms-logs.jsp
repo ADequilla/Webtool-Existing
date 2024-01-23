@@ -472,7 +472,7 @@
 				
 // 			}
 
-// 	if (localStorage.getItem('isPageOpen')) {
+	// if (localStorage.getItem('isPageOpen')) {
     //   alert('Page is already open in another tab!');
 	//   window.location.href = '${pageContext.request.contextPath}/logout'; 
     // } else {
@@ -482,8 +482,8 @@
     //   });
     // }
 	// function DisableBackButton(){
-// 		window.history.forward()
-// 	}
+	// 	window.history.forward()
+	// }
 // 	DisableBackButton();
 // 	window.onload = DisableBackButton;
 // 	window.onpageshow = function(evt) {if (evt.persisted) DisableBackButton}

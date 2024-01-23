@@ -16,6 +16,14 @@
 		<property name="leakDetectionThreshold" value="60000" />
 		<property name="dataSourceProperties">
 
+
+			<!-- Dev Config CHANGE PORT -->
+			<props> 
+				<prop key="user">postgres</prop> 
+				<prop key="password">p0stgR35_t3sT_p@55_2022</prop> 
+				<prop key="url">jdbc:postgresql://34.87.184.130:18010/mfs</prop> 
+			</props>
+
 			<!-- Dev Config -->
 			<!-- <props> 
 				<prop key="user">postgres</prop> 
@@ -28,11 +36,11 @@
 				<prop key="url">jdbc:postgresql://localhost:5432/mfs</prop> </props> -->
 
 			<!-- Prod Config -->
-			<props>
+			<!-- <props>
 				<prop key="user">postgres</prop>
 				<prop key="password">fd5@p.@dm1n</prop>
 				<prop key="url">jdbc:postgresql://35.241.122.188:5432/mfs</prop>
-			</props>
+			</props> -->
 
 			<!-- Prod RBI -->
 			<!-- <props>
