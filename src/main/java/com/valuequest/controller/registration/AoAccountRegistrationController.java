@@ -3,6 +3,7 @@ package com.valuequest.controller.registration;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,8 @@ public class AoAccountRegistrationController extends BaseController {
 	private String C_RESET_ACTCODE 	= "RESET ACTIVATION CODE";
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -56,8 +58,8 @@ public class AoAccountRegistrationController extends BaseController {
 			@RequestParam(required = false) String center, 
 			@RequestParam(required = false) String accStatus,
 			@RequestParam(required = false) String smsStatus, 
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId", getLoginIdFromSession(session));
 		searchMap.put("cid", cid);
@@ -74,8 +76,8 @@ public class AoAccountRegistrationController extends BaseController {
 	}
 
 	@RequestMapping("/resend/{id}")
-	public @ResponseBody AjaxResponse resend(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse resend(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_RESEND_ACTCODE)) {
 			Client client 	= clientService.findById(id);
 			String data		= getXMLValue(client);
@@ -95,8 +97,8 @@ public class AoAccountRegistrationController extends BaseController {
 	}
 	
 	@RequestMapping("/reset/{id}")
-	public @ResponseBody AjaxResponse reset(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse reset(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_RESET_ACTCODE)) {
 			Client client 	= clientService.findById(id);
 			String data		= getXMLValue(client);

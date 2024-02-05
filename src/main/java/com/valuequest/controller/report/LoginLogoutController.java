@@ -36,7 +36,8 @@ public class LoginLogoutController extends BaseController {
 	private String GENERATE_VIEW	= "param-login-logout";
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
  SecUser user = this.getLoginSecUser(session);
         user.setIsLogin(true);
         adminService.updateCekStatus(user, session.getId());
@@ -79,8 +80,8 @@ public class LoginLogoutController extends BaseController {
 	}
 	
 	@RequestMapping("/generate")
-	public String generate(Model model, HttpSession session) {
-
+	public String generate(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
 			model.addAttribute("listFileType", genericService.lookup(Lookup.LOOKUP_REPORT_TYPE));
@@ -93,8 +94,8 @@ public class LoginLogoutController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody ReportParam param, HttpSession session) {
-		
+	public @ResponseBody AjaxResponse save(@RequestBody ReportParam param, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		String params = param.getDateRangeStart() + "|" + 
 						param.getDateRangeEnd() + "|" + 
 						param.getUsername() + "|" + 
@@ -115,7 +116,7 @@ public class LoginLogoutController extends BaseController {
 	
 	@RequestMapping(value = "/download/{id}", method = RequestMethod.GET)
 	public void download(@PathVariable Long id, HttpServletResponse response) {
-		
+		response.setHeader("X-Frame-Options", "DENY");
 		downloadReport(id, response);
 	}
 	

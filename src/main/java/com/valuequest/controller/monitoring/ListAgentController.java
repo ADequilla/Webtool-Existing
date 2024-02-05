@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Criteria;
@@ -38,7 +39,8 @@ public class ListAgentController extends BaseController {
 	List<String> instiList = new ArrayList<String>();
   
 	
-	protected SecUser getLoginSecUser(HttpSession session) {
+	protected SecUser getLoginSecUser(HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return (SecUser) session.getAttribute("loginSecUser");
 	}
 	
@@ -108,7 +110,8 @@ public class ListAgentController extends BaseController {
 	private ListAgentService listAgentService;
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -134,8 +137,8 @@ public class ListAgentController extends BaseController {
 			@RequestParam(required = false) String branchCode,
 			@RequestParam(required = false) String unitCode,
 			@RequestParam(required = false) String centerCode,
-			HttpSession session) {
-			
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		System.out.print("#### Agent CID###### " + cid);
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("searchDateStart", searchDateStart);

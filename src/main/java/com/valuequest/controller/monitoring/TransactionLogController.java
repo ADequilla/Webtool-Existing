@@ -2,6 +2,7 @@ package com.valuequest.controller.monitoring;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,8 @@ public class TransactionLogController extends BaseController {
 	private String LIST_VIEW 		= "transaction-log";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -53,8 +55,8 @@ public class TransactionLogController extends BaseController {
 			@RequestParam(required = false) String sourceCid,
 			@RequestParam(required = false) String targetCid,
 			@RequestParam(required = false) String status,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("coreId", coreId);
 		searchMap.put("mobileId", mobileId);

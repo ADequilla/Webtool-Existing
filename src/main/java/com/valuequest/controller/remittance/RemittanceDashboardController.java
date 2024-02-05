@@ -3,6 +3,7 @@ package com.valuequest.controller.remittance;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,8 @@ public class RemittanceDashboardController extends BaseController {
 	private RemittanceService remittanceService;
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -64,8 +66,8 @@ public class RemittanceDashboardController extends BaseController {
 			@RequestParam(required = false) String startSendDate,
 			@RequestParam(required = false) String endSendDate, 
 			@RequestParam(required = false) Long status,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 			HashMap<String, Object> searchMap = new HashMap<>();
 			searchMap.put("startSendDate", startSendDate);
 			searchMap.put("endSendDate", endSendDate);
@@ -80,8 +82,8 @@ public class RemittanceDashboardController extends BaseController {
 			@RequestParam(required = false) String startCancelledDate,
 			@RequestParam(required = false) String endCancelledDate, 
 			@RequestParam(required = false) Long status,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 			HashMap<String, Object> searchMap = new HashMap<>();
 			searchMap.put("startCancelledDate", startCancelledDate);
 			searchMap.put("endCancelledDate", endCancelledDate);
@@ -96,8 +98,8 @@ public class RemittanceDashboardController extends BaseController {
 			@RequestParam(required = false) String startClaimedDate,
 			@RequestParam(required = false) String endClaimedDate, 
 			@RequestParam(required = false) Long status,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 			HashMap<String, Object> searchMap = new HashMap<>();
 			searchMap.put("startClaimedDate", startClaimedDate);
 			searchMap.put("endClaimedDate", endClaimedDate);
@@ -111,8 +113,8 @@ public class RemittanceDashboardController extends BaseController {
 	public @ResponseBody DataTables searchAll(DataTables dataTables, 
 			@RequestParam(required = false) String startSendDate,
 			@RequestParam(required = false) String endSendDate, 
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 			HashMap<String, Object> searchMap = new HashMap<>();
 			searchMap.put("startSendDate", startSendDate);
 			searchMap.put("endSendDate", endSendDate);
@@ -121,8 +123,8 @@ public class RemittanceDashboardController extends BaseController {
 	}
 	
 	@RequestMapping("/claimed")
-	public String claimed(Model model, HttpSession session) {
-
+	public String claimed(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 				
 				
@@ -135,8 +137,8 @@ public class RemittanceDashboardController extends BaseController {
 		}
 	
 	@RequestMapping("/cancelled")
-	public String cancelled(Model model, HttpSession session) {
-
+	public String cancelled(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 				
 				putIntoRequest(model);
@@ -148,8 +150,8 @@ public class RemittanceDashboardController extends BaseController {
 		}
 	
 	@RequestMapping("/pending")
-	public String pending(Model model, HttpSession session) {
-
+	public String pending(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 				
 				putIntoRequest(model);
@@ -161,8 +163,8 @@ public class RemittanceDashboardController extends BaseController {
 		}
 	
 	@RequestMapping("/sent")
-	public String sent(Model model, HttpSession session) {
-
+	public String sent(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 				
 				putIntoRequest(model);
@@ -174,8 +176,8 @@ public class RemittanceDashboardController extends BaseController {
 		}
 	
 	@RequestMapping("/total")
-	public String total(Model model, HttpSession session) {
-
+	public String total(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 				
 				putIntoRequest(model);

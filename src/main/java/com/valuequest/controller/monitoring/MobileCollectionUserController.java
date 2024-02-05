@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -79,7 +80,8 @@ public class MobileCollectionUserController extends BaseController {
 	private ViewClient viewClient;
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -99,8 +101,8 @@ public class MobileCollectionUserController extends BaseController {
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam(required = false) String customerId,
 			@RequestParam(required = false) String mobileNo,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("customerId", customerId);
 		searchMap.put("mobileNo", mobileNo);
@@ -111,8 +113,8 @@ public class MobileCollectionUserController extends BaseController {
 	}
 	
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
-		
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
 			putIntoRequest(model);
@@ -124,9 +126,9 @@ public class MobileCollectionUserController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse get(@RequestBody ProfileModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse get(@RequestBody ProfileModel model, HttpSession session, HttpServletResponse response) {
 		ViewClient view = new ViewClient();
-		
+		response.setHeader("X-Frame-Options", "DENY");
 		ViewClient vcc = clientService.findByCidAndTypeCode(model.getString());
 		if(vcc == null){
 			HttpClientMcu httpClient = new HttpClientMcu();
@@ -214,8 +216,8 @@ public class MobileCollectionUserController extends BaseController {
 	
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
-		
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("################################################# id = "+id);
 		
 		ProfileModel pm = new ProfileModel();
@@ -239,8 +241,8 @@ public class MobileCollectionUserController extends BaseController {
 	}
 	
 	@RequestMapping("/save-data/{clientType}")
-	public @ResponseBody AjaxResponse saveData(@PathVariable String clientType, HttpServletRequest request, HttpSession session) {
-			
+	public @ResponseBody AjaxResponse saveData(@PathVariable String clientType, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");	
 			System.out.println("#################### clientType = "+clientType);
 			
 			if (getPriviledgeUser(session, PRIVILEDGE, SAVE_DATA)) {
@@ -280,8 +282,8 @@ public class MobileCollectionUserController extends BaseController {
 	}
 	
 	@RequestMapping("/updateData/{clientType}")
-	public @ResponseBody AjaxResponse updateData(@PathVariable String clientType, HttpServletRequest request, HttpSession session) {
-			
+	public @ResponseBody AjaxResponse updateData(@PathVariable String clientType, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 			System.out.println("#################### update-data = "+clientType);
 			
 			if (getPriviledgeUser(session, PRIVILEDGE, EDIT_DATA)) {
@@ -330,8 +332,8 @@ public class MobileCollectionUserController extends BaseController {
 	}
 	
 	@RequestMapping("/resetPassword/{id}")
-	public @ResponseBody AjaxResponse resetPassword(@PathVariable String id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse resetPassword(@PathVariable String id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 			System.out.println("#################### update-data = "+id);
 			if (getPriviledgeUser(session, PRIVILEDGE, RESET_PASSWORD)) {
 				String[] cp = id.split("\\|");
@@ -353,8 +355,8 @@ public class MobileCollectionUserController extends BaseController {
 	}
 	
 	@RequestMapping("/resetMpin/{id}")
-	public @ResponseBody AjaxResponse resetMpin(@PathVariable String id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse resetMpin(@PathVariable String id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 			System.out.println("#################### update-data = "+id);
 			
 			if (getPriviledgeUser(session, PRIVILEDGE, RESET_MPIN)) {
@@ -378,8 +380,8 @@ public class MobileCollectionUserController extends BaseController {
 	}
 	
 	@RequestMapping("/deactivate/{id}")
-	public @ResponseBody AjaxResponse deactivate(@PathVariable String id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse deactivate(@PathVariable String id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 			System.out.println("#################### update-data = "+id);
 			
 			if (getPriviledgeUser(session, PRIVILEDGE, DEACTIVATE)) {
@@ -402,8 +404,8 @@ public class MobileCollectionUserController extends BaseController {
 	}
 	
 	@RequestMapping("/synchronize/{id}")
-	public @ResponseBody AjaxResponse synchronize(@PathVariable String id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse synchronize(@PathVariable String id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 			System.out.println("#################### update-data = "+id);
 			
 			if (getPriviledgeUser(session, PRIVILEDGE, SYNCHRONIZE)) {
@@ -578,8 +580,8 @@ public class MobileCollectionUserController extends BaseController {
 	}
 	
 	@RequestMapping("/viewUsername/{id}")
-	public @ResponseBody AjaxResponse viewUsername(@PathVariable String id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse viewUsername(@PathVariable String id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_VIEW_USERNAME)) {
 
 			String[] cp = id.split("\\|");

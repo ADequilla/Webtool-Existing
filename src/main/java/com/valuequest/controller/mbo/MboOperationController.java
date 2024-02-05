@@ -2,6 +2,7 @@ package com.valuequest.controller.mbo;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,8 @@ public class MboOperationController extends BaseController {
 	private String LIST_VIEW 		= "mbo-operation";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
-
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -44,8 +45,8 @@ public class MboOperationController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody List<MboOperationModel> operations, HttpSession session) {
-
+	public @ResponseBody AjaxResponse save(@RequestBody List<MboOperationModel> operations, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 			
 			operationService.save(operations, getLoginSecUser(session));

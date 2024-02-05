@@ -3,6 +3,7 @@ package com.valuequest.controller.monitoring;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,8 @@ public class TransConfirmationController extends BaseController {
 	private String LIST_VIEW 		= "confirmation";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -57,8 +59,8 @@ public class TransConfirmationController extends BaseController {
 			@RequestParam(required = false) String branch, 
 			@RequestParam(required = false) String dateStart,
 			@RequestParam(required = false) String dateEnd, 
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId", getLoginIdFromSession(session));
 		searchMap.put("cid", cid);
@@ -74,7 +76,8 @@ public class TransConfirmationController extends BaseController {
 
 
 	@RequestMapping(value = "/confirm", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public ResponseEntity<AjaxResponse> save(@RequestBody SuspiciousModel model, HttpSession session) {
+	public ResponseEntity<AjaxResponse> save(@RequestBody SuspiciousModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		try {
 			if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 				suspiciousService.save(model, getLoginSecUser(session));

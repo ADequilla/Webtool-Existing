@@ -34,7 +34,8 @@ public class FailedMCUserInformationController extends BaseController {
 	private String TEMPLATE_NAME = "FailedMcUserInformation";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -54,8 +55,8 @@ public class FailedMCUserInformationController extends BaseController {
 	public @ResponseBody DataTables search(DataTables dataTables,
 			@RequestParam(required = false) String submitedDateStart,
 			@RequestParam(required = false) String submitedDateEnd, @RequestParam(required = false) String userUploader,
-			@RequestParam(required = false) String reportId, HttpSession session) {
-
+			@RequestParam(required = false) String reportId, HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId", getUserIdFromSession(session));
 		searchMap.put("submitedDateStart", submitedDateStart);
@@ -68,6 +69,7 @@ public class FailedMCUserInformationController extends BaseController {
 
 	@RequestMapping(value = "/download/{id}", method = RequestMethod.GET)
 	public @ResponseBody AjaxResponse download(@PathVariable Long id, HttpServletResponse response, HttpSession session) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, DOWNLOAD)) {
 			HashMap<String, Object> map = new HashMap<>();
 			map.put("logUploadFileId", id);

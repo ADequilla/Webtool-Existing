@@ -3,6 +3,7 @@ package com.valuequest.controller.monitoring;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -30,8 +31,9 @@ public class PendingTaskController extends BaseController {
 	private String LIST_VIEW 		= "pending-task";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
-		 SecUser user = this.getLoginSecUser(session);
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
+		SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
         adminService.updateCekStatus(user, session.getId());
@@ -58,8 +60,8 @@ public class PendingTaskController extends BaseController {
 			@RequestParam(required = false) String unit,
 			@RequestParam(required = false) String center, 
 			@RequestParam(required = false) String approvalStatus,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId", getLoginIdFromSession(session));
 		searchMap.put("cid", cid);
@@ -79,8 +81,8 @@ public class PendingTaskController extends BaseController {
 	}
 
 	@RequestMapping(value = "/approve", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse approve(@RequestBody List<StateModel> states, HttpSession session) {
-
+	public @ResponseBody AjaxResponse approve(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
 			clientService.update(states, Lookup.LOOKUP_APPROVAL_STATUS_APPROVED, getLoginSecUser(session));
@@ -92,8 +94,8 @@ public class PendingTaskController extends BaseController {
 	}
 
 	@RequestMapping(value = "/reject", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse reject(@RequestBody List<StateModel> states, HttpSession session) {
-
+	public @ResponseBody AjaxResponse reject(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
 			clientService.update(states, Lookup.LOOKUP_APPROVAL_STATUS_REJECTED, getLoginSecUser(session));

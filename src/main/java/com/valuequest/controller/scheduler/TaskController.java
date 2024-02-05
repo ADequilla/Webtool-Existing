@@ -2,6 +2,7 @@ package com.valuequest.controller.scheduler;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.valuequest.common.DataTables;
@@ -31,8 +32,8 @@ public class TaskController extends BaseController {
 	private TaskService taskService;
 
     @RequestMapping("/")
-	public String index(Model model, HttpSession session) {
-
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
  SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);

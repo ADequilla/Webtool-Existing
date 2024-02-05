@@ -46,7 +46,8 @@ public class SmsLogReportController extends BaseController{
 	List<String> instiList = new ArrayList<String>();
 
 	
-	protected SecUser getLoginSecUser(HttpSession session) {
+	protected SecUser getLoginSecUser(HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return (SecUser) session.getAttribute("loginSecUser");
 	}
 	
@@ -115,8 +116,8 @@ public class SmsLogReportController extends BaseController{
 	private String GENERATE_VIEW	= "sms-log-report";
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
-		
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 			
 			model.addAttribute("listReportStatus", genericService.lookup(Lookup.LOOKUP_REPORT_STATUS));
@@ -156,8 +157,8 @@ public class SmsLogReportController extends BaseController{
 	}
 	
 	@RequestMapping("/generate")
-	public String generate(Model model, HttpSession session) {
-
+	public String generate(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
 			model.addAttribute("listFileType", genericService.lookup(Lookup.LOOKUP_REPORT_TYPE));
@@ -224,7 +225,8 @@ public class SmsLogReportController extends BaseController{
 	
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody ReportParam param, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody ReportParam param, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		SimpleServ ss = new SimpleServ();
 		SecUser user = this.getLoginSecUser(session);
 		System.out.print("#######User get Id######"+user.getId());
@@ -251,6 +253,7 @@ public class SmsLogReportController extends BaseController{
 	
 	@RequestMapping(value = "/download/{id}", method = RequestMethod.GET)
 	public void download(@PathVariable Long id, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		downloadReport(id, response);
 	}

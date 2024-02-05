@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,8 @@ public class MCUserAccessAuthorizationController extends BaseController {
 	
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -73,8 +75,8 @@ public class MCUserAccessAuthorizationController extends BaseController {
 			@RequestParam(required = false) String aoStatus,
 			@RequestParam(required = false) String dateStart,
 			@RequestParam(required = false) String dateEnd,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("mcuId",	mcuId);
 		searchMap.put("staffId", 	staffId);
@@ -135,8 +137,8 @@ public class MCUserAccessAuthorizationController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/approve", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse approve(@RequestBody List<StateModel> states, HttpSession session) {
-
+	public @ResponseBody AjaxResponse approve(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, APPROVE)) {
 			Boolean isValid = Boolean.TRUE;
 			for (StateModel stateModel : states) {
@@ -168,8 +170,8 @@ public class MCUserAccessAuthorizationController extends BaseController {
 	}
 
 	@RequestMapping(value = "/reject", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse reject(@RequestBody List<StateModel> states, HttpSession session) {
-
+	public @ResponseBody AjaxResponse reject(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, REJECT)) {
 			
 			Boolean isValid = Boolean.TRUE;

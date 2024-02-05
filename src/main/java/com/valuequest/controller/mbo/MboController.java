@@ -2,6 +2,7 @@ package com.valuequest.controller.mbo;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,8 @@ public class MboController extends BaseController {
 	private String EDIT_VIEW 		= "mbo-edit";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -56,8 +58,8 @@ public class MboController extends BaseController {
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam(required = false) String branch,
 			@RequestParam(required = false) String name, 
-			HttpSession session) {
-		
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId", getLoginIdFromSession(session));
 		searchMap.put("branch", branch);
@@ -68,8 +70,8 @@ public class MboController extends BaseController {
 	}
 	
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
-
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 
 			putIntoRequest(model);
@@ -81,8 +83,8 @@ public class MboController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
-
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
 			model.addAttribute("mbo", clientService.findById(id));
@@ -95,15 +97,15 @@ public class MboController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody MboModel model, HttpSession session) {
-		
+	public @ResponseBody AjaxResponse save(@RequestBody MboModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		clientService.save(model, getLoginSecUser(session));
 		return new AjaxResponse(model);
 	}
 	
 	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse get(@RequestBody ProfileModel model, HttpSession session) {
-
+	public @ResponseBody AjaxResponse get(@RequestBody ProfileModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("============================== account = "+model);
 		if (!validationIA(model.getString())){
 			return new AjaxResponse(false, "Invalid Internal Account");

@@ -37,9 +37,10 @@ public class JournalsController extends BaseController {
 	private String GENERATE_VIEW	= "param-journals";
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		
  SecUser user = this.getLoginSecUser(session);
-
+ response.setHeader("X-Frame-Options", "DENY");
         user.setIsLogin(true);
         adminService.updateCekStatus(user, session.getId());
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
@@ -81,8 +82,8 @@ public class JournalsController extends BaseController {
 	}
 	
 	@RequestMapping("/generate")
-	public String generate(Model model, HttpSession session) {
-
+	public String generate(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {	
 			
 			List<Lookup> listLookup = genericService.lookup(Lookup.LOOKUP_TRANSACTION_TYPE);
@@ -119,8 +120,8 @@ public class JournalsController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody TransactionParam param, HttpSession session) {
-		
+	public @ResponseBody AjaxResponse save(@RequestBody TransactionParam param, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		String params = param.getTransDateStart() + "|" + 
 						param.getTransDateEnd() + "|" + 
 						param.getTransType() + "|" + 
@@ -143,7 +144,7 @@ public class JournalsController extends BaseController {
 	
 	@RequestMapping(value = "/download/{id}", method = RequestMethod.GET)
 	public void download(@PathVariable Long id, HttpServletResponse response) {
-		
+		response.setHeader("X-Frame-Options", "DENY");
 		downloadReport(id, response);
 	}
 	

@@ -55,7 +55,8 @@ public class UploadController extends BaseController {
 	private String LIST_VIEW 		= "upload";
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -80,8 +81,8 @@ public class UploadController extends BaseController {
 			@RequestParam(required = false) String uploadStatus,
 			@RequestParam(required = false) Long uploadBy,
 			@RequestParam(required = false) String uploadDate,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId", getLoginIdFromSession(session));
 		searchMap.put("branch", branch);
@@ -109,8 +110,9 @@ public class UploadController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String upload(@RequestParam MultipartFile files, Model model, HttpServletRequest request) {		
+	public String upload(@RequestParam MultipartFile files, Model model, HttpServletRequest request, HttpServletResponse response) {		
 		  // HttpSession session 
+		response.setHeader("X-Frame-Options", "DENY");
 		HttpSession session  = request.getSession();
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 			putIntoRequest(model);
@@ -312,7 +314,8 @@ public class UploadController extends BaseController {
 	
 	
 	@RequestMapping(value = "/download/{id}", method = RequestMethod.GET)
-	public void download(@PathVariable Long id, HttpServletResponse response) {		
+	public void download(@PathVariable Long id, HttpServletResponse response) {	
+		response.setHeader("X-Frame-Options", "DENY");	
 		try {
 			UploadFile uploadFile = uploadFileService.findById(id);
 			ParamConfig config = genericService.getConfigByName(ParamConfig.WEB_PARAMCONFIG_UPLOAD_DIR_FAILED);

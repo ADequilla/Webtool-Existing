@@ -2,6 +2,8 @@ package com.valuequest.controller.utilities;
 
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,8 @@ public class ProductServicesController extends BaseController {
 	private String EDIT_VIEW 		= "product-and-services-create";
 
     @RequestMapping("/")
-    public String index(Model model, HttpSession session) {
+    public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);

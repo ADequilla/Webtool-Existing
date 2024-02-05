@@ -3,6 +3,7 @@ package com.valuequest.controller.monitoring;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,8 @@ public class SlfRequestController extends BaseController {
 	private String LIST_VIEW 		= "slf-request";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -50,8 +52,8 @@ public class SlfRequestController extends BaseController {
 			@RequestParam(required = false) String cid,
 			@RequestParam(required = false) String branch, 
 			@RequestParam(required = false) String transDate,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId", getLoginIdFromSession(session));
 		searchMap.put("cid", cid);
@@ -62,8 +64,8 @@ public class SlfRequestController extends BaseController {
 	}
 
 	@RequestMapping(value = "/reject", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse reject(@RequestBody List<StateModel> states, HttpSession session) {
-
+	public @ResponseBody AjaxResponse reject(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
 			slfRequestService.reject(states, getLoginSecUser(session));
@@ -75,8 +77,8 @@ public class SlfRequestController extends BaseController {
 	}
 
 	@RequestMapping(value = "/confirm", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse confirm(@RequestBody List<StateModel> states, HttpSession session) {
-
+	public @ResponseBody AjaxResponse confirm(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
 			slfRequestService.confirm(states, getLoginSecUser(session));

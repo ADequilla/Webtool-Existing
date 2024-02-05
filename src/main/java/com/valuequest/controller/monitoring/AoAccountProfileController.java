@@ -3,6 +3,7 @@ package com.valuequest.controller.monitoring;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,8 @@ public class AoAccountProfileController extends BaseController {
 	private String C_AGENT_FEATURE 	= "AGENT_FEATURE";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -62,8 +64,8 @@ public class AoAccountProfileController extends BaseController {
 	}
 
 	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse get(@RequestBody ProfileModel model, HttpSession session) {
-
+	public @ResponseBody AjaxResponse get(@RequestBody ProfileModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		ViewClient view = clientService.aoAccountprofile(model);
 		if (view == null) {
 			return new AjaxResponse(false, "Client not found.");
@@ -73,8 +75,8 @@ public class AoAccountProfileController extends BaseController {
 	}
 
 	@RequestMapping("/resetPassword/{id}")
-	public @ResponseBody AjaxResponse resetPassword(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse resetPassword(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_RESET_PASSWD)) {
 			Client client 		= clientService.findById(id);
 			String dataBefore 	= getXMLValue(client);
@@ -94,8 +96,8 @@ public class AoAccountProfileController extends BaseController {
 	}
 
 	@RequestMapping("/resetMpin/{id}")
-	public @ResponseBody AjaxResponse resetMpin(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse resetMpin(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_RESET_PIN)) {
 			Client client		= clientService.findById(id);
 			String dataBefore 	= getXMLValue(client);
@@ -115,8 +117,8 @@ public class AoAccountProfileController extends BaseController {
 	}
 
 	@RequestMapping("/deactivate/{id}")
-	public @ResponseBody AjaxResponse deactivate(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse deactivate(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_DEACTIVATE)) {
 			Client client		= clientService.findById(id);
 			String dataBefore	= getXMLValue(client);
@@ -136,8 +138,8 @@ public class AoAccountProfileController extends BaseController {
 	}
 
 	@RequestMapping("/restricted/{id}")
-	public @ResponseBody AjaxResponse restricted(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse restricted(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_RESTRICT)) {
 			Client client = clientService.findById(id);
 			client.setRestrict(1);
@@ -158,8 +160,8 @@ public class AoAccountProfileController extends BaseController {
 	}
 	
 	@RequestMapping("/unrestrict/{id}")
-	public @ResponseBody AjaxResponse unrestrict(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse unrestrict(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_RESTRICT)) {
 			Client client = clientService.findById(id);
 			client.setRestrict(0);
@@ -180,8 +182,8 @@ public class AoAccountProfileController extends BaseController {
 	}
 
 	@RequestMapping("/viewUsername/{id}")
-	public @ResponseBody AjaxResponse viewUsername(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse viewUsername(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_VIEW_USERNAME)) {
 
 			Client client = clientService.findById(id);
@@ -194,8 +196,8 @@ public class AoAccountProfileController extends BaseController {
 	}
 
 	@RequestMapping("/enableAgentFeature/{id}")
-	public @ResponseBody AjaxResponse enableAgentFeature(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse enableAgentFeature(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_AGENT_FEATURE)) {
 			Client client = clientService.findById(id);
 			client.setAgentFeature(1);
@@ -216,8 +218,8 @@ public class AoAccountProfileController extends BaseController {
 	}
 
 	@RequestMapping("/disableAgentFeature/{id}")
-	public @ResponseBody AjaxResponse disableAgentFeature(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse disableAgentFeature(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_AGENT_FEATURE)) {
 			Client client = clientService.findById(id);
 			client.setAgentFeature(0);

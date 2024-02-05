@@ -64,7 +64,8 @@ public class MCUserManagementController extends BaseController {
 	private String TEMPLATE_NAME = "MobileCollectionUsers";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -86,8 +87,8 @@ public class MCUserManagementController extends BaseController {
 			@RequestParam(required = false) String staffId, @RequestParam(required = false) String mobileNumber,
 			@RequestParam(required = false) String internalAccount, @RequestParam(required = false) String branchCode,
 			@RequestParam(required = false) String unitCode, @RequestParam(required = false) String designation,
-			@RequestParam(required = false) String aoStatus, HttpSession session) {
-
+			@RequestParam(required = false) String aoStatus, HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("mcuId", mcuId);
 		searchMap.put("staffId", staffId);
@@ -102,8 +103,8 @@ public class MCUserManagementController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
-
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
 			model.addAttribute("availableBranchList", branchService.mappedList());
@@ -116,8 +117,8 @@ public class MCUserManagementController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
-
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
 			model.addAttribute("mcuser", mcUserService.findById(id));
@@ -160,8 +161,8 @@ public class MCUserManagementController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody McUserModel model, HttpSession session) {
-		
+	public @ResponseBody AjaxResponse save(@RequestBody McUserModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (model.getMcuId() != null) {
 			model.setMcuId(model.getMcuId().replaceAll("[^a-zA-Z0-9@.-]", ""));
 			model.setMcuId(model.getMcuId().toUpperCase());
@@ -216,7 +217,8 @@ public class MCUserManagementController extends BaseController {
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String upload(@RequestParam MultipartFile files, Model model, HttpSession session) {
+	public String upload(@RequestParam MultipartFile files, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		File file = null;
 		BufferedReader br = null;
 		String delimeter = "\\|";
@@ -460,7 +462,7 @@ public class MCUserManagementController extends BaseController {
 	}
 
 	@RequestMapping("/report")
-	public String report(Model model, HttpSession session) {
+	public String report(Model model, HttpSession session, HttpServletResponse response) {
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DOWNLOAD)) {
 
@@ -494,7 +496,7 @@ public class MCUserManagementController extends BaseController {
 	@RequestMapping(value = "/resetPassword/{mcuid}", method = RequestMethod.POST, headers = {
 			"content-type=application/json" })
 	public @ResponseBody AjaxResponse reset(@PathVariable String mcuid, HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
 
 		if (getPriviledgeUser(session, PRIVILEDGE, RESET_PASSWORD)) {
 			mcUserService.resetMCUserPassword(mcuid, getLoginSecUser(session));
@@ -507,7 +509,7 @@ public class MCUserManagementController extends BaseController {
 	@RequestMapping(value = "/resetPin/{mcuid}", method = RequestMethod.POST, headers = {
 			"content-type=application/json" })
 	public @ResponseBody AjaxResponse resetPin(@PathVariable String mcuid, HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
 		if (getPriviledgeUser(session, PRIVILEDGE, RESET_MPIN)) {
 			mcUserService.resetMCUserPin(mcuid, getLoginSecUser(session));
 
@@ -518,7 +520,7 @@ public class MCUserManagementController extends BaseController {
 
 	@RequestMapping(value = "/deactivate/{mcuid}", method = RequestMethod.POST, headers = {"content-type=application/json"})
 	public @ResponseBody AjaxResponse deactivate(@PathVariable String mcuid, HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
 		if (getPriviledgeUser(session, PRIVILEDGE, DEACTIVATE)) {
 			mcUserService.deactiveOrReactive(mcuid, StatusConstantas.DEACTIVE, getLoginSecUser(session));
 
@@ -529,7 +531,7 @@ public class MCUserManagementController extends BaseController {
 
 	@RequestMapping(value = "/reactivate/{mcuid}", method = RequestMethod.POST, headers = {"content-type=application/json"})
 	public @ResponseBody AjaxResponse reactivate(@PathVariable String mcuid, HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
 		if (getPriviledgeUser(session, PRIVILEDGE, REACTIVATE)) {
 			MCUser findUser = mcUserService.getMCUserByMcuId(mcuid);
 			MCUser internalAccount = mcUserService.getMCUserByInternalAccount(findUser.getInternalAccount());
@@ -546,7 +548,7 @@ public class MCUserManagementController extends BaseController {
 
 	@RequestMapping(value = "/unblock/{mcuid}", method = RequestMethod.POST, headers = {"content-type=application/json"})
 	public @ResponseBody AjaxResponse unblocked(@PathVariable String mcuid, HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
 		if (getPriviledgeUser(session, PRIVILEDGE, UNBLOCKED)) {
 			mcUserService.changeAccStatusByMcuId(mcuid, StatusConstantas.INACTIVE, getLoginSecUser(session));
 

@@ -3,6 +3,7 @@ package com.valuequest.controller.monitoring;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,8 @@ public class ListUsedDeviceController extends BaseController {
 	private String EDIT_VIEW 		= "list-used-device-edit";
  
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -74,8 +76,8 @@ public class ListUsedDeviceController extends BaseController {
 	}
 	
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
-		
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("#################### edit-data = "+id);
 		
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
@@ -91,12 +93,12 @@ public class ListUsedDeviceController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody ListUsedDeviceModel model, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody ListUsedDeviceModel model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 
 		/*if (!listUsedDeviceService.dataCid(model.getCid())) {
 			return new AjaxResponse(false, "Change Data can be enabled if the CIF have 2 or more device that was logged");
 		}*/
-		
+		response.setHeader("X-Frame-Options", "DENY");
 		ListUsedDevice usedDevice = listUsedDeviceService.findById(model.getId());
 		String dataBefore, dataAfter;
 		if (usedDevice.getDeviceStatus().equals(0L)) {

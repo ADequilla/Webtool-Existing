@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,8 @@ public class AuthorResetPasswordController extends BaseController {
 	private AuthorResetPasswordService authorResetPasswordService;
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -64,7 +66,8 @@ public class AuthorResetPasswordController extends BaseController {
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam(required = false) String cid,
 			@RequestParam(required = false) String status, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId", getLoginIdFromSession(session));
@@ -75,8 +78,8 @@ public class AuthorResetPasswordController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
-
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
 			ViewAuthorResetPassword va = authorResetPasswordService.findByParam(id);
@@ -95,8 +98,8 @@ public class AuthorResetPasswordController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<AuthorResetPasswordModel> states, HttpSession session) {
-
+	public @ResponseBody AjaxResponse delete(@RequestBody List<AuthorResetPasswordModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
 			authorResetPasswordService.delete(states);
@@ -109,8 +112,8 @@ public class AuthorResetPasswordController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody AuthorResetPasswordModel model, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse save(@RequestBody AuthorResetPasswordModel model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("A = "+idUser);
 		System.out.println("B = "+getLoginSecUser(session).getId());
 		
@@ -221,8 +224,8 @@ public class AuthorResetPasswordController extends BaseController {
 	}
 
 	@RequestMapping(value = "/rejected", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse rejected(@RequestBody AuthorResetPasswordModel model, HttpServletRequest request, HttpSession session) {
-		
+	public @ResponseBody AjaxResponse rejected(@RequestBody AuthorResetPasswordModel model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("A = "+idUser);
 		System.out.println("B = "+getLoginSecUser(session).getId());
 		

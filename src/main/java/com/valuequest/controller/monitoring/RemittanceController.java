@@ -3,6 +3,7 @@ package com.valuequest.controller.monitoring;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,8 @@ public class RemittanceController extends BaseController {
 	private RemittanceService remittanceService;
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -63,7 +65,8 @@ public class RemittanceController extends BaseController {
 			@RequestParam(required = false) String mobileReference,
 			@RequestParam(required = false) String sourceBranch,
 			@RequestParam(required = false) String targetBranch,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("senderMobileNumber", senderMobileNumber);

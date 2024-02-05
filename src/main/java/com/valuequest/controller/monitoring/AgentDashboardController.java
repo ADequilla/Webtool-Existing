@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Criteria;
@@ -43,7 +44,8 @@ public class AgentDashboardController extends BaseController {
 	List<String> instiList = new ArrayList<String>();
   
 	
-	protected SecUser getLoginSecUser(HttpSession session) {
+	protected SecUser getLoginSecUser(HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return (SecUser) session.getAttribute("loginSecUser");
 	}
 	
@@ -110,7 +112,8 @@ public class AgentDashboardController extends BaseController {
 	private AgentDashboardTempService agentDashboardTempService;
 	
 	@RequestMapping("/")
-	public String index( Model model, HttpSession session) {
+	public String index( Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -131,8 +134,8 @@ public class AgentDashboardController extends BaseController {
 			@RequestParam(required = false) String dateStart,
 			@RequestParam(required = false) String dateEnd, 
 			@RequestParam(required = false) String branch, 
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("branch", branch);
 
@@ -144,8 +147,8 @@ public class AgentDashboardController extends BaseController {
 			@RequestParam(required = false) String dateStart,
 			@RequestParam(required = false) String dateEnd, 
 			@RequestParam(required = false) String branch, 
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("branch", branch);
 

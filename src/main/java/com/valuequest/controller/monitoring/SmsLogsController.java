@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.BasicConfigurator;
@@ -43,7 +44,8 @@ public class SmsLogsController extends BaseController {
 	private String LIST_VIEW 		= "sms-logs";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -64,7 +66,8 @@ public class SmsLogsController extends BaseController {
 	public @ResponseBody  String searchSMSLogs( 
 			@RequestParam(required = false) String dtStart,	
 			@RequestParam(required = false) String dtEnd,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 			HttpRequestSender sender = null;
 	
 			try {
@@ -117,7 +120,8 @@ public class SmsLogsController extends BaseController {
 			@RequestParam(required = false) String mobileNo,
 			@RequestParam(required = false) String msgStatus,
 			@RequestParam(required = false) String searchMt,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("cid", cid);
 		searchMap.put("searchDateStart", searchDateStart);

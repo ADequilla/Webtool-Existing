@@ -59,7 +59,8 @@ public class CoreTransactionReportController extends BaseController {
 	private String GENERATE_VIEW	= "param-core-transaction";
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -98,8 +99,8 @@ public class CoreTransactionReportController extends BaseController {
 	public @ResponseBody List<CoreTransactionReportModel> searchK2CAPI( 
 			@RequestParam(required = false) String dtEnd,	
 			@RequestParam(required = false) String dtStart,
-			HttpSession session) {
-		
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 			HttpSession sess = session;
 			HttpRequestSender sender = null;
 			System.out.println("######API###### " + APICoreMFS);
@@ -203,8 +204,8 @@ public class CoreTransactionReportController extends BaseController {
 		}
 	
 	@RequestMapping("/report-list")
-	public String create(Model model, HttpSession session) {
-		
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
 			model.addAttribute("listReportStatus", genericService.lookup(Lookup.LOOKUP_REPORT_STATUS));
@@ -221,7 +222,7 @@ public class CoreTransactionReportController extends BaseController {
 	
 	@RequestMapping(value = "/download/{id}", method = RequestMethod.GET)
 	public void download(@PathVariable Long id, HttpServletResponse response) {
-		
+		response.setHeader("X-Frame-Options", "DENY");
 		downloadReport(id, response);
 	}
 	
@@ -252,8 +253,8 @@ public class CoreTransactionReportController extends BaseController {
 		return asynReportService.searchByMapCriteria(dataTables, searchMap);
 	}
 	@RequestMapping("/generate")
-	public String generate(Model model, HttpSession session) {
-
+	public String generate(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
 			model.addAttribute("listTransactionType", genericService.k2cTransactionTypeLookup(K2CTransactionTypeLookup.LOOKUP_K2C_TRANSACTION_LOG_TYPE));
@@ -267,8 +268,8 @@ public class CoreTransactionReportController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody TransactionParam param, HttpSession session) {
-		
+	public @ResponseBody AjaxResponse save(@RequestBody TransactionParam param, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		String params = param.getTransDateStart() + "|" + 
 						param.getTransDateEnd() + "|" + 
 						param.getTransType() + "|END";

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,8 @@ public class ListFailedEnrollmentController extends BaseController {
 	private String LIST_VIEW 		= "failed-enrollment";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -52,8 +54,8 @@ public class ListFailedEnrollmentController extends BaseController {
 			@RequestParam(required = false) String mobileNumber,
 			@RequestParam(required = false) String clientType,
 			@RequestParam(required = false) String errorMessage,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("searchDateStart", searchDateStart);
 		searchMap.put("searchDateEnd", searchDateEnd);

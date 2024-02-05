@@ -2,6 +2,8 @@ package com.valuequest.controller.mobilecollection;
 
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,8 @@ public class MCServiceDownTimeController extends BaseController {
 	private String EDIT_VIEW 		= "service-create";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -53,8 +56,8 @@ public class MCServiceDownTimeController extends BaseController {
 			@RequestParam(required = false) String startDate,
 			@RequestParam(required = false) String endDate, 
 			@RequestParam(required = false) String desc,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("startDate", startDate);
 		searchMap.put("endDate", endDate);
@@ -64,8 +67,8 @@ public class MCServiceDownTimeController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
-
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 
 			putIntoRequest(model);
@@ -77,8 +80,8 @@ public class MCServiceDownTimeController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
-
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
 			model.addAttribute("downtime", downTimeService.findById(id));
@@ -91,8 +94,8 @@ public class MCServiceDownTimeController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session) {
-
+	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
 			downTimeService.delete(states);
@@ -105,7 +108,8 @@ public class MCServiceDownTimeController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody ServiceDownTime model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody ServiceDownTime model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		model.setType(StatusConstantas.ACCOUNT_OFFICER);
 		downTimeService.save(model, getLoginSecUser(session));
 

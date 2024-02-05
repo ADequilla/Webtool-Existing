@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.SessionFactory;
@@ -137,7 +138,8 @@ public class ClientProfileController extends BaseController {
 	SoteriaProperties soteriaProp = new SoteriaProperties();
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		 SecUser user = this.getLoginSecUser(session);
 
         user.setIsLogin(true);
@@ -159,7 +161,8 @@ public class ClientProfileController extends BaseController {
 			@RequestParam(required = false) String cid,	
 			@RequestParam(required = false) String username,	
 			@RequestParam(required = false) String mobile,	
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 			HttpRequestSender sender = null;
 
 			log.info("API Properties URL: " + api);
@@ -226,7 +229,8 @@ public class ClientProfileController extends BaseController {
 			@RequestParam(required = false) String insti,
 			@RequestParam(required = false) String cid,
 			HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 			HttpRequestSender sender = null;
 	
 			try {
@@ -301,7 +305,8 @@ public class ClientProfileController extends BaseController {
 			@RequestParam(required = false) String accountNumber,
 			@RequestParam(required = false) String username,
 			@RequestParam(required = false) int isEnabled,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 			HttpRequestSender sender = null;
 	
 			try {
@@ -360,7 +365,8 @@ public class ClientProfileController extends BaseController {
 			@RequestParam(required = false) String username,	
 			@RequestParam(required = false) String isEnabled,
 			@RequestParam(required = false) String insti,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 			HttpRequestSender sender = null;
 	
 			try {
@@ -407,7 +413,8 @@ public class ClientProfileController extends BaseController {
 			@RequestParam(required = true) String oldMobile,
 			@RequestParam(required = true) String cid,
 			HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 			HttpRequestSender sender = null;
 	
 			try {
@@ -471,7 +478,8 @@ public class ClientProfileController extends BaseController {
 			@RequestParam(required = true) String password,
 			@RequestParam(required = false) String cid,
 			HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 			HttpRequestSender requestEncryptString = null;
 			HttpRequestSender requestResetCredential = null;
 	
@@ -551,7 +559,8 @@ public class ClientProfileController extends BaseController {
 			@RequestParam(required = false) String username,	
 			@RequestParam(required = false) String status,
 			@RequestParam(required = false) String id,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 			HttpRequestSender sender = null;
 	
 			try {
@@ -605,7 +614,8 @@ public class ClientProfileController extends BaseController {
 	public @ResponseBody  String updateDeviceStatus( 
 			@RequestParam(required = false) String username,	
 			@RequestParam(required = false) String id,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 			HttpRequestSender sender = null;
 	
 			try {
@@ -651,7 +661,8 @@ public class ClientProfileController extends BaseController {
 			@RequestParam(required = false) String username,	
 			@RequestParam(required = false) Long value,
 			@RequestParam(required = false) String cid,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+				response.setHeader("X-Frame-Options", "DENY");
 				System.out.println("###############Restrcit########");
 
 			HttpRequestSender sender = null;
@@ -705,7 +716,8 @@ public class ClientProfileController extends BaseController {
 			@RequestParam(required = false) String username,	
 			@RequestParam(required = false) String isMerchant,
 			@RequestParam(required = false) String insti,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 			HttpRequestSender sender = null;
 	
 			try {
@@ -756,8 +768,9 @@ public class ClientProfileController extends BaseController {
 			@RequestParam(required = false) String action,
 			@RequestParam(required = false) String cid,
 			HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
 			HttpRequestSender sender = null;
+			response.setHeader("X-Frame-Options", "DENY");
 	
 			try {
 
@@ -792,7 +805,7 @@ public class ClientProfileController extends BaseController {
 
 					System.out.println("Reset OTP Request - "+ action +":::::::::" + sender.getResponse()); 
 
-					resetPassword(username,pass,to,cid,request,session);
+					resetPassword(username,pass,to,cid,request,session, response);
 
 					return sender.getResponse();
 				}else {
@@ -818,7 +831,8 @@ public class ClientProfileController extends BaseController {
 			@RequestParam(required = false) String mobile,
 			@RequestParam(required = false) String cid,
 			HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 			HttpRequestSender sender = null;
 	
 			try {
@@ -886,8 +900,8 @@ public class ClientProfileController extends BaseController {
 	
 
 	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse get(@RequestBody ProfileModel model, HttpServletRequest request, HttpSession session) {
-		
+	public @ResponseBody AjaxResponse get(@RequestBody ProfileModel model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("##############session: "+ model.getField());
 		System.out.println("##############session: "+ model.getString());
 		ViewClient view = clientService.profile(model);
@@ -915,7 +929,8 @@ public class ClientProfileController extends BaseController {
 	}
 
 	@RequestMapping("/resetPassword/{id}")
-	public @ResponseBody AjaxResponse resetPassword1(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse resetPassword1(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("###########id: "+ id);
 		if (getPriviledgeUser(session, PRIVILEDGE, C_RESET_PASSWD)) {
 			Client client 		= clientService.findById(id);
@@ -943,7 +958,8 @@ public class ClientProfileController extends BaseController {
 	}
 
 	@RequestMapping("/resetMpin/{id}")
-	public @ResponseBody AjaxResponse resetMpin(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse resetMpin(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("###########id: "+ id);
 		if (getPriviledgeUser(session, PRIVILEDGE, C_RESET_PIN)) {
 			Client client		= clientService.findById(id);
@@ -972,7 +988,8 @@ public class ClientProfileController extends BaseController {
 	}
 
 	@RequestMapping("/deactivate/{id}")
-	public @ResponseBody AjaxResponse deactivate(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse deactivate(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("###########id: "+ id);
 		if (getPriviledgeUser(session, PRIVILEDGE, C_DEACTIVATE)) {
 			Client client		= clientService.findById(id);
@@ -998,7 +1015,8 @@ public class ClientProfileController extends BaseController {
 		@RequestParam(required = false) String username,	
 		@RequestParam(required = false) String value,	 
 		HttpServletRequest request, 
-		HttpSession session) {
+		HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_RESTRICT)) {
 			
 
@@ -1017,8 +1035,9 @@ public class ClientProfileController extends BaseController {
 	}
 	
 	@RequestMapping("/unrestrict/{id}")
-	public @ResponseBody AjaxResponse unrestrict(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse unrestrict(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 		System.out.println("###########id: "+ id);
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_RESTRICT)) {
 			Client client = clientService.findById(id);
 			client.setRestrict(0);
@@ -1039,7 +1058,8 @@ public class ClientProfileController extends BaseController {
 	}
 
 	@RequestMapping("/viewUsername/{id}")
-	public @ResponseBody AjaxResponse viewUsername(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse viewUsername(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("###########id: "+ id);
 		if (getPriviledgeUser(session, PRIVILEDGE, C_VIEW_USERNAME)) {
 
@@ -1053,7 +1073,8 @@ public class ClientProfileController extends BaseController {
 	}
 
 	@RequestMapping("/enableAgentFeature/{id}")
-	public @ResponseBody AjaxResponse enableAgentFeature(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse enableAgentFeature(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("###########id: "+ id);
 		if (getPriviledgeUser(session, PRIVILEDGE, C_AGENT_FEATURE)) {
 			Client client = clientService.findById(id);
@@ -1078,7 +1099,8 @@ public class ClientProfileController extends BaseController {
 	}
 
 	@RequestMapping("/disableAgentFeature/{id}")
-	public @ResponseBody AjaxResponse disableAgentFeature(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse disableAgentFeature(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("###########id: "+ id);
 		if (getPriviledgeUser(session, PRIVILEDGE, C_AGENT_FEATURE)) {
 			Client client = clientService.findById(id);
@@ -1105,7 +1127,8 @@ public class ClientProfileController extends BaseController {
 	}
 	
 	@RequestMapping("/resetStatus/{id}")
-	public @ResponseBody AjaxResponse resetStatus(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse resetStatus(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("###########id: "+ id);
 		if (getPriviledgeUser(session, PRIVILEDGE, C_RESET_STATUS)) {
 			Client client 		= clientService.findById(id);
@@ -1124,7 +1147,8 @@ public class ClientProfileController extends BaseController {
 	}
 	
 	@RequestMapping("/resetStatusAndCredential/{id}")
-	public @ResponseBody AjaxResponse resetStatusAndCredential(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse resetStatusAndCredential(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("###########id: "+ id);
 		if (getPriviledgeUser(session, PRIVILEDGE, C_RESET_STATUS)) {
 			Client client 		= clientService.findById(id);
@@ -1143,7 +1167,8 @@ public class ClientProfileController extends BaseController {
 	}
 	
 	@RequestMapping("/blockedActCode/{id}")
-	public @ResponseBody AjaxResponse blockedActCode(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse blockedActCode(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("###########id: "+ id);
 		if (getPriviledgeUser(session, PRIVILEDGE, C_BLOCK_STATUS)) {
 			Client client = clientService.findById(id);
@@ -1159,7 +1184,8 @@ public class ClientProfileController extends BaseController {
 	}
 	
 	@RequestMapping("/blockedValCode/{id}")
-	public @ResponseBody AjaxResponse blockedValCode(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse blockedValCode(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("###########id: "+ id);
 		if (getPriviledgeUser(session, PRIVILEDGE, C_BLOCK_STATUS)) {
 			Client client = clientService.findById(id);
@@ -1175,7 +1201,8 @@ public class ClientProfileController extends BaseController {
 	}
 	
 	@RequestMapping("/disableMerchantFeature/{id}")
-	public @ResponseBody AjaxResponse disableMerchantFeature(@PathVariable Long id, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse disableMerchantFeature(@PathVariable Long id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("###########id: "+ id);
 		if (getPriviledgeUser(session, PRIVILEDGE, C_MERCHANT_FEATURE)) {
 			SecUser userLogin = getLoginSecUser(session);
@@ -1205,7 +1232,8 @@ public class ClientProfileController extends BaseController {
 	}
 	
 	@RequestMapping("/enableMerchantFeature/{dataParsing}")
-	public @ResponseBody AjaxResponse enableMerchantFeature(@PathVariable String dataParsing, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody AjaxResponse enableMerchantFeature(@PathVariable String dataParsing, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		System.out.println("###########enable-dataParsing: "+ dataParsing);
 		if (getPriviledgeUser(session, PRIVILEDGE, C_MERCHANT_FEATURE)) {
 			Long id = 0L;
@@ -1277,8 +1305,8 @@ public class ClientProfileController extends BaseController {
 	}
 	
 	@RequestMapping("/updateMerchant/{dataParsing}")
-	public @ResponseBody AjaxResponse updateMerchant(@PathVariable String dataParsing, HttpServletRequest request, HttpSession session) {
-		
+	public @ResponseBody AjaxResponse updateMerchant(@PathVariable String dataParsing, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, C_UPDATE_MERCHANT)) {
 			Long id = 0L;
 			String businessName = "";
@@ -1384,8 +1412,8 @@ public class ClientProfileController extends BaseController {
 	}
 	
 	@RequestMapping("/syncronize/{id}")
-	public @ResponseBody AjaxResponse syncronize(@PathVariable String id, HttpServletRequest request, HttpSession session) {
-
+	public @ResponseBody AjaxResponse syncronize(@PathVariable String id, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 			System.out.println("#################### update-data = "+id);
 			
 			if (getPriviledgeUser(session, PRIVILEDGE, C_SYNCHRONIZE)) {
