@@ -65,7 +65,7 @@ public class BranchServiceImpl extends SimpleServiceImpl<StructureBranch> implem
 		StructureBranch branch = findByCode(model.getCode());
 		if (branch == null) {
 			branch = new StructureBranch();
-			branch.setInsti(model.getInsti());
+			// branch.setInsti(model.getInsti());
 			branch.setCode(model.getCode());
 			branch.setCreatedDate(new Date());
 			branch.setCreatedBy(user.getId());
@@ -147,7 +147,7 @@ public class BranchServiceImpl extends SimpleServiceImpl<StructureBranch> implem
 	@Override
 	public DataTables searchByMapCriteria(DataTables dataTables, HashMap<String, Object> searchMap) {
 		Long loginId 		= (Long) searchMap.get("loginId");
-		String insti 		= (String) searchMap.get("insti");
+		// String insti 		= (String) searchMap.get("insti");
 		String code 		= (String) searchMap.get("code");
 		String description 	= (String) searchMap.get("description");
 		Criteria criteria 	= this.getSessionFactory().getCurrentSession().createCriteria(getRealClass());
@@ -155,8 +155,8 @@ public class BranchServiceImpl extends SimpleServiceImpl<StructureBranch> implem
 		if (loginId != null)
 			criteria.add(Subqueries.propertyIn("code", criteriaBy(loginId)));
 
-		if (StringUtils.isNotBlank(insti))
-			criteria.add(Restrictions.ilike("insti", insti, MatchMode.ANYWHERE));
+		// if (StringUtils.isNotBlank(insti))
+		// 	criteria.add(Restrictions.ilike("insti", insti, MatchMode.ANYWHERE));
 
 		if (StringUtils.isNotBlank(code))
 			criteria.add(Restrictions.eq("code", code));

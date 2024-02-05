@@ -1,5 +1,8 @@
 package com.valuequest.controller;
 
+
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpHeaders;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -31,20 +34,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 
-@Controller     
+@Controller
 public class IndexController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Model model, HttpSession session) {
-    	SecUser user = this.getLoginSecUser(session);
-		adminService.updateCekStatus(getLoginSecUser(session), session.getId());
+    public String index(Model model, HttpSession session, HttpServletResponse response) {
+        SecUser user = this.getLoginSecUser(session);
+        adminService.updateCekStatus(getLoginSecUser(session), session.getId());
 
-		ParamConfig config 	= genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
-		String valueTimeout = config.getValue();
-		valueTimeout = valueTimeout.replace(".","");
-		valueTimeout = valueTimeout.replace(",","");
-		session.setMaxInactiveInterval(Integer.parseInt(valueTimeout) * 60);
-        
+        ParamConfig config = genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
+        String valueTimeout = config.getValue();
+        valueTimeout = valueTimeout.replace(".", "");
+        valueTimeout = valueTimeout.replace(",", "");
+        session.setMaxInactiveInterval(Integer.parseInt(valueTimeout) * 60);
+
     // 	if (USER_SUPER_ADMIN.equals(user.getUsrPosition()))
 	// 	{
     // 		return "redirect:dashboard/registered-client/";
@@ -62,6 +65,8 @@ public class IndexController extends BaseController {
     // 	}
     // }
 
+	response.setHeader("X-Frame-Options", "SAMEORIGIN");
+
 	if (USER_SUPER_ADMIN.equals(user.getUsrPosition())){
 		return "redirect:dashboard/registered-client/";
 	}else{
@@ -75,13 +80,15 @@ public class IndexController extends BaseController {
 }
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "SAMEORIGIN");
         return "01.misc/login";
     }
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpServletRequest request, HttpSession session) {
+    public String logout(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 		SecUser user = this.getLoginSecUser(session);
+		response.setHeader("X-Frame-Options", "SAMEORIGIN");
 
     	// save logout to audit trail
     	String activity	= "LOGOUT";

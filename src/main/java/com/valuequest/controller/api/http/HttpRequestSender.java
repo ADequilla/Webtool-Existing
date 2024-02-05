@@ -38,14 +38,14 @@ public class HttpRequestSender {
 	private final METHOD method;
 //	private final OkHttpClient client = new OkHttpClient();
 	private Object body;
-	private String reply, headerValue = "";// default header blank
+	private String reply, headerValue = "{\"X-Frame-Options\":\"DENY\"}";// default header blank
 	private final String HEADERNAME = "USER_SESSION";
 	private int status;
 	HashMap<String, String> headers;
 
 	public void setHeaders(HashMap<String, String> headers) {
 		this.headers = headers;
-
+ 
 	}
 
 	public HttpRequestSender(String url) {
