@@ -55,7 +55,8 @@ public class BillerProductController extends BaseController {
 	private BillerCategoryService billerCategoryService;
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -73,7 +74,8 @@ public class BillerProductController extends BaseController {
 	}
 
 	@RequestMapping("/report")
-	public String report(Model model, HttpSession session) {
+	public String report(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DOWNLOAD)) {
 
@@ -91,7 +93,8 @@ public class BillerProductController extends BaseController {
 			@RequestParam(required = false) String billerProductName, 
 			@RequestParam(required = false) String productCategoryName, 
 			@RequestParam(required = false) String providerName,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 			HashMap<String, Object> searchMap = new HashMap<>();
 			searchMap.put("billerProductId", billerProductId);
@@ -103,7 +106,8 @@ public class BillerProductController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
@@ -117,7 +121,8 @@ public class BillerProductController extends BaseController {
 	}    
 
 	@RequestMapping("/edit/{billerProductId}")
-	public String edit(@PathVariable Long billerProductId, Model model, HttpSession session) {
+	public String edit(@PathVariable Long billerProductId, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -132,7 +137,8 @@ public class BillerProductController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<BillerProductModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<BillerProductModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
@@ -146,7 +152,8 @@ public class BillerProductController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody BillerProductModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody BillerProductModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (model.getIsNew()) {
 			if (billerProductService.isExist(model.getBillerProductId())) {
@@ -167,6 +174,7 @@ public class BillerProductController extends BaseController {
 			@RequestParam(required = false) String productCategoryName, 
 			@RequestParam(required = false) String providerName,
 			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("billerProductId", billerProductId);

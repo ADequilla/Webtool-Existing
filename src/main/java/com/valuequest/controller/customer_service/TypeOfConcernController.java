@@ -2,6 +2,8 @@ package com.valuequest.controller.customer_service;
 
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,8 @@ public class TypeOfConcernController extends BaseController {
 	private String EDIT_VIEW 		= "concern-edit";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -52,7 +55,8 @@ public class TypeOfConcernController extends BaseController {
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam(required = false) String name,
 			@RequestParam(required = false) String level, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("name", name);
@@ -62,7 +66,8 @@ public class TypeOfConcernController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 
@@ -75,7 +80,8 @@ public class TypeOfConcernController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-public String edit(@PathVariable Long id, Model model, HttpSession session) {
+public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+	response.setHeader("X-Frame-Options", "DENY");
     try {
         if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
             model.addAttribute("concern", typeOfConcernService.findById(id));
@@ -92,7 +98,8 @@ public String edit(@PathVariable Long id, Model model, HttpSession session) {
 }
 
 @RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session) {
+public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+	response.setHeader("X-Frame-Options", "DENY");
     if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
 		typeOfConcernService.delete(states);
@@ -106,7 +113,8 @@ public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, H
 
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-public @ResponseBody AjaxResponse save(@RequestBody Concern model, HttpSession session) {
+public @ResponseBody AjaxResponse save(@RequestBody Concern model, HttpSession session, HttpServletResponse response) {
+	response.setHeader("X-Frame-Options", "DENY");
     try {
         typeOfConcernService.save(model, getLoginSecUser(session));
         return new AjaxResponse(model);

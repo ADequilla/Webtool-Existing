@@ -2,6 +2,7 @@ package com.valuequest.controller.administration;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,8 @@ public class RoleManagementController extends BaseController {
 	private String EDIT_VIEW 		= "role-edit";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -50,7 +52,8 @@ public class RoleManagementController extends BaseController {
 	@RequestMapping("/search")
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam String name, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("name", name);
@@ -59,7 +62,8 @@ public class RoleManagementController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
@@ -72,7 +76,8 @@ public class RoleManagementController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -87,7 +92,8 @@ public class RoleManagementController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody RoleModel roleModel, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody RoleModel roleModel, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		roleService.save(roleModel, getLoginSecUser(session));
 

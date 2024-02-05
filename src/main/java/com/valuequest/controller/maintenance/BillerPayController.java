@@ -3,6 +3,7 @@ package com.valuequest.controller.maintenance;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,8 @@ public class BillerPayController extends BaseController {
 	private BillerPayService billerPayService;
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -59,7 +61,8 @@ public class BillerPayController extends BaseController {
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam(required = false) String billerCode,
 			@RequestParam(required = false) String billerName, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		
 			HashMap<String, Object> searchMap = new HashMap<>();
 			searchMap.put("billerCode", billerCode);
@@ -70,7 +73,8 @@ public class BillerPayController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
@@ -84,7 +88,8 @@ public class BillerPayController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{billerCode}")
-	public String edit(@PathVariable String billerCode, Model model, HttpSession session) {
+	public String edit(@PathVariable String billerCode, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -99,7 +104,8 @@ public class BillerPayController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<BillerPayModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<BillerPayModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
@@ -113,7 +119,8 @@ public class BillerPayController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody BillerPayModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody BillerPayModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (model.getIsNew()) {
 			if (billerPayService.isExist(model.getBillerCode())) {

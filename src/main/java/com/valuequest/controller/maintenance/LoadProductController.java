@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -41,7 +42,8 @@ public class LoadProductController extends BaseController {
 	private LoadProductService loadProductService;
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -63,7 +65,8 @@ public class LoadProductController extends BaseController {
 			@RequestParam(required = false) String loadProductId,
 			@RequestParam(required = false) String loadProductName, 
 			@RequestParam(required = false) String productCategoryName, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 			HashMap<String, Object> searchMap = new HashMap<>();
 			searchMap.put("loadProductId", loadProductId);
@@ -74,7 +77,8 @@ public class LoadProductController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
@@ -88,7 +92,8 @@ public class LoadProductController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{loadProductId}")
-	public String edit(@PathVariable Long loadProductId, Model model, HttpSession session) {
+	public String edit(@PathVariable Long loadProductId, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -103,7 +108,8 @@ public class LoadProductController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<LoadProductModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<LoadProductModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
@@ -117,7 +123,8 @@ public class LoadProductController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody LoadProductModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody LoadProductModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (model.getIsNew()) {
 			if (loadProductService.isExist(model.getLoadProductId())) {

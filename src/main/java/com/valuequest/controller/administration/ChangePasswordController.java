@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -30,13 +31,14 @@ public class ChangePasswordController extends BaseController {
 	
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String index() {
-		
+	public String index(HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return BASE_VIEW + EDIT_VIEW;
 	}
 
 	@RequestMapping(value = "/default", method = RequestMethod.GET)
-    public String changePassword() {
+    public String changePassword(HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
     	return BASE_VIEW + DEFAULT_VIEW;
     }
 	
@@ -45,8 +47,8 @@ public class ChangePasswordController extends BaseController {
 	public @ResponseBody AjaxResponse change(HttpSession session, 
 			@RequestParam String oldPassword,
 			@RequestParam String newPassword, 
-			@RequestParam String retypePassword) {
-
+			@RequestParam String retypePassword, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		SecUser secUser = getLoginSecUser(session);
 		String regex 	= "^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[~!@#$%^&*])[a-zA-Z0-9~!@#$%^&*()+=]{8,900}$";
 		

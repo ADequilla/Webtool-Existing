@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -45,7 +46,8 @@ public class ProductCategoryController extends BaseController {
 	//private BillerCategoryService billerCategoryService;
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -68,7 +70,8 @@ public class ProductCategoryController extends BaseController {
 			@RequestParam(required = false) String productCategoryName, 
 			@RequestParam(required = false) String productTypeName, 
 			@RequestParam(required = false) String providerName,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 			HashMap<String, Object> searchMap = new HashMap<>();
 			searchMap.put("productCategoryId", productCategoryId);
@@ -80,7 +83,8 @@ public class ProductCategoryController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
@@ -94,7 +98,8 @@ public class ProductCategoryController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{productCategoryId}")
-	public String edit(@PathVariable Long productCategoryId, Model model, HttpSession session) {
+	public String edit(@PathVariable Long productCategoryId, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		System.out.println("#################### edit-data = "+productCategoryId);
 		
@@ -111,7 +116,8 @@ public class ProductCategoryController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<ProductCategoryModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<ProductCategoryModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
@@ -125,7 +131,8 @@ public class ProductCategoryController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody ProductCategoryModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody ProductCategoryModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (model.getIsNew()) {
 			if (productCategoryService.isExist(model.getProductCategoryId())) {

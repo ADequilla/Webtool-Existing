@@ -51,7 +51,8 @@ public class BankNewsController extends BaseController {
 	List<String> instiList = new ArrayList<String>();
   
 	
-	protected SecUser getLoginSecUser(HttpSession session) {
+	protected SecUser getLoginSecUser(HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return (SecUser) session.getAttribute("loginSecUser");
 	}
 	
@@ -116,7 +117,8 @@ public class BankNewsController extends BaseController {
 	private String EDIT_VIEW 		= "news-edit";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -136,8 +138,8 @@ public class BankNewsController extends BaseController {
 	@RequestMapping("/search")
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam(required = false) String topic,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("topic", topic);
 
@@ -145,7 +147,8 @@ public class BankNewsController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 
@@ -159,7 +162,8 @@ public class BankNewsController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -174,7 +178,8 @@ public class BankNewsController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
@@ -188,7 +193,8 @@ public class BankNewsController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody Product product, Model model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody Product product, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		String dir = getProductImageDirectory();
 		if (StringUtils.isNotBlank(dir)) {
@@ -255,6 +261,7 @@ public class BankNewsController extends BaseController {
 
 	@RequestMapping(value = "/banner/{id}", method = RequestMethod.GET)
 	public void download(@PathVariable Long id, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		try {
 			Product product				= (Product) productInfoService.findById(id);
 			String filename 			= product.getProductImg();

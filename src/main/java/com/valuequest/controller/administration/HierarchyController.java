@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -120,7 +121,8 @@ private class SimpleServ extends SimpleServiceImpl<StructureUser> implements Sms
 	private String EDIT_VIEW 		= "hierarchy-edit";
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 			
@@ -138,7 +140,9 @@ private class SimpleServ extends SimpleServiceImpl<StructureUser> implements Sms
 			@RequestParam String institution, 
 			@RequestParam String branch, 
 			@RequestParam String unit,
-			@RequestParam String center) {
+			@RequestParam String center, 
+			HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("institution", institution);
@@ -150,7 +154,8 @@ private class SimpleServ extends SimpleServiceImpl<StructureUser> implements Sms
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
@@ -163,7 +168,8 @@ private class SimpleServ extends SimpleServiceImpl<StructureUser> implements Sms
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 			
@@ -177,8 +183,8 @@ private class SimpleServ extends SimpleServiceImpl<StructureUser> implements Sms
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody HierarchyModel hierarchy, HttpSession session) {
-
+	public @ResponseBody AjaxResponse save(@RequestBody HierarchyModel hierarchy, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if(hierarchyService.isDuplicate(hierarchy)){
 			
 			return new AjaxResponse(false, "Duplicate mapping data.");
@@ -220,8 +226,8 @@ private class SimpleServ extends SimpleServiceImpl<StructureUser> implements Sms
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session) {
-
+	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
 			hierarchyService.delete(states);
@@ -244,7 +250,7 @@ private class SimpleServ extends SimpleServiceImpl<StructureUser> implements Sms
 		@RequestParam(required = false) String instiCode,
 		@RequestParam(required = false) String instiDesc,
 		Model model, 
-		HttpSession session) {
+		HttpSession session, HttpServletResponse response) {
 		File file			= null;
 		BufferedReader br 	= null;
 		String delimeter 	= "\\|";
@@ -255,7 +261,7 @@ private class SimpleServ extends SimpleServiceImpl<StructureUser> implements Sms
 		System.out.println("#######level1");
 		System.out.println("#######Insti Code: "+instCode );
 		System.out.println("#######Insti Desc: "+instDesc );
-		
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		if (getPriviledgeUser(session, PRIVILEDGE, UPLOAD)) {
 			System.out.println("#######level2 get prviledge");

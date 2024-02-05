@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Criteria;
@@ -40,7 +41,8 @@ public class AtmLocationController extends BaseController {
 	List<String> instiList = new ArrayList<String>();
   
 	
-	protected SecUser getLoginSecUser(HttpSession session) {
+	protected SecUser getLoginSecUser(HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return (SecUser) session.getAttribute("loginSecUser");
 	}
 	
@@ -104,7 +106,8 @@ public class AtmLocationController extends BaseController {
 	private String EDIT_VIEW 		= "atm-location-edit";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -122,7 +125,8 @@ public class AtmLocationController extends BaseController {
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam(required = false) String location,
 			@RequestParam(required = false) String instCode,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("location", location);
@@ -132,7 +136,8 @@ public class AtmLocationController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 
@@ -145,7 +150,8 @@ public class AtmLocationController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -159,7 +165,8 @@ public class AtmLocationController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody Atm model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody Atm model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		atmLocationService.save(model, getLoginSecUser(session));
 
@@ -167,7 +174,8 @@ public class AtmLocationController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 

@@ -3,6 +3,7 @@ package com.valuequest.controller.maintenance;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,8 @@ public class MobilePrefixController extends BaseController {
 	//private BillerCategoryService billerCategoryService;
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -63,7 +65,8 @@ public class MobilePrefixController extends BaseController {
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam(required = false) String prefixValue,
 			@RequestParam(required = false) String productName, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 			HashMap<String, Object> searchMap = new HashMap<>();
 			searchMap.put("prefixValue", prefixValue);
@@ -73,7 +76,8 @@ public class MobilePrefixController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
@@ -87,7 +91,8 @@ public class MobilePrefixController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -102,7 +107,8 @@ public class MobilePrefixController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<MobilePrefixModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<MobilePrefixModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
@@ -116,7 +122,8 @@ public class MobilePrefixController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody MobilePrefixModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody MobilePrefixModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (model.getIsNew()) {
 			if (mobilePrefixService.isExist(model.getPrefixValue())) {

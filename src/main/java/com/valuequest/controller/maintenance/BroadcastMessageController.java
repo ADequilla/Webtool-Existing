@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
  
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,8 @@ public class BroadcastMessageController extends BaseController {
 	private String EDIT_VIEW 		= "message-edit";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		SecUser user = this.getLoginSecUser(session);
 
@@ -56,7 +58,8 @@ public class BroadcastMessageController extends BaseController {
 	@RequestMapping("/search")
 	public @ResponseBody DataTables search(DataTables dataTables,
 			@RequestParam(required = false) String subject,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("subject", subject);
@@ -65,7 +68,8 @@ public class BroadcastMessageController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		SecUser user = this.getLoginSecUser(session);
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			model.addAttribute("availableBranchList", branchService.getUserBranchList(user.getId()));
@@ -78,7 +82,8 @@ public class BroadcastMessageController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 			
@@ -92,7 +97,8 @@ public class BroadcastMessageController extends BaseController {
 	}
 
 @RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
@@ -107,7 +113,8 @@ public class BroadcastMessageController extends BaseController {
 
 
 @RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody NewsModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody NewsModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		newsService.save(model, getLoginSecUser(session));
 		 
@@ -116,7 +123,8 @@ public class BroadcastMessageController extends BaseController {
 	}
 
 	@RequestMapping("/getBranch")
-	public @ResponseBody List getBranch() {
+	public @ResponseBody List getBranch(HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return branchService.getAllBranch();
 	}
 

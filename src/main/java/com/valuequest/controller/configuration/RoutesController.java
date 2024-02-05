@@ -3,6 +3,7 @@ package com.valuequest.controller.configuration;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,8 @@ public class RoutesController extends BaseController {
 	//private String CREATE_VIEW 		= "unit-create";
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -48,7 +50,9 @@ public class RoutesController extends BaseController {
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam(required = false) String trnCode,
 			@RequestParam(required = false) String description,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
+
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("trnCode", trnCode);

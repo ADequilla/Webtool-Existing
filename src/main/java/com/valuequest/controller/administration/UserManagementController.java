@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Criteria;
@@ -111,7 +112,8 @@ public class UserManagementController extends BaseController {
 	private String EDIT_VIEW		= "user-edit";
 	
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		SecUser user = this.getLoginSecUser(session);
 
@@ -136,8 +138,9 @@ public class UserManagementController extends BaseController {
 			@RequestParam(required = false) String userLogin,
 			@RequestParam(required = false) String branch,
 			@RequestParam(required = false) String status,
-			HttpSession session) {
-
+			HttpSession session, HttpServletResponse response) {
+		
+		response.setHeader("X-Frame-Options", "DENY");
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId",	getLoginIdFromSession(session));
 		searchMap.put("firstName", 	firstName);
@@ -151,7 +154,8 @@ public class UserManagementController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
@@ -166,7 +170,8 @@ public class UserManagementController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 			
@@ -222,7 +227,8 @@ public class UserManagementController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody UserModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody UserModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		SecUser findUser = adminService.getSecUser(model.getLogin());
 		if ((model.getId() == null && findUser != null) || (findUser != null && ! model.getId().equals(findUser.getId())))
@@ -234,7 +240,8 @@ public class UserManagementController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse reset(@RequestBody UserModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse reset(@RequestBody UserModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		adminService.resetUserPassword(model, getLoginSecUser(session));
 		
@@ -250,40 +257,47 @@ public class UserManagementController extends BaseController {
 	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/getBranch/{institution}")
-	public @ResponseBody List getBranch(@PathVariable String[] institution) {
+	public @ResponseBody List getBranch(@PathVariable String[] institution, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return branchService.mappedListBy(institution);
 	}
 	
 	@RequestMapping("/getBranchDesc/{branch}")
-	public @ResponseBody StructureBranch getBranch(@PathVariable String branch) {
+	public @ResponseBody StructureBranch getBranch(@PathVariable String branch, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return branchService.findByCode(branch);
 	}
 	
 	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/getUnit/{branch}")
-	public @ResponseBody List getUnit(@PathVariable String[] branch) {
+	public @ResponseBody List getUnit(@PathVariable String[] branch, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return unitService.mappedListBy(branch);
 	}
 	
 	@RequestMapping("/getUnitDesc/{unit}")
-	public @ResponseBody StructureUnit getUnit(@PathVariable String unit) {
+	public @ResponseBody StructureUnit getUnit(@PathVariable String unit, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return unitService.findByCode(unit);
 	}
 	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/getCenter/{unit}")
-	public @ResponseBody List getCenter(@PathVariable String[] unit) {
+	public @ResponseBody List getCenter(@PathVariable String[] unit, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return centerService.mappedListBy(unit);
 	}
 	
 	@RequestMapping("/getCenterDesc/{center}")
-	public @ResponseBody StructureCenter getCenter(@PathVariable String center) {
+	public @ResponseBody StructureCenter getCenter(@PathVariable String center, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return centerService.findByCode(center);
 	}
 	
 	@RequestMapping("/getInstitutionDesc/{insti}")
-	public @ResponseBody StructureInstitution getInsti(@PathVariable String insti) {
+	public @ResponseBody StructureInstitution getInsti(@PathVariable String insti, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		return institutionService.findByCode(insti);
 	}
 }

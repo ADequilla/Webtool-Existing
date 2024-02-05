@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -43,7 +44,8 @@ public class ProviderController extends BaseController {
 	private ProviderService providerService;
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -64,7 +66,8 @@ public class ProviderController extends BaseController {
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam(required = false) String id,
 			@RequestParam(required = false) String providerName, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("id", id);
@@ -74,7 +77,8 @@ public class ProviderController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
@@ -87,7 +91,8 @@ public class ProviderController extends BaseController {
 		return getUnauthorizedPage();
 	}
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -102,7 +107,8 @@ public class ProviderController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<ProviderModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<ProviderModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
@@ -116,7 +122,8 @@ public class ProviderController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody ProviderModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody ProviderModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (model.getIsNew()) {
 			if (providerService.isExist(model.getId())) {
@@ -131,7 +138,8 @@ public class ProviderController extends BaseController {
 	}
 
 	@RequestMapping("/synchronize/{providerId}")
-	public String synchronize(@PathVariable Long providerId, HttpServletRequest request, HttpSession session) {
+	public String synchronize(@PathVariable Long providerId, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 			System.out.println("#################### sync-data = "+providerId);
 			

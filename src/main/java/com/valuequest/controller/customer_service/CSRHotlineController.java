@@ -3,6 +3,7 @@ package com.valuequest.controller.customer_service;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,8 @@ public class CSRHotlineController extends BaseController {
 	
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -64,7 +66,8 @@ public class CSRHotlineController extends BaseController {
 			@RequestParam(required = false) String contactNumber,
 			@RequestParam(required = false) String networkProvider, 
 			@RequestParam(required = false) String institutionCode, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("contactNumber", contactNumber);
@@ -77,7 +80,8 @@ public class CSRHotlineController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			model.addAttribute("isNew", true);
@@ -90,7 +94,8 @@ public class CSRHotlineController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 			model.addAttribute("CSRHotline", csrHotlineService.findById(id));
@@ -103,7 +108,8 @@ public class CSRHotlineController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody CSRHotlainView model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody CSRHotlainView model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (csrHotlineService.isExist(model.getContactNumber())) {
 
@@ -116,7 +122,8 @@ public class CSRHotlineController extends BaseController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse update(@RequestBody CSRHotlainView model, HttpSession session) {
+	public @ResponseBody AjaxResponse update(@RequestBody CSRHotlainView model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 	
 		System.out.println("### ID ==================== " + model.getId());
@@ -127,7 +134,8 @@ public class CSRHotlineController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 

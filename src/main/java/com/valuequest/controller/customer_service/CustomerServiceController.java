@@ -2,6 +2,7 @@ package com.valuequest.controller.customer_service;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,8 @@ public class CustomerServiceController extends BaseController {
 	private String EDIT_VIEW 		= "dashboard-edit";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -61,7 +63,8 @@ public class CustomerServiceController extends BaseController {
 			@RequestParam(required = false) String endDate,
 			@RequestParam(required = false) Long concern, 
 			@RequestParam(required = false) String status,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("ticketNo", ticketNo);
@@ -76,7 +79,8 @@ public class CustomerServiceController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 
@@ -90,7 +94,8 @@ public class CustomerServiceController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -108,7 +113,8 @@ public class CustomerServiceController extends BaseController {
 	}
 
 	@RequestMapping(value = "/close", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse close(@RequestBody StateModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse close(@RequestBody StateModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -121,7 +127,8 @@ public class CustomerServiceController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody TicketModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody TicketModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		ticketService.saveTicket(model, getLoginSecUser(session));
 
@@ -129,7 +136,8 @@ public class CustomerServiceController extends BaseController {
 	}
 
 	@RequestMapping(value = "/getClient", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse getClient(@RequestBody String cid, HttpSession session) {
+	public @ResponseBody AjaxResponse getClient(@RequestBody String cid, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		ViewClient view = clientService.findByCid(cid);
 		if (view == null) {

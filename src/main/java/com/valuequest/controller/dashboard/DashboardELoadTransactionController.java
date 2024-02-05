@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.valuequest.common.DataTables;
@@ -32,7 +33,8 @@ public class DashboardELoadTransactionController extends BaseController {
 
 
     @RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+        response.setHeader("X-Frame-Options", "DENY");
 
          SecUser user = this.getLoginSecUser(session);
 
@@ -57,7 +59,8 @@ public class DashboardELoadTransactionController extends BaseController {
         @RequestParam(required = false) String branch,
         @RequestParam(required = false) String unit,
         @RequestParam(required = false) String center,
-        HttpSession session) {
+        HttpSession session, HttpServletResponse response) {
+        response.setHeader("X-Frame-Options", "DENY");
 
         // HashMap<String, Object> searchMap = new HashMap<>();
         // searchMap.put("startDate", startDate);

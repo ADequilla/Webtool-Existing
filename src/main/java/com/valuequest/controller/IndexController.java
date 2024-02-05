@@ -65,7 +65,7 @@ public class IndexController extends BaseController {
     // 	}
     // }
 
-	response.setHeader("X-Frame-Options", "SAMEORIGIN");
+	response.setHeader("X-Frame-Options", "DENY");
 
 	if (USER_SUPER_ADMIN.equals(user.getUsrPosition())){
 		return "redirect:dashboard/registered-client/";
@@ -81,14 +81,14 @@ public class IndexController extends BaseController {
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpServletResponse response) {
-		response.setHeader("X-Frame-Options", "SAMEORIGIN");
+		response.setHeader("X-Frame-Options", "DENY");
         return "01.misc/login";
     }
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 		SecUser user = this.getLoginSecUser(session);
-		response.setHeader("X-Frame-Options", "SAMEORIGIN");
+		response.setHeader("X-Frame-Options", "DENY");
 
     	// save logout to audit trail
     	String activity	= "LOGOUT";
@@ -101,13 +101,15 @@ public class IndexController extends BaseController {
     }
     
     @RequestMapping(value = "/404", method = RequestMethod.GET)
-    public String _404() {
+    public String _404(HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
         return "01.misc/404";
 	}
 
 	@RequestMapping(value = "/updateLoginStatus", method = RequestMethod.POST)
 	@ResponseBody
-	public void updateLoginStatus(HttpSession session) {
+	public void updateLoginStatus(HttpSession session, HttpServletResponse response) {
+	response.setHeader("X-Frame-Options", "DENY");
     SecUser user = this.getLoginSecUser(session);
     user.setIsLogin(false);
     adminService.updateCekStatus(user, session.getId());
@@ -115,11 +117,12 @@ public class IndexController extends BaseController {
 
 @RequestMapping(value = "/concurrentlogin", method = RequestMethod.GET)
     @ResponseBody
-    public int getSessionTimeout() {
+    public int getSessionTimeout(HttpServletResponse response) {
         ParamConfig config = genericService.getConfigByName(ParamConfig.SESSION_TIMEOUT_WEBTOOL);
         String valueTimeout = config.getValue();
         valueTimeout = valueTimeout.replace(".", "");
         valueTimeout = valueTimeout.replace(",", "");
+		response.setHeader("X-Frame-Options", "DENY");
         return Integer.parseInt(valueTimeout);
     }
     
@@ -132,7 +135,8 @@ public class IndexController extends BaseController {
 			@RequestParam(required = false) String institutionCode, 
 			@RequestParam(required = false) String branchCode, 
 			@RequestParam(required = false) String unitCode, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
     	SecUser user = this.getLoginSecUser(session);
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId",	user.getId());
@@ -168,11 +172,12 @@ public class IndexController extends BaseController {
 	@RequestMapping("/getUser")
 	public @ResponseBody DataTables getUser(DataTables dataTables,
 			@RequestParam(required = false) String userName,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response ) {
 		
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("loginId",	getLoginIdFromSession(session));
 		searchMap.put("userLogin", 	userName);
+		response.setHeader("X-Frame-Options", "DENY");
 
 		return adminService.searchByMapCriteria(dataTables, searchMap);
 	}

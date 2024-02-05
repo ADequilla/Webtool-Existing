@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -41,7 +42,8 @@ public class BankListController extends BaseController {
 	private BankListService bankListService;
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -63,7 +65,8 @@ public class BankListController extends BaseController {
 			@RequestParam(required = false) String bankCode, 
 			@RequestParam(required = false) String bankName, 
 			@RequestParam(required = false) String shortName, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 			HashMap<String, Object> searchMap = new HashMap<>();
 			searchMap.put("bankCode", bankCode);
@@ -74,7 +77,8 @@ public class BankListController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
@@ -88,7 +92,8 @@ public class BankListController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{bankCode}")
-	public String edit(@PathVariable String bankCode, Model model, HttpSession session) {
+	public String edit(@PathVariable String bankCode, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -103,7 +108,8 @@ public class BankListController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<BankListModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<BankListModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
@@ -117,7 +123,8 @@ public class BankListController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody BankListModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody BankListModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 	
 			if (bankListService.isExist(model.getBankCode())) {

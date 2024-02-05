@@ -3,6 +3,7 @@ package com.valuequest.controller.maintenance;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,8 @@ public class BillerController extends BaseController {
 	private String EDIT_VIEW 		= "biller-edit";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -55,7 +57,8 @@ public class BillerController extends BaseController {
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam(required = false) String name,
 			@RequestParam(required = false) String account, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("name", name);
@@ -65,7 +68,8 @@ public class BillerController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 
@@ -79,7 +83,8 @@ public class BillerController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable Long id, Model model, HttpSession session) {
+	public String edit(@PathVariable Long id, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 			
@@ -94,7 +99,8 @@ public class BillerController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody BillerTemp model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody BillerTemp model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		billerService.save(model, getLoginSecUser(session));
 
@@ -102,7 +108,8 @@ public class BillerController extends BaseController {
 	}
 
 	@RequestMapping(value = "/approve", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse approve(@RequestBody List<StateModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse approve(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		if (getPriviledgeUser(session, PRIVILEDGE, APPROVE)) {
 
@@ -115,7 +122,8 @@ public class BillerController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/reject", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse reject(@RequestBody List<StateModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse reject(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		if (getPriviledgeUser(session, PRIVILEDGE, APPROVE)) {
 

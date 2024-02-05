@@ -3,6 +3,7 @@ package com.valuequest.controller.maintenance;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,8 @@ public class BranchController extends BaseController {
 	private String CREATE_VIEW 		= "branch-create";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+	response.setHeader("X-Frame-Options", "DENY");
 
 
 		 SecUser user = this.getLoginSecUser(session);
@@ -54,7 +56,8 @@ public class BranchController extends BaseController {
 	        // @RequestParam(required = false) String insti, 
 			@RequestParam(required = false) String code,
 			@RequestParam(required = false) String description, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		// searchMap.put("code", insti);
@@ -65,7 +68,8 @@ public class BranchController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 
@@ -79,7 +83,8 @@ public class BranchController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{code}")
-	public String edit(@PathVariable String code, Model model, HttpSession session) {
+	public String edit(@PathVariable String code, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -94,7 +99,8 @@ public class BranchController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
@@ -108,7 +114,8 @@ public class BranchController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody BranchModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody BranchModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (model.getIsNew()) {
 			if (branchService.isExist(model.getCode())) {

@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.httpclient.NameValuePair;
@@ -45,8 +46,8 @@ public class PartnerController extends BaseController {
 	private PartnerService partnerService;
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
-
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -68,7 +69,8 @@ public class PartnerController extends BaseController {
 			@RequestParam(required = false) String partnerName, 
 			@RequestParam(required = false) String partnerDesc, 
 			@RequestParam(required = false) String status, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 			HashMap<String, Object> searchMap = new HashMap<>();
 			searchMap.put("partnerId", partnerId);
@@ -80,7 +82,8 @@ public class PartnerController extends BaseController {
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
@@ -94,7 +97,8 @@ public class PartnerController extends BaseController {
 	}
 
 	@RequestMapping("/edit/{partnerId}")
-	public String edit(@PathVariable String partnerId, Model model, HttpSession session) {
+	public String edit(@PathVariable String partnerId, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -109,7 +113,8 @@ public class PartnerController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<PartnerModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<PartnerModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
@@ -123,7 +128,8 @@ public class PartnerController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody PartnerModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody PartnerModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (model.getIsNew()) {
 			if (partnerService.isExist(model.getPartnerId())) {

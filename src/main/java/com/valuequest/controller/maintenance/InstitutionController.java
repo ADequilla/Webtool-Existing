@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Criteria;
@@ -110,7 +111,8 @@ List<String> instiList = new ArrayList<String>();
 	private String CREATE_VIEW 		= "institution-create";
 
 	@RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		 SecUser user = this.getLoginSecUser(session);
 
@@ -131,7 +133,8 @@ List<String> instiList = new ArrayList<String>();
 	public @ResponseBody DataTables search(DataTables dataTables, 
 			@RequestParam(required = false) String description,
 			@RequestParam(required = false) String code,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
+			response.setHeader("X-Frame-Options", "DENY");
 
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("description", description);
@@ -141,7 +144,8 @@ List<String> instiList = new ArrayList<String>();
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model, HttpSession session) {
+	public String create(Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, NEW)) {
 			
@@ -155,7 +159,8 @@ List<String> instiList = new ArrayList<String>();
 	}
 
 	@RequestMapping("/edit/{code}")
-	public String edit(@PathVariable String code, Model model, HttpSession session) {
+	public String edit(@PathVariable String code, Model model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, EDIT)) {
 
@@ -170,7 +175,8 @@ List<String> instiList = new ArrayList<String>();
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session) {
+	public @ResponseBody AjaxResponse delete(@RequestBody List<StateModel> states, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, DELETE)) {
 
@@ -184,7 +190,8 @@ List<String> instiList = new ArrayList<String>();
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public @ResponseBody AjaxResponse save(@RequestBody InstitutionModel model, HttpSession session) {
+	public @ResponseBody AjaxResponse save(@RequestBody InstitutionModel model, HttpSession session, HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
 		
 		if (model.getIsNew()){
 			if (institutionService.isExist(model.getCode())) {

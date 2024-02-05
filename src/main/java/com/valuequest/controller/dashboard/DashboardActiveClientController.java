@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.valuequest.common.DataTables;
@@ -42,7 +43,8 @@ public class DashboardActiveClientController extends BaseController {
 
 
     @RequestMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session, HttpServletResponse response) {
+        response.setHeader("X-Frame-Options", "DENY");
 
 		if (getPriviledgeUser(session, PRIVILEDGE, VIEW)) {
 
@@ -73,7 +75,8 @@ public class DashboardActiveClientController extends BaseController {
         @RequestParam(required = false) String branch,
         @RequestParam(required = false) String unit,
         @RequestParam(required = false) String center,
-        HttpSession session) {
+        HttpSession session, HttpServletResponse response) {
+        response.setHeader("X-Frame-Options", "DENY");
 
         // HashMap<String, Object> searchMap = new HashMap<>();
         // searchMap.put("startDate", startDate);
